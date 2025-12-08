@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Carlos López Jiménez - Ingeniero de Ciberseguridad y Pentester">
+    <title>Carlos López Jiménez | Cybersecurity Engineer</title>
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #171717;
+            --primary: #ef4444; /* Rojo Red Team */
+            --primary-glow: rgba(239, 68, 68, 0.4);
+            --gold: #fbbf24; /* Para trofeos */
+            --text-main: #f5f5f5;
+            --text-muted: #a3a3a3;
+            --gradient: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            display: inline-block;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 70%);
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .profile-img-wrapper {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 30px;
+            position: relative;
+            border-radius: 50%;
+            padding: 5px;
+            background: var(--gradient);
+            box-shadow: 0 0 50px var(--primary-glow);
+            animation: pulse 3s infinite;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-dark);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            min-height: 1.6em;
+        }
+
+        .hero-bio {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .cta-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* --- EXPERIENCE (TIMELINE) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #333;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px 40px 50px;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border: 4px solid var(--bg-dark);
+            border-radius: 50%;
+            top: 15px;
+            left: 11px;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+
+        .timeline-item:hover::after {
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .role {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .company {
+            color: var(--primary);
+            font-weight: 600;
+            display: block;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: #262626;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card ul {
+            list-style-position: inside;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+        
+        .card ul li {
+            margin-bottom: 8px;
+        }
+
+        .card.highlight-card {
+            background: linear-gradient(145deg, #171717, #221010);
+            border: 1px solid var(--primary);
+        }
+
+        .stats {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* --- CTF CARDS (FOTO INTEGRATION) --- */
+        .ctf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .ctf-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.4s ease;
+            position: relative;
+            group: 'ctf';
+        }
+
+        .ctf-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .ctf-img-wrapper {
+            height: 220px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ctf-img-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3); /* Filtro oscuro inicial */
+            transition: background 0.4s;
+        }
+
+        .ctf-card:hover .ctf-img-wrapper::after {
+            background: rgba(0,0,0,0); /* Se aclara al pasar el mouse */
+        }
+
+        .ctf-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .ctf-card:hover .ctf-img {
+            transform: scale(1.1);
+        }
+
+        .ctf-content {
+            padding: 25px;
+            position: relative;
+        }
+
+        .ctf-icon-badge {
+            position: absolute;
+            top: -25px;
+            right: 20px;
+            background: var(--gradient);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        .ctf-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .ctf-tag {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-tag {
+            background: var(--bg-card);
+            border: 1px solid #333;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(239, 68, 68, 0.05);
+            transform: scale(1.05);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid #333;
+            margin-top: 50px;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 768px) {
+            .timeline::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-item {
+                width: 50%;
+                padding: 10px 40px;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                left: 0;
+                text-align: right;
+                padding-right: 50px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 50%;
+                padding-left: 50px;
+                text-align: left;
+            }
+
+            .timeline-item::after {
+                left: auto;
+            }
+
+            .timeline-item:nth-child(odd)::after {
+                right: -10px;
+            }
+
+            .timeline-item:nth-child(even)::after {
+                left: -10px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .timeline-item:nth-child(odd) .card-header {
+                align-items: flex-end;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .hero-content { padding: 0 20px; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="profile-img-wrapper">
+                <img src="perfil.jpg" alt="Carlos López Jiménez" class="profile-img">
+            </div>
+            <h1>Carlos López Jiménez</h1>
+            <div class="typing-text" id="typewriter"></div>
+            
+            <p class="hero-bio">
+                Ingeniero Informático especializado en seguridad ofensiva y defensa. 
+                <br>
+                Enfocado en <span style="color: var(--primary);">pentesting</span>, auditorías y arquitectura segura.
+                Me encantaría poder seguir desarrollándome profesionalmente como pentester, aportando visión técnica y proactividad.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="mailto:carloslopji@gmail.com" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i> Contáctame
+                </a>
+                <a href="https://linkedin.com/in/carloslopezjimenez" target="_blank" class="btn btn-outline">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="experiencia">
+        <h2 style="text-align: center; width: 100%;">Trayectoria Profesional</h2>
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <span class="role">Ingeniero de Validación & Pruebas (Ciberseguridad)</span>
+                            <span class="company">PrimeIT</span>
+                        </div>
+                        <span class="date">02/2025 - Actualidad</span>
+                    </div>
+                    <ul>
+                        <li>Evaluación de productos conforme al estándar <strong>Common Criteria</strong>.</li>
+                        <li>Análisis de seguridad criptográfica y protección de comunicaciones.</li>
+                        <li>Aplicación de metodologías <strong>CCN-STIC</strong> y marcos como MEMEC.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <span class="role">Evaluador de Ciberseguridad (Pentesting)</span>
+                            <span class="company">Clover Technologies</span>
+                        </div>
+                        <span class="date">06/2024 - 01/2025</span>
+                    </div>
+                    <ul>
+                        <li>Ejecución de pruebas de intrusión en Apps Web, Cloud y dispositivos de red.</li>
+                        <li>Auditorías OWASP y LINCE.</li>
+                        <li>Uso avanzado de <strong>BurpSuite, Metasploit, Nmap y Wireshark</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="card highlight-card">
+                    <div class="card-header">
+                        <div>
+                            <span class="role"><i class="fas fa-users-cog"></i> Coordinador Club Ciberseguridad</span>
+                            <span class="company">Universidad Europea de Madrid</span>
+                        </div>
+                        <span class="date">2023 - 2025</span>
+                    </div>
+                    <p>Liderazgo de una comunidad técnica estudiantil, fomentando el aprendizaje ofensivo y defensivo.</p>
+                    <ul>
+                        <li>Organización de laboratorios prácticos en <strong>HackTheBox y HackRocks</strong>.</li>
+                        <li>Preparación de equipos para competiciones CTF nacionales.</li>
+                    </ul>
+                    <div class="stats">
+                        <i class="fas fa-user-friends"></i> +50 Alumnos Gestionados
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="card highlight-card">
+                    <div class="card-header">
+                        <div>
+                            <span class="role"><i class="fas fa-rocket"></i> Fundador & CEO</span>
+                            <span class="company">WhatCut+</span>
+                        </div>
+                        <span class="date">02/2024 - Actualidad</span>
+                    </div>
+                    <p>Lideré el desarrollo y lanzamiento de una aplicación social con IA desde cero.</p>
+                    <div class="stats">
+                        <i class="fas fa-download"></i> +200.000 Descargas
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <span class="role">Programador Android</span>
+                            <span class="company">Drowers</span>
+                        </div>
+                        <span class="date">03/2024 - 06/2024</span>
+                    </div>
+                    <ul>
+                        <li>Desarrollo nativo en Java y Kotlin con Android Studio.</li>
+                        <li>Integración de buenas prácticas de desarrollo.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container" id="competiciones">
+        <h2 style="text-align: center; width: 100%;">Arena Competitiva</h2>
+        <div class="ctf-grid">
+            
+            <div class="ctf-card">
+                <div class="ctf-img-wrapper">
+                    <img src="ctf-telefonica.jpg" alt="Compitiendo en CTF Telefónica" class="ctf-img">
+                </div>
+                <div class="ctf-content">
+                    <div class="ctf-icon-badge"><i class="fas fa-trophy"></i></div>
+                    <h3 class="ctf-title">CTF Telefónica</h3>
+                    <span class="ctf-tag">Capture The Flag</span>
+                    <p style="color: #a3a3a3; font-size: 0.9em;">
+                        Participación en retos de criptografía, esteganografía y explotación web bajo presión.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ctf-card">
+                <div class="ctf-img-wrapper">
+                    <img src="ctf-hackrocks.jpg" alt="CTF HackRocks" class="ctf-img">
+                </div>
+                <div class="ctf-content">
+                    <div class="ctf-icon-badge"><i class="fas fa-flag-checkered"></i></div>
+                    <h3 class="ctf-title">CTF HackRocks</h3>
+                    <span class="ctf-tag">Hacking Ético</span>
+                    <p style="color: #a3a3a3; font-size: 0.9em;">
+                        Resolución de máquinas y desafíos técnicos de intrusión en plataforma competitiva.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ctf-card">
+                <div class="ctf-img-wrapper">
+                    <img src="ctf-cyberlegue.jpg" alt="CyberLeague Guardia Civil" class="ctf-img">
+                </div>
+                <div class="ctf-content">
+                    <div class="ctf-icon-badge"><i class="fas fa-shield-virus"></i></div>
+                    <h3 class="ctf-title">CyberLeague</h3>
+                    <span class="ctf-tag">Guardia Civil</span>
+                    <p style="color: #a3a3a3; font-size: 0.9em;">
+                        Competición universitaria de ciberseguridad a nivel nacional. Defensa y respuesta a incidentes.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container" id="habilidades">
+        <h2>Arsenal Técnico</h2>
+        <div class="skills-grid">
+            <div class="skill-tag"><i class="fas fa-bug"></i> BurpSuite</div>
+            <div class="skill-tag"><i class="fas fa-network-wired"></i> Nmap</div>
+            <div class="skill-tag"><i class="fas fa-bomb"></i> Metasploit</div>
+            <div class="skill-tag"><i class="fas fa-wave-square"></i> Wireshark</div>
+            <div class="skill-tag"><i class="fas fa-database"></i> SQLMap</div>
+            <div class="skill-tag"><i class="fas fa-lock"></i> Hydra</div>
+            
+            <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+            <div class="skill-tag"><i class="fab fa-java"></i> Java / Kotlin</div>
+            <div class="skill-tag"><i class="fab fa-docker"></i> Docker</div>
+            <div class="skill-tag"><i class="fab fa-microsoft"></i> Azure Cloud</div>
+            <div class="skill-tag"><i class="fab fa-linux"></i> Linux</div>
+            
+            <div class="skill-tag"><i class="fas fa-shield-alt"></i> Common Criteria</div>
+            <div class="skill-tag"><i class="fas fa-file-contract"></i> OWASP</div>
+            <div class="skill-tag"><i class="fas fa-check-double"></i> CCN-STIC</div>
+        </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 20px;">
+        <h2>Educación</h2>
+        <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="card">
+                <h3 class="role">Máster en Ciberseguridad</h3>
+                <p class="company">Universidad Europea de Madrid</p>
+                <p class="date">2025 - 2026</p>
+            </div>
+            <div class="card">
+                <h3 class="role">Grado en Ingeniería Informática</h3>
+                <p class="company">Universidad Europea de Madrid</p>
+                <p class="date">2021 - 2025</p>
+            </div>
+            <div class="card">
+                <h3 class="role">Diploma Experto IoT</h3>
+                <p class="company">Universidad Europea de Madrid</p>
+                <p class="date">Blockchain & Seguridad IoT</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h2>¿Hablamos?</h2>
+            <p>Estoy listo para el siguiente reto en Pentesting.</p>
+            <div class="social-links">
+                <a href="mailto:carloslopji@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/carloslopezjimenez" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="tel:+34608201485" title="Teléfono"><i class="fas fa-phone"></i></a>
+            </div>
+            <p style="margin-top: 30px; font-size: 0.8rem;">&copy; 2025 Carlos López Jiménez. Madrid, España.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- EFECTO DE MÁQUINA DE ESCRIBIR ---
+        const textElement = document.getElementById('typewriter');
+        const phrases = ["Cybersecurity Engineer", "Pentester", "CTF Player", "Founder & CEO"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000; // Pausa al final de escribir
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', type);
+
+        // --- ANIMACIÓN AL HACER SCROLL ---
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
