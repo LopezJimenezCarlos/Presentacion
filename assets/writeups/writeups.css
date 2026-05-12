@@ -17,3 +17,42 @@
 .step-evidence figcaption{padding:.75rem .9rem;color:#a7f3d0;font-size:.84rem;line-height:1.5;background:linear-gradient(90deg,rgba(34,211,238,.08),rgba(124,255,158,.04))}
 .evidence-note::before{content:"✓ ";color:#7cff9e;font-weight:900}
 @media(max-width:640px){.step-evidence img{max-height:240px}.evidence-step{grid-template-columns:1fr}.evidence-step-num{width:max-content}}
+
+body{font-family:"Manrope",system-ui,sans-serif}
+h1,h2,h3,.brand,.section-title{font-family:"Space Grotesk",sans-serif}
+.eyebrow,.tag,.badge,.meta span,.card-foot,.prompt,.comment,.breadcrumb,.mini span,.toc h3,.toolbar-label,.results-count,.tag-cloud-item,.card-difficulty,.card-date{font-family:"IBM Plex Mono",monospace}
+.library-hero{padding-bottom:36px}
+.library-panel{min-height:100%}
+.library-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.spotlight-shell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:18px;margin-bottom:28px}
+.spotlight-shell .spotlight-copy,.spotlight-shell .spotlight-visual{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(15,23,42,.86),rgba(5,7,13,.76));overflow:hidden;box-shadow:var(--shadow)}
+.spotlight-copy{padding:28px}
+.spotlight-copy h2{font-size:clamp(2rem,3vw,2.7rem);line-height:1.02;margin-bottom:12px}
+.spotlight-copy p{color:var(--muted)}
+.spotlight-pills,.spotlight-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.spotlight-pills span{padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#d9ebfb;font-size:.76rem}
+.spotlight-visual img{width:100%;height:100%;min-height:100%;object-fit:cover;opacity:.86}
+.library-intro-block{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start;margin:28px 0}
+.library-side-note{padding:22px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.035)}
+.library-side-note h3{margin-bottom:10px;font-size:1.3rem}
+.library-side-note ul{padding-left:20px;color:#cbd5e1}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0}
+.tag-cloud-item{border:1px solid var(--line);background:rgba(255,255,255,.045);color:#dce6f7;border-radius:999px;padding:10px 12px;font-size:.78rem;cursor:pointer;transition:.18s}
+.tag-cloud-item span{color:var(--soft)}
+.tag-cloud-item:hover,.tag-cloud-item.active{background:linear-gradient(135deg,var(--cyan),var(--green));color:#041018;border-color:transparent}
+.tag-cloud-item:hover span,.tag-cloud-item.active span{color:#041018}
+.library-toolbar{display:grid;grid-template-columns:minmax(0,1.25fr) 1fr 1fr;gap:14px;margin:20px 0 32px;padding:18px;border:1px solid var(--line);border-radius:26px;background:rgba(5,7,13,.72);backdrop-filter:blur(16px)}
+.toolbar-column,.toolbar-group{display:grid;gap:10px}
+.toolbar-label{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.results-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:24px}
+.results-count{padding:10px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);color:#dce9fa;font-size:.78rem}
+.library-grid{align-items:stretch}
+.card-rich{display:block}
+.card-rich .card-preview{height:220px}
+.card-overlay-meta{position:absolute;inset:16px 16px auto 16px;display:flex;justify-content:space-between;gap:10px;z-index:2}
+.card-difficulty,.card-date{padding:7px 10px;border-radius:999px;background:rgba(5,7,13,.72);border:1px solid rgba(255,255,255,.12);font-size:.72rem;color:#eef7ff}
+.card-rich .card-body{display:flex;flex-direction:column;height:calc(100% - 220px)}
+.card-rich p{flex:1}
+.card-rich .card-foot{align-items:flex-start}
+.card-rich .card-foot span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:72%}
+@media(max-width:980px){.spotlight-shell,.library-intro-block,.library-toolbar{grid-template-columns:1fr}.results-head{align-items:start;flex-direction:column}.card-rich .card-foot span{max-width:100%}}

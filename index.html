@@ -2,1131 +2,365 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>Carlos López Jiménez | Offensive Security Engineer</title>
-
-  <meta name="description" content="Portfolio de Carlos López Jiménez — Offensive Security, Product Security, Cryptography, Pentesting y desarrollo real."/>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-
-    :root{
-      --bg:#05070d;
-      --card:rgba(15,23,42,.72);
-      --cardStrong:rgba(17,25,40,.92);
-
-      --line:rgba(148,163,184,.16);
-
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --soft:#64748b;
-
-      --cyan:#22d3ee;
-      --green:#7cff9e;
-      --violet:#a78bfa;
-
-      --red:#fb7185;
-      --amber:#fbbf24;
-
-      --radius-xl:28px;
-      --radius-lg:20px;
-
-      --shadow:0 24px 80px rgba(0,0,0,.45);
-
-      --max:1200px;
-
-      --font:'Inter',sans-serif;
-      --mono:Consolas,Menlo,monospace;
-    }
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:var(--font);
-
-      background:
-      radial-gradient(circle at 15% 10%, rgba(34,211,238,.15), transparent 25%),
-      radial-gradient(circle at 80% 20%, rgba(167,139,250,.15), transparent 25%),
-      radial-gradient(circle at 50% 90%, rgba(124,255,158,.08), transparent 25%),
-      linear-gradient(180deg,var(--bg),#03040a);
-
-      color:var(--text);
-
-      overflow-x:hidden;
-
-      line-height:1.7;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-
-      background-image:
-      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-
-      background-size:55px 55px;
-
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.8), transparent 80%);
-
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    img{
-      max-width:100%;
-      display:block;
-    }
-
-    .container{
-      width:min(var(--max), calc(100% - 40px));
-      margin:auto;
-    }
-
-    .section{
-      padding:95px 0;
-    }
-
-    .eyebrow{
-      color:var(--green);
-      font-family:var(--mono);
-      font-size:.78rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      margin-bottom:12px;
-    }
-
-    .section-title{
-      font-size:clamp(2.2rem,4vw,3.5rem);
-      line-height:1.05;
-      letter-spacing:-.06em;
-      margin-bottom:18px;
-    }
-
-    .gradient-text{
-      background:linear-gradient(135deg,#fff,var(--cyan),var(--green),var(--violet));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .section-lead{
-      color:var(--muted);
-      max-width:760px;
-      margin-bottom:42px;
-    }
-
-    /* NAV */
-
-    .nav{
-      position:fixed;
-      top:16px;
-      left:50%;
-      transform:translateX(-50%);
-      z-index:100;
-
-      width:min(1100px, calc(100% - 28px));
-
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-
-      padding:12px 18px;
-
-      border:1px solid var(--line);
-
-      background:rgba(5,7,13,.72);
-
-      backdrop-filter:blur(18px);
-
-      border-radius:999px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-
-      font-weight:800;
-      letter-spacing:-.04em;
-    }
-
-    .brand-mark{
-      width:34px;
-      height:34px;
-
-      border-radius:12px;
-
-      display:grid;
-      place-items:center;
-
-      background:linear-gradient(135deg,var(--cyan),var(--green));
-
-      color:#021018;
-
-      font-family:var(--mono);
-      font-weight:900;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:8px;
-    }
-
-    .nav-links a{
-      padding:8px 14px;
-      border-radius:999px;
-      color:var(--muted);
-      transition:.2s;
-      font-size:.92rem;
-    }
-
-    .nav-links a:hover{
-      color:white;
-      background:rgba(255,255,255,.06);
-    }
-
-    /* HERO */
-
-    .hero{
-      min-height:100vh;
-      display:grid;
-      align-items:center;
-      padding:140px 0 70px;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:42px;
-      align-items:center;
-    }
-
-    .status-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-
-      padding:10px 14px;
-
-      border-radius:999px;
-
-      background:rgba(124,255,158,.08);
-
-      border:1px solid rgba(124,255,158,.18);
-
-      color:#dfffe7;
-
-      font-family:var(--mono);
-      font-size:.82rem;
-    }
-
-    .status-dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--green);
-      box-shadow:0 0 20px var(--green);
-    }
-
-    h1{
-      margin:24px 0 18px;
-
-      font-size:clamp(3rem,8vw,7rem);
-
-      line-height:.92;
-
-      letter-spacing:-.09em;
-    }
-
-    .hero-copy{
-      color:var(--muted);
-      max-width:720px;
-      font-size:1.08rem;
-    }
-
-    .hero-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:30px 0;
-    }
-
-    .tag{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      border-radius:999px;
-      padding:10px 14px;
-      font-family:var(--mono);
-      font-size:.82rem;
-    }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-top:30px;
-    }
-
-    .btn{
-      min-height:48px;
-      padding:12px 18px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      transition:.2s;
-    }
-
-    .btn-primary{
-      background:linear-gradient(135deg,var(--cyan),var(--green));
-      color:#031018;
-      border:none;
-    }
-
-    .btn-secondary{
-      background:rgba(255,255,255,.05);
-    }
-
-    .btn:hover{
-      transform:translateY(-4px);
-    }
-
-    /* PROFILE */
-
-    .profile-card{
-      border-radius:var(--radius-xl);
-
-      border:1px solid var(--line);
-
-      background:linear-gradient(
-      180deg,
-      rgba(17,25,40,.88),
-      rgba(8,12,22,.95)
-      );
-
-      overflow:hidden;
-
-      box-shadow:var(--shadow);
-    }
-
-    .profile-image{
-      height:430px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .profile-image img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .profile-overlay{
-      position:absolute;
-      inset:0;
-
-      background:linear-gradient(
-      to top,
-      rgba(5,7,13,.92),
-      transparent 45%
-      );
-    }
-
-    .profile-content{
-      padding:22px;
-    }
-
-    .profile-terminal{
-      font-family:var(--mono);
-      font-size:.82rem;
-      color:#dbeafe;
-    }
-
-    .line{
-      margin-bottom:10px;
-    }
-
-    .prompt{
-      color:var(--green);
-    }
-
-    .command{
-      color:var(--cyan);
-    }
-
-    .comment{
-      color:#9bb0c8;
-    }
-
-    .metrics{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      margin-top:20px;
-    }
-
-    .metric{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:rgba(255,255,255,.04);
-      padding:16px;
-    }
-
-    .metric strong{
-      display:block;
-      font-size:1.4rem;
-    }
-
-    .metric span{
-      color:var(--soft);
-      font-size:.8rem;
-    }
-
-    /* GRID */
-
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns:1.08fr .92fr;
-      gap:18px;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius-lg);
-      padding:24px;
-      transition:.25s;
-      overflow:hidden;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
-      border-color:rgba(34,211,238,.4);
-      background:var(--cardStrong);
-    }
-
-    .card-icon{
-      font-size:1.4rem;
-      margin-bottom:14px;
-    }
-
-    .card h3{
-      margin-bottom:10px;
-      letter-spacing:-.03em;
-    }
-
-    .card p{
-      color:var(--muted);
-      font-size:.95rem;
-    }
-
-    /* STACK */
-
-    .stack-cloud{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .stack-item{
-      padding:12px 15px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      font-weight:700;
-    }
-
-    /* PROJECT */
-
-    .project-badge{
-      border-radius:999px;
-      padding:8px 10px;
-      font-family:var(--mono);
-      font-size:.78rem;
-      border:1px solid rgba(124,255,158,.24);
-      background:rgba(124,255,158,.08);
-      color:var(--green);
-      display:inline-block;
-      margin-bottom:14px;
-    }
-
-    .bullet-list{
-      padding-left:18px;
-      color:var(--muted);
-    }
-
-    .bullet-list li{
-      margin:8px 0;
-    }
-
-    /* CTF */
-
-    .ctf-card{
-      padding:0;
-      overflow:hidden;
-    }
-
-    .ctf-img{
-      width:100%;
-      height:240px;
-      object-fit:cover;
-      transition:.35s;
-    }
-
-    .ctf-card:hover .ctf-img{
-      transform:scale(1.05);
-    }
-
-    .ctf-content{
-      padding:22px;
-    }
-
-    /* TIMELINE */
-
-    .timeline{
-      display:grid;
-      gap:18px;
-    }
-
-    /* CONTACT */
-
-    .contact-card{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:24px;
-      align-items:center;
-
-      padding:34px;
-
-      border-radius:var(--radius-xl);
-
-      background:
-      linear-gradient(
-      135deg,
-      rgba(34,211,238,.14),
-      rgba(124,255,158,.08)
-      ),
-      var(--card);
-
-      border:1px solid rgba(34,211,238,.3);
-    }
-
-    .contact-card h2{
-      font-size:clamp(2rem,4vw,3.3rem);
-      line-height:1;
-      letter-spacing:-.06em;
-      margin-bottom:12px;
-    }
-
-    .contact-card p{
-      color:var(--muted);
-    }
-
-    footer{
-      padding:34px 0 60px;
-      text-align:center;
-      color:var(--soft);
-      font-size:.92rem;
-    }
-
-    @media(max-width:980px){
-
-      .hero-grid,
-      .grid-2,
-      .contact-card{
-        grid-template-columns:1fr;
-      }
-
-      .grid-4,
-      .grid-3{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .nav-links{
-        display:none;
-      }
-    }
-
-    @media(max-width:640px){
-
-      .section{
-        padding:70px 0;
-      }
-
-      .grid-4,
-      .grid-3,
-      .metrics{
-        grid-template-columns:1fr;
-      }
-
-      .hero-actions{
-        flex-direction:column;
-      }
-
-      .btn{
-        width:100%;
-      }
-
-      h1{
-        font-size:clamp(2.8rem,18vw,4.6rem);
-      }
-
-      .profile-image{
-        height:340px;
-      }
-    }
-
-  </style>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carlos López Jiménez | Offensive Security Portfolio</title>
+  <meta name="description" content="Portfolio profesional de Carlos López Jiménez centrado en ciberseguridad ofensiva, documentación técnica y writeups orientados a reclutadores." />
+  <meta property="og:title" content="Carlos López Jiménez | Offensive Security Portfolio" />
+  <meta property="og:description" content="Portfolio técnico con foco en pentesting, writeups visuales, evaluación de seguridad y proyectos reales." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/portfolio/portfolio.css" />
 </head>
 <body>
+  <nav class="nav">
+    <a class="brand" href="#home">
+      <span class="brand-mark">CL</span>
+      <span>Carlos López</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">Sobre mí</a>
+      <a href="#experience">Experiencia</a>
+      <a href="#writeups">Writeups</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#contact" class="is-highlight">Contacto</a>
+    </div>
+  </nav>
 
-<nav class="nav">
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Junior offensive security profile · pentesting · product security
+        </div>
 
-  <a class="brand" href="#">
-    <span class="brand-mark">CL</span>
-    <span>Carlos López</span>
-  </a>
+        <h1>
+          Offensive security
+          <span class="gradient-text">documented like real evidence.</span>
+        </h1>
 
-  <div class="nav-links">
-    <a href="#expertise">Expertise</a>
-    <a href="#stack">Stack</a>
-    <a href="#projects">Projects</a>
-    <a href="#ctf">CTF</a>
-    <a href="#writeups">Writeups</a>
-    <a href="#experience">Experience</a>
-    <a href="#contact">Contact</a>
-  </div>
+        <p class="hero-copy">
+          Soy Carlos López Jiménez y estoy orientando mi perfil a pentesting, hacking ético y seguridad ofensiva. Mi objetivo con este portfolio es que una empresa pueda ver rápido cómo enumero, cómo razono, cómo documento y cómo convierto laboratorios técnicos en pruebas claras de criterio profesional.
+        </p>
 
-</nav>
+        <div class="hero-tags">
+          <span class="tag-pill">#Pentesting</span>
+          <span class="tag-pill">#Writeups</span>
+          <span class="tag-pill">#Linux</span>
+          <span class="tag-pill">#WebExploitation</span>
+          <span class="tag-pill">#ProductSecurity</span>
+          <span class="tag-pill">#Cryptography</span>
+        </div>
 
-<header class="hero">
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#writeups">Ver writeups destacados</a>
+          <a class="btn btn-secondary" href="writeups.html">Abrir biblioteca completa</a>
+          <a class="btn btn-secondary" href="mailto:carloslopji@gmail.com">Contactar</a>
+        </div>
 
-  <div class="container hero-grid">
-
-    <div>
-
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        Offensive Security · Product Security · Crypto
+        <div class="hero-proof">
+          <div class="proof-item">
+            <strong>Lectura rápida</strong>
+            <span>Writeups pensados para web, no para esconderse detrás de PDFs.</span>
+          </div>
+          <div class="proof-item">
+            <strong>Metodología clara</strong>
+            <span>Reconocimiento, explotación, post-explotación y mitigación.</span>
+          </div>
+          <div class="proof-item">
+            <strong>Enfoque profesional</strong>
+            <span>Señales útiles para reclutadores de offensive security y perfiles técnicos.</span>
+          </div>
+        </div>
       </div>
 
-      <h1>
-        Security Engineer
-        <span class="gradient-text">
-          building and breaking systems.
-        </span>
-      </h1>
+      <aside class="hero-aside">
+        <div class="hero-aside-top"><span></span><span></span><span></span></div>
+        <div class="hero-aside-body">
+          <div class="identity-tile">
+            <img src="perfil.jpg" alt="Carlos López Jiménez" />
+            <div>
+              <strong>Carlos López Jiménez</strong>
+              <span>Junior pentesting / offensive security profile</span>
+            </div>
+          </div>
 
-      <p class="hero-copy">
-        Soy Carlos López Jiménez, Ingeniero Informático especializado en ciberseguridad. Combino evaluación técnica de productos, criptografía, Common Criteria/LINCE y desarrollo real de software.
+          <div class="mission-card">
+            <div class="eyebrow">Portfolio brief</div>
+            <h2>Quién soy y qué quiero transmitir</h2>
+            <p>Interés real por ciberseguridad ofensiva, capacidad para documentar laboratorios con criterio y base técnica para crecer en pentesting, research y validación de seguridad.</p>
+          </div>
+
+          <div class="terminal-snippet">
+            <p><span class="prompt">carlos@portfolio:~$</span> cat methodology.txt</p>
+            <p class="comment">recon → enumerate → exploit → validate → privesc → document → mitigate</p>
+            <p><span class="prompt">$</span> ls offensive-focus/</p>
+            <p>web-security/ network-security/ wireless/ linux-privesc/ writeups/</p>
+          </div>
+
+          <div class="intel-grid">
+            <div class="intel-card">
+              <span>Target profile</span>
+              <strong>Pentesting · Offensive Security · Product Security</strong>
+            </div>
+            <div class="intel-card">
+              <span>Main signal</span>
+              <strong>Writeups claros, visuales y rápidos de evaluar</strong>
+            </div>
+            <div class="intel-card">
+              <span>Core tools</span>
+              <strong>Nmap, Burp Suite, Gobuster, Wireshark, Python</strong>
+            </div>
+            <div class="intel-card">
+              <span>Secondary depth</span>
+              <strong>Cryptography, Common Criteria, Linux hardening</strong>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <section class="section" id="writeups">
+    <div class="container">
+      <div class="eyebrow">01 · Main Section</div>
+      <h2 class="section-title">
+        Writeups convertidos en
+        <span class="gradient-text">prueba de capacidad técnica.</span>
+      </h2>
+      <p class="section-copy">
+        Esta es la parte central del portfolio. Cada laboratorio está estructurado para que un reclutador vea rápido el contexto, la técnica usada, las fases del compromiso y la calidad de la documentación sin tener que abrir un PDF pesado.
       </p>
 
-      <div class="hero-tags">
-        <span class="tag">#Pentesting</span>
-        <span class="tag">#Cryptography</span>
-        <span class="tag">#PKI</span>
-        <span class="tag">#LinuxHardening</span>
-        <span class="tag">#AIApps</span>
+      <div class="section-grid">
+        <div>
+          <div class="writeup-stage">
+            <div class="stage-card"><strong>Reconocimiento</strong><span>Nmap, fingerprinting, superficie inicial.</span></div>
+            <div class="stage-card"><strong>Enumeración</strong><span>Servicios, paneles, rutas, usuarios y datos expuestos.</span></div>
+            <div class="stage-card"><strong>Explotación</strong><span>LFI, credenciales, abusos web y pivoting.</span></div>
+            <div class="stage-card"><strong>Post-explotación</strong><span>Validación, pruebas de impacto y acceso interactivo.</span></div>
+            <div class="stage-card"><strong>Privesc</strong><span>SUID, sudo, capabilities y vectores locales.</span></div>
+            <div class="stage-card"><strong>Conclusiones</strong><span>Hallazgos, remediación y lectura ejecutiva.</span></div>
+          </div>
+        </div>
+
+        <aside class="sidebar-note">
+          <h3>Qué gana un recruiter aquí</h3>
+          <p>Contexto rápido, señal técnica, evidencias visuales, etiquetas por tecnología y capacidad para explicar una cadena ofensiva con orden y criterio.</p>
+        </aside>
       </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card"><strong id="homeWriteupCount">0</strong><span>writeups web-first</span></div>
+        <div class="kpi-card"><strong id="homeWriteupCategories">0</strong><span>dominios de seguridad</span></div>
+        <div class="kpi-card"><strong id="homeWriteupTags">0</strong><span>etiquetas técnicas</span></div>
+        <div class="kpi-card"><strong>sanitized</strong><span>sin flags ni secretos</span></div>
+      </div>
+
+      <div class="writeup-spotlight" id="writeupSpotlight"></div>
+
+      <div class="tag-list" id="writeupTagPulse"></div>
+
+      <div class="home-writeups" id="featuredWriteupsGrid"></div>
 
       <div class="hero-actions">
-
-        <a class="btn btn-primary" href="mailto:carloslopji@gmail.com">
-          Contactar
-        </a>
-
-        <a class="btn btn-secondary" href="writeups.html">
-          Ver Writeups
-        </a>
-
+        <a class="btn btn-primary" href="writeups.html">Ir a la biblioteca completa</a>
+        <a class="btn btn-secondary" href="writeups.html?difficulty=Hard">Ver los más técnicos</a>
       </div>
-
     </div>
+  </section>
 
-    <aside class="profile-card">
-
-      <div class="profile-image">
-
-        <img src="perfil.jpg" alt="Carlos López Jiménez">
-
-        <div class="profile-overlay"></div>
-
-      </div>
-
-      <div class="profile-content">
-
-        <div class="profile-terminal">
-
-          <p class="line">
-            <span class="prompt">carlos@portfolio:~$</span>
-            <span class="command">whoami</span>
-          </p>
-
-          <p class="line comment">
-            Offensive Security · Product Security · Pentesting
-          </p>
-
-          <p class="line">
-            <span class="prompt">$</span>
-            <span class="command">scan --focus crypto networks offensive-security</span>
-          </p>
-
-          <p class="line comment">
-            Common Criteria · LINCE · CCN-STIC · TLS/SSL · HSM
-          </p>
-
-        </div>
-
-        <div class="metrics">
-
-          <div class="metric">
-            <strong>200k+</strong>
-            <span>descargas</span>
+  <section class="section" id="about">
+    <div class="container">
+      <div class="eyebrow">02 · Sobre mí</div>
+      <h2 class="section-title">
+        Perfil junior con base técnica y
+        <span class="gradient-text">vocación clara hacia offensive security.</span>
+      </h2>
+      <div class="about-grid">
+        <article class="card-panel">
+          <h3>Resumen profesional</h3>
+          <p>Mi foco actual está en pentesting, enumeración técnica, explotación controlada y documentación profesional de laboratorios. Me interesa especialmente crecer en entornos donde pueda aprender de equipos técnicos fuertes y demostrar evolución rápida.</p>
+        </article>
+        <article class="card-panel">
+          <h3>Lo que me diferencia</h3>
+          <ul class="signal-list">
+            <li>Capacidad para transformar un laboratorio en una publicación técnica clara.</li>
+            <li>Combinación de seguridad ofensiva, producto y base en criptografía.</li>
+            <li>Buena lectura de superficie de ataque y correlación de pistas técnicas.</li>
+            <li>Interés real por escribir, mejorar y hacer visibles los procesos de explotación.</li>
+          </ul>
+        </article>
+        <article class="card-panel">
+          <h3>Stack principal</h3>
+          <div class="tag-list">
+            <span class="tag-pill">Nmap</span>
+            <span class="tag-pill">Burp Suite</span>
+            <span class="tag-pill">Gobuster</span>
+            <span class="tag-pill">Wireshark</span>
+            <span class="tag-pill">Metasploit</span>
+            <span class="tag-pill">Python</span>
+            <span class="tag-pill">Linux</span>
+            <span class="tag-pill">SQLMap</span>
+            <span class="tag-pill">Hydra</span>
+            <span class="tag-pill">Docker</span>
           </div>
+        </article>
+        <article class="card-panel">
+          <h3>Objetivo profesional</h3>
+          <p>Quiero consolidarme en un rol junior de pentesting o seguridad ofensiva donde pueda trabajar con metodología real, mejorar mi profundidad técnica y seguir construyendo un portfolio que sirva como evidencia directa de crecimiento.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-          <div class="metric">
-            <strong>CTF</strong>
-            <span>competitions</span>
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="eyebrow">03 · Experience</div>
+      <h2 class="section-title">
+        Seguridad, validación y
+        <span class="gradient-text">criterio técnico aplicado.</span>
+      </h2>
+      <div class="experience-stack">
+        <article class="experience-card">
+          <div class="experience-year">2025 · Actualidad</div>
+          <div>
+            <h3>Ingeniero de Validación y Certificación</h3>
+            <p>Trabajo técnico orientado a criptografía, Common Criteria, evaluación de productos de seguridad y análisis de requisitos de confianza. Esta base refuerza mi enfoque ofensivo con disciplina metodológica y criterio de seguridad real.</p>
           </div>
-
-          <div class="metric">
-            <strong>CC</strong>
-            <span>security eval</span>
+        </article>
+        <article class="experience-card">
+          <div class="experience-year">2024</div>
+          <div>
+            <h3>Evaluador de Ciberseguridad</h3>
+            <p>Participación en pentesting y análisis de vulnerabilidades en aplicaciones y sistemas, con foco en identificar superficie de ataque, validar hallazgos y estructurar resultados técnicos.</p>
           </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-year">Transversal</div>
+          <div>
+            <h3>Desarrollo, producto y automatización</h3>
+            <p>Experiencia complementaria en software real, backend y herramientas técnicas. Esto me ayuda a entender mejor cómo se construyen los sistemas que después analizo desde una perspectiva ofensiva.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-        </div>
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="eyebrow">04 · Projects</div>
+      <h2 class="section-title">
+        Ingeniería aplicada,
+        <span class="gradient-text">producto real y tooling técnico.</span>
+      </h2>
+      <div class="projects-grid">
+        <article class="card-panel project-card">
+          <span class="project-kicker">AI social app</span>
+          <h3>WhatCut+</h3>
+          <p>Aplicación social multiplataforma centrada en hairstyles e IA, con backend propio y despliegue real. Aporta señal de ejecución, continuidad y entendimiento de producto más allá de la parte puramente ofensiva.</p>
+          <ul class="bullet-list" style="margin-top: 16px;">
+            <li>Flutter + Django.</li>
+            <li>Más de 200k descargas.</li>
+            <li>Infraestructura y monetización reales.</li>
+          </ul>
+        </article>
+        <article class="card-panel project-card">
+          <span class="project-kicker">Security portfolio</span>
+          <h3>Offensive labs and documentation</h3>
+          <p>Construcción de una librería web de writeups pensada para contratación técnica: visual, navegable, rápida de leer y preparada para crecer con nuevos laboratorios sin rehacer la web cada vez.</p>
+          <ul class="bullet-list" style="margin-top: 16px;">
+            <li>Documentación técnica orientada a señal profesional.</li>
+            <li>Estructura reusable para nuevos labs.</li>
+            <li>Integración clara entre portfolio y writeups.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
 
+  <section class="section" id="labs">
+    <div class="container">
+      <div class="eyebrow">05 · Labs & CTF</div>
+      <h2 class="section-title">
+        Entorno de práctica para
+        <span class="gradient-text">mentalidad ofensiva.</span>
+      </h2>
+      <div class="ctf-grid">
+        <article class="card-panel ctf-card">
+          <img src="ctf-telefonica.jpg" alt="CTF Telefónica" />
+          <div class="body">
+            <h3>CTF Telefónica</h3>
+            <p>Retos de explotación web, criptografía y resolución técnica bajo presión.</p>
+          </div>
+        </article>
+        <article class="card-panel ctf-card">
+          <img src="ctf-hackrocks.jpg" alt="Hackrocks" />
+          <div class="body">
+            <h3>Hackrocks</h3>
+            <p>Máquinas orientadas a enumeración, abuso de servicios y escalada de privilegios.</p>
+          </div>
+        </article>
+        <article class="card-panel ctf-card">
+          <img src="ctf-cyberlegue.jpg" alt="CyberLeague" />
+          <div class="body">
+            <h3>CyberLeague</h3>
+            <p>Competición nacional como espacio para medir criterio, velocidad y aprendizaje.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="eyebrow">06 · Contacto</div>
+      <h2 class="section-title">
+        Disponible para oportunidades en
+        <span class="gradient-text">pentesting y offensive security.</span>
+      </h2>
+
+      <div class="contact-grid">
+        <article class="contact-card">
+          <h3>Email</h3>
+          <p>Contacto directo para procesos, entrevistas o colaboración técnica.</p>
+          <a class="contact-action" href="mailto:carloslopji@gmail.com">carloslopji@gmail.com →</a>
+        </article>
+        <article class="contact-card">
+          <h3>GitHub</h3>
+          <p>Repositorio y portfolio técnico público.</p>
+          <a class="contact-action" href="https://github.com/LopezJimenezCarlos" target="_blank" rel="noreferrer">github.com/LopezJimenezCarlos →</a>
+        </article>
+        <article class="contact-card">
+          <h3>Biblioteca de writeups</h3>
+          <p>Entrada principal para revisar labs, técnicas, dificultad y evidencias.</p>
+          <a class="contact-action" href="writeups.html">Abrir writeups →</a>
+        </article>
+        <article class="contact-card">
+          <h3>CV y LinkedIn</h3>
+          <p>He dejado esta sección preparada para enlazarlos cuando publiques los assets definitivos.</p>
+          <span class="contact-action">Añadir URL/archivo real aquí</span>
+        </article>
       </div>
 
-    </aside>
-
-  </div>
-
-</header>
-
-<section class="section" id="expertise">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      01 · Technical Expertise
-    </div>
-
-    <h2 class="section-title">
-      Perfil técnico orientado a
-      <span class="gradient-text">
-        seguridad ofensiva y evaluación real.
-      </span>
-    </h2>
-
-    <p class="section-lead">
-      Offensive security, criptografía, producto software real y capacidad técnica.
-    </p>
-
-    <div class="grid-4">
-
-      <article class="card">
-        <div class="card-icon">⚔️</div>
-        <h3>Offensive Security</h3>
-        <p>Pentesting, explotación controlada y análisis de vulnerabilidades.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🔐</div>
-        <h3>Cryptographic Validation</h3>
-        <p>PKI, TLS/SSL, HSM y validación criptográfica.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🧪</div>
-        <h3>Product Security</h3>
-        <p>Common Criteria, LINCE y evaluación técnica.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🚀</div>
-        <h3>Secure Development</h3>
-        <p>Flutter, Django, backend real y cloud.</p>
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="stack">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      02 · Security Stack
-    </div>
-
-    <h2 class="section-title">
-      Arsenal técnico.
-    </h2>
-
-    <div class="stack-cloud">
-
-      <span class="stack-item">Python</span>
-      <span class="stack-item">C/C++</span>
-      <span class="stack-item">Java</span>
-      <span class="stack-item">Flutter</span>
-      <span class="stack-item">Django</span>
-      <span class="stack-item">Linux</span>
-      <span class="stack-item">Docker</span>
-      <span class="stack-item">Kubernetes</span>
-      <span class="stack-item">Burp Suite</span>
-      <span class="stack-item">Metasploit</span>
-      <span class="stack-item">Wireshark</span>
-      <span class="stack-item">Nmap</span>
-      <span class="stack-item">SQLMap</span>
-      <span class="stack-item">Hydra</span>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="projects">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      03 · Featured Projects
-    </div>
-
-    <h2 class="section-title">
-      Producto real +
-      <span class="gradient-text">
-        ingeniería.
-      </span>
-    </h2>
-
-    <div class="grid-2">
-
-      <article class="card">
-
-        <span class="project-badge">
-          AI Social App
-        </span>
-
-        <h3 style="font-size:2rem;margin-bottom:16px;">
-          WhatCut+
-        </h3>
-
-        <p class="section-lead" style="margin-bottom:20px">
-          Aplicación social multiplataforma enfocada en hairstyles e IA.
-        </p>
-
-        <ul class="bullet-list">
-          <li>+200k descargas.</li>
-          <li>Flutter + Django.</li>
-          <li>Backend propio.</li>
-          <li>Firebase y despliegue real.</li>
-          <li>Suscripciones premium.</li>
-        </ul>
-
-      </article>
-
-      <article class="card">
-
-        <span class="project-badge">
-          Security Research
-        </span>
-
-        <h3 style="font-size:2rem;margin-bottom:16px;">
-          Offensive Security Labs
-        </h3>
-
-        <p class="section-lead" style="margin-bottom:20px">
-          Laboratorios y tooling orientados a pentesting y análisis ofensivo.
-        </p>
-
-        <ul class="bullet-list">
-          <li>Hardening Linux.</li>
-          <li>Enumeración y escaneo.</li>
-          <li>Explotación web.</li>
-          <li>Criptografía y PKI.</li>
-        </ul>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="ctf">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      04 · CTF & Hacking Arena
-    </div>
-
-    <h2 class="section-title">
-      Competición, laboratorios y mentalidad ofensiva.
-    </h2>
-
-    <div class="grid-3">
-
-      <article class="card ctf-card">
-
-        <img src="ctf-telefonica.jpg" alt="CTF Telefónica" class="ctf-img">
-
-        <div class="ctf-content">
-
-          <span class="project-badge">
-            Capture The Flag
-          </span>
-
-          <h3>CTF Telefónica</h3>
-
-          <p>
-            Retos de explotación web, criptografía y análisis técnico.
-          </p>
-
+      <div class="contact-callout">
+        <h3>Qué encontrará una empresa en este portfolio</h3>
+        <p>Una combinación de motivación real por offensive security, laboratorios documentados con claridad, criterio técnico en la enumeración y una base seria para seguir creciendo en pentesting profesional.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:carloslopji@gmail.com?subject=Oportunidad%20Offensive%20Security">Hablar conmigo</a>
+          <a class="btn btn-secondary" href="writeups.html">Revisar writeups</a>
         </div>
-
-      </article>
-
-      <article class="card ctf-card">
-
-        <img src="ctf-hackrocks.jpg" alt="Hackrocks" class="ctf-img">
-
-        <div class="ctf-content">
-
-          <span class="project-badge">
-            Hacking Lab
-          </span>
-
-          <h3>Hackrocks</h3>
-
-          <p>
-            Máquinas y retos orientados a pentesting y enumeración.
-          </p>
-
-        </div>
-
-      </article>
-
-      <article class="card ctf-card">
-
-        <img src="ctf-cyberlegue.jpg" alt="CyberLeague" class="ctf-img">
-
-        <div class="ctf-content">
-
-          <span class="project-badge">
-            Cyber Competition
-          </span>
-
-          <h3>CyberLeague</h3>
-
-          <p>
-            Competición nacional de ciberseguridad.
-          </p>
-
-        </div>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="writeups">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      05 · Writeups & Research
-    </div>
-
-    <h2 class="section-title">
-      Documentación técnica,
-      <span class="gradient-text">
-        laboratorios y research.
-      </span>
-    </h2>
-
-    <p class="section-lead">
-      Biblioteca interactiva de writeups de ciberseguridad ofensiva: laboratorios convertidos en páginas web visuales con metodología, evidencias, comandos, hallazgos y mitigaciones.
-    </p>
-
-    <div class="grid-3">
-
-      <article class="card">
-        <div class="card-icon">🕸️</div>
-        <h3>Web Exploitation</h3>
-        <p>LFI, log poisoning, XSS/CSRF, SQLi, reverse shells y metodología OWASP.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🐧</div>
-        <h3>Privilege Escalation</h3>
-        <p>SUID, Linux capabilities, sudo abuse, post-exploitation y remediación.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🔐</div>
-        <h3>Wireless & Network Security</h3>
-        <p>WPA2 handshakes, ARP spoofing, Wireshark, MITM y análisis de tráfico.</p>
-      </article>
-
-    </div>
-
-    <div class="hero-actions">
-
-      <a class="btn btn-primary" href="writeups.html">
-        Ver todos los writeups
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="experience">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      06 · Experience
-    </div>
-
-    <h2 class="section-title">
-      Security Engineering &
-      <span class="gradient-text">
-        Product Security
-      </span>
-    </h2>
-
-    <div class="timeline">
-
-      <article class="card">
-
-        <span class="project-badge">
-          2025 · Actualidad
-        </span>
-
-        <h3>
-          Ingeniero de Validación y Certificación
-        </h3>
-
-        <p>
-          Especialización en criptografía, Common Criteria y evaluación de productos de seguridad.
-        </p>
-
-      </article>
-
-      <article class="card">
-
-        <span class="project-badge">
-          2024
-        </span>
-
-        <h3>
-          Evaluador de Ciberseguridad
-        </h3>
-
-        <p>
-          Pentesting y análisis de vulnerabilidades en aplicaciones y sistemas.
-        </p>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="contact">
-
-  <div class="container">
-
-    <div class="contact-card">
-
-      <div>
-
-        <div class="eyebrow">
-          07 · Contact
-        </div>
-
-        <h2>
-          Offensive Security &
-          Product Security
-        </h2>
-
-        <p>
-          Disponible para oportunidades técnicas en pentesting, research y seguridad avanzada.
-        </p>
-
       </div>
-
-      <div class="hero-actions">
-
-        <a class="btn btn-primary" href="mailto:carloslopji@gmail.com">
-          Contactar
-        </a>
-
-        <a class="btn btn-secondary" href="writeups.html">
-          Writeups
-        </a>
-
-      </div>
-
     </div>
+  </section>
 
-  </div>
+  <footer>
+    © <span data-current-year>2026</span> Carlos López Jiménez · Offensive Security · Product Security · Technical Writeups
+  </footer>
 
-</section>
-
-<footer>
-  © 2026 Carlos López Jiménez · Offensive Security / Product Security / Cryptography
-</footer>
-
+  <script src="assets/writeups/writeups-data.js"></script>
+  <script src="assets/portfolio/portfolio.js"></script>
 </body>
 </html>
