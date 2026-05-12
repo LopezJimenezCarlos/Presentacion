@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#05070d">
-  <meta name="description" content="Portfolio de Carlos López Jiménez: ciberseguridad ofensiva, product security, criptografía, Common Criteria, LINCE, CCN-STIC, pentesting y desarrollo de aplicaciones con IA.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Carlos López Jiménez | Offensive Security Engineer</title>
+
+  <meta
+    name="description"
+    content="Portfolio de Carlos López Jiménez — Offensive Security, Product Security, Cryptography, Pentesting y desarrollo real."
+  />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
 
     :root{
       --bg:#05070d;
-      --bg2:#0b1220;
+      --bg2:#0c1424;
+
       --card:rgba(15,23,42,.72);
       --cardStrong:rgba(17,25,40,.92);
 
@@ -30,6 +37,7 @@
       --cyan:#22d3ee;
       --green:#7cff9e;
       --violet:#a78bfa;
+
       --red:#fb7185;
       --amber:#fbbf24;
 
@@ -57,16 +65,18 @@
 
     body{
       font-family:var(--font);
+
       background:
       radial-gradient(circle at 15% 10%, rgba(34,211,238,.15), transparent 25%),
-      radial-gradient(circle at 80% 20%, rgba(167,139,250,.16), transparent 25%),
+      radial-gradient(circle at 80% 20%, rgba(167,139,250,.15), transparent 25%),
       radial-gradient(circle at 50% 90%, rgba(124,255,158,.08), transparent 25%),
       linear-gradient(180deg,var(--bg),#03040a);
 
       color:var(--text);
 
-      overflow-x:hidden;
       line-height:1.7;
+
+      overflow-x:hidden;
     }
 
     body::before{
@@ -102,46 +112,67 @@
     }
 
     .section{
-      padding:90px 0;
+      padding:95px 0;
     }
 
     .eyebrow{
       color:var(--green);
+
       font-family:var(--mono);
-      letter-spacing:.18em;
-      text-transform:uppercase;
+
       font-size:.78rem;
+
+      letter-spacing:.18em;
+
+      text-transform:uppercase;
+
       margin-bottom:12px;
     }
 
     .section-title{
-      font-size:clamp(2.1rem,4vw,3.5rem);
+      font-size:clamp(2.2rem,4vw,3.5rem);
+
       line-height:1.05;
+
       letter-spacing:-.06em;
+
       margin-bottom:18px;
     }
 
     .gradient-text{
-      background:linear-gradient(135deg,#fff,var(--cyan),var(--green),var(--violet));
+      background:linear-gradient(
+      135deg,
+      #fff,
+      var(--cyan),
+      var(--green),
+      var(--violet)
+      );
+
       -webkit-background-clip:text;
       background-clip:text;
+
       color:transparent;
     }
 
     .section-lead{
       color:var(--muted);
+
       max-width:760px;
-      margin-bottom:40px;
+
+      margin-bottom:42px;
     }
 
     /* NAV */
 
     .nav{
       position:fixed;
+
       top:16px;
       left:50%;
+
       transform:translateX(-50%);
-      z-index:50;
+
+      z-index:100;
 
       width:min(1100px, calc(100% - 28px));
 
@@ -153,7 +184,7 @@
 
       border:1px solid var(--line);
 
-      background:rgba(5,7,13,.7);
+      background:rgba(5,7,13,.72);
 
       backdrop-filter:blur(18px);
 
@@ -178,9 +209,14 @@
       display:grid;
       place-items:center;
 
-      background:linear-gradient(135deg,var(--cyan),var(--green));
+      background:linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--green)
+      );
 
       color:#021018;
+
       font-family:var(--mono);
       font-weight:900;
 
@@ -194,9 +230,13 @@
 
     .nav-links a{
       padding:8px 14px;
+
       border-radius:999px;
+
       color:var(--muted);
+
       transition:.2s;
+
       font-size:.92rem;
     }
 
@@ -213,7 +253,7 @@
       display:grid;
       align-items:center;
 
-      padding:130px 0 70px;
+      padding:140px 0 70px;
     }
 
     .hero-grid{
@@ -254,9 +294,9 @@
     }
 
     h1{
-      margin:22px 0 18px;
+      margin:24px 0 18px;
 
-      font-size:clamp(3.2rem,8vw,7rem);
+      font-size:clamp(3rem,8vw,7rem);
 
       line-height:.92;
 
@@ -265,9 +305,10 @@
 
     .hero-copy{
       color:var(--muted);
+
       max-width:720px;
 
-      font-size:1.1rem;
+      font-size:1.08rem;
     }
 
     .hero-tags{
@@ -275,7 +316,7 @@
       flex-wrap:wrap;
       gap:10px;
 
-      margin:28px 0;
+      margin:30px 0;
     }
 
     .tag{
@@ -295,7 +336,9 @@
 
     .tag:hover{
       transform:translateY(-3px);
+
       border-color:rgba(34,211,238,.45);
+
       background:rgba(34,211,238,.08);
     }
 
@@ -326,7 +369,12 @@
     }
 
     .btn-primary{
-      background:linear-gradient(135deg,var(--cyan),var(--green));
+      background:linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--green)
+      );
+
       color:#031018;
 
       border:none;
@@ -342,14 +390,18 @@
       transform:translateY(-4px);
     }
 
-    /* TERMINAL */
+    /* PROFILE CARD */
 
-    .terminal{
+    .profile-card{
       border-radius:var(--radius-xl);
 
       border:1px solid var(--line);
 
-      background:linear-gradient(180deg, rgba(17,25,40,.85), rgba(7,10,18,.92));
+      background:linear-gradient(
+      180deg,
+      rgba(17,25,40,.88),
+      rgba(8,12,22,.95)
+      );
 
       overflow:hidden;
 
@@ -358,57 +410,53 @@
       position:relative;
     }
 
-    .terminal::before{
+    .profile-card::before{
       content:"";
       position:absolute;
       inset:0;
 
       background:
-      radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 28%),
-      radial-gradient(circle at top right, rgba(124,255,158,.1), transparent 30%);
+      radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 30%),
+      radial-gradient(circle at top right, rgba(124,255,158,.08), transparent 30%);
 
       pointer-events:none;
     }
 
-    .terminal-top{
-      display:flex;
-      align-items:center;
-      gap:8px;
-
-      padding:14px 18px;
-
-      border-bottom:1px solid var(--line);
-
-      background:rgba(255,255,255,.03);
+    .profile-image{
+      position:relative;
+      height:420px;
+      overflow:hidden;
     }
 
-    .dot{
-      width:10px;
-      height:10px;
-
-      border-radius:50%;
+    .profile-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
-    .dot.red{background:var(--red)}
-    .dot.yellow{background:var(--amber)}
-    .dot.green{background:var(--green)}
+    .profile-overlay{
+      position:absolute;
+      inset:0;
 
-    .terminal-title{
-      margin-left:auto;
-      font-size:.8rem;
-      color:var(--soft);
-      font-family:var(--mono);
+      background:linear-gradient(
+      to top,
+      rgba(5,7,13,.92),
+      transparent 45%
+      );
     }
 
-    .terminal-body{
+    .profile-content{
       padding:22px;
+    }
 
+    .profile-terminal{
       font-family:var(--mono);
-      font-size:.88rem;
+      font-size:.82rem;
+      color:#dbeafe;
     }
 
     .line{
-      margin-bottom:12px;
+      margin-bottom:10px;
     }
 
     .prompt{
@@ -433,7 +481,9 @@
     }
 
     @keyframes blink{
-      50%{opacity:0}
+      50%{
+        opacity:0;
+      }
     }
 
     .metrics{
@@ -441,13 +491,13 @@
       grid-template-columns:repeat(3,1fr);
       gap:12px;
 
-      padding:0 22px 22px;
+      margin-top:20px;
     }
 
     .metric{
       border:1px solid var(--line);
 
-      border-radius:18px;
+      border-radius:16px;
 
       background:rgba(255,255,255,.04);
 
@@ -456,15 +506,15 @@
 
     .metric strong{
       display:block;
-      font-size:1.5rem;
+      font-size:1.4rem;
     }
 
     .metric span{
       color:var(--soft);
-      font-size:.82rem;
+      font-size:.8rem;
     }
 
-    /* GRID */
+    /* GRIDS */
 
     .grid-4{
       display:grid;
@@ -506,7 +556,8 @@
       position:absolute;
       inset:0;
 
-      background:radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 28%);
+      background:
+      radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 28%);
 
       opacity:0;
 
@@ -564,14 +615,20 @@
 
     .stack-item:hover{
       transform:translateY(-3px);
+
       border-color:rgba(124,255,158,.35);
+
       background:rgba(124,255,158,.08);
     }
 
     /* PROJECT */
 
     .project-featured{
-      background:linear-gradient(145deg, rgba(18,29,48,.94), rgba(8,12,22,.88));
+      background:linear-gradient(
+      145deg,
+      rgba(18,29,48,.94),
+      rgba(8,12,22,.88)
+      );
     }
 
     .project-head{
@@ -585,7 +642,9 @@
 
     .project-title{
       font-size:clamp(1.8rem,4vw,3rem);
+
       line-height:1;
+
       letter-spacing:-.06em;
     }
 
@@ -660,9 +719,40 @@
       margin-bottom:10px;
     }
 
-    .ok{color:var(--green)}
-    .warn{color:var(--amber)}
-    .info{color:var(--cyan)}
+    .ok{
+      color:var(--green);
+    }
+
+    .warn{
+      color:var(--amber);
+    }
+
+    .info{
+      color:var(--cyan);
+    }
+
+    /* CTF */
+
+    .ctf-card{
+      padding:0;
+      overflow:hidden;
+    }
+
+    .ctf-img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+
+      transition:.35s;
+    }
+
+    .ctf-card:hover .ctf-img{
+      transform:scale(1.05);
+    }
+
+    .ctf-content{
+      padding:22px;
+    }
 
     /* TIMELINE */
 
@@ -683,7 +773,10 @@
 
       width:1px;
 
-      background:linear-gradient(var(--cyan), rgba(124,255,158,.1));
+      background:linear-gradient(
+      var(--cyan),
+      rgba(124,255,158,.1)
+      );
     }
 
     .timeline-item{
@@ -738,7 +831,11 @@
       border-radius:var(--radius-xl);
 
       background:
-      linear-gradient(135deg, rgba(34,211,238,.14), rgba(124,255,158,.08)),
+      linear-gradient(
+      135deg,
+      rgba(34,211,238,.14),
+      rgba(124,255,158,.08)
+      ),
       var(--card);
 
       border:1px solid rgba(34,211,238,.3);
@@ -748,8 +845,11 @@
 
     .contact-card h2{
       font-size:clamp(2rem,4vw,3.3rem);
+
       line-height:1;
+
       letter-spacing:-.06em;
+
       margin-bottom:12px;
     }
 
@@ -759,8 +859,11 @@
 
     footer{
       padding:34px 0 60px;
+
       text-align:center;
+
       color:var(--soft);
+
       font-size:.92rem;
     }
 
@@ -821,9 +924,14 @@
       h1{
         font-size:clamp(2.8rem,18vw,4.6rem);
       }
+
+      .profile-image{
+        height:340px;
+      }
     }
 
   </style>
+
 </head>
 <body>
 
@@ -838,7 +946,8 @@
     <a href="#expertise">Expertise</a>
     <a href="#stack">Stack</a>
     <a href="#projects">Projects</a>
-    <a href="#labs">Labs</a>
+    <a href="#ctf">CTF</a>
+    <a href="writeups.html">Writeups</a>
     <a href="#experience">Experience</a>
     <a href="#contact">Contact</a>
   </div>
@@ -882,69 +991,71 @@
           Contactar
         </a>
 
-        <a class="btn btn-secondary" href="https://linkedin.com/in/carloslopezjimenez" target="_blank">
-          LinkedIn
+        <a class="btn btn-secondary" href="writeups.html">
+          Ver Writeups
         </a>
 
       </div>
 
     </div>
 
-    <aside class="terminal reveal">
+    <aside class="profile-card reveal">
 
-      <div class="terminal-top">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
+      <div class="profile-image">
 
-        <span class="terminal-title">
-          ~/security-profile
-        </span>
-      </div>
+        <img src="perfil.jpg" alt="Carlos López Jiménez">
 
-      <div class="terminal-body">
-
-        <p class="line">
-          <span class="prompt">carlos@portfolio:~$</span>
-          <span class="command">whoami</span>
-        </p>
-
-        <p class="line comment">
-          Ingeniero Informático · Product Security · Offensive Security
-        </p>
-
-        <p class="line">
-          <span class="prompt">$</span>
-          <span class="command">scan --focus crypto networks offensive-security</span>
-        </p>
-
-        <p class="line comment">
-          Common Criteria · LINCE · CCN-STIC · TLS/SSL · HSM · PKI
-        </p>
-
-        <p class="line">
-          <span class="prompt">$</span>
-          <span class="command">build --project WhatCut+</span>
-          <span class="cursor"></span>
-        </p>
+        <div class="profile-overlay"></div>
 
       </div>
 
-      <div class="metrics">
+      <div class="profile-content">
 
-        <div class="metric">
-          <strong>200k+</strong>
-          <span>descargas</span>
+        <div class="profile-terminal">
+
+          <p class="line">
+            <span class="prompt">carlos@portfolio:~$</span>
+            <span class="command">whoami</span>
+          </p>
+
+          <p class="line comment">
+            Offensive Security · Product Security · Pentesting
+          </p>
+
+          <p class="line">
+            <span class="prompt">$</span>
+            <span class="command">scan --focus crypto networks offensive-security</span>
+          </p>
+
+          <p class="line comment">
+            Common Criteria · LINCE · CCN-STIC · TLS/SSL · HSM
+          </p>
+
+          <p class="line">
+            <span class="prompt">$</span>
+            <span class="command">build --project WhatCut+</span>
+            <span class="cursor"></span>
+          </p>
+
         </div>
 
-        <div class="metric">
-          <strong>CC</strong>
-          <span>security eval</span>
-        </div>
+        <div class="metrics">
 
-        <div class="metric">
-          <strong>Flutter</strong>
-          <span>real apps</span>
+          <div class="metric">
+            <strong>200k+</strong>
+            <span>descargas</span>
+          </div>
+
+          <div class="metric">
+            <strong>CTF</strong>
+            <span>competitions</span>
+          </div>
+
+          <div class="metric">
+            <strong>CC</strong>
+            <span>security eval</span>
+          </div>
+
         </div>
 
       </div>
@@ -1006,25 +1117,382 @@
 
 </section>
 
+<section class="section" id="stack">
+
+  <div class="container">
+
+    <div class="eyebrow reveal">
+      02 · Security Stack
+    </div>
+
+    <h2 class="section-title reveal">
+      Arsenal técnico.
+    </h2>
+
+    <div class="stack-cloud reveal">
+
+      <span class="stack-item">Python</span>
+      <span class="stack-item">C/C++</span>
+      <span class="stack-item">Java</span>
+      <span class="stack-item">Kotlin</span>
+      <span class="stack-item">Flutter</span>
+      <span class="stack-item">Django</span>
+      <span class="stack-item">Node.js</span>
+      <span class="stack-item">Linux</span>
+      <span class="stack-item">Docker</span>
+      <span class="stack-item">Kubernetes</span>
+      <span class="stack-item">Azure</span>
+      <span class="stack-item">Burp Suite</span>
+      <span class="stack-item">Metasploit</span>
+      <span class="stack-item">Wireshark</span>
+      <span class="stack-item">Nmap</span>
+      <span class="stack-item">SQLMap</span>
+      <span class="stack-item">Hydra</span>
+      <span class="stack-item">Git/GitHub</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="projects">
+
+  <div class="container">
+
+    <div class="eyebrow reveal">
+      03 · Featured Projects
+    </div>
+
+    <h2 class="section-title reveal">
+      Producto real +
+      <span class="gradient-text">
+        ingeniería.
+      </span>
+    </h2>
+
+    <div class="grid-2">
+
+      <article class="card project-featured reveal">
+
+        <div class="project-head">
+
+          <h3 class="project-title">
+            WhatCut+
+          </h3>
+
+          <span class="project-badge">
+            AI Social App
+          </span>
+
+        </div>
+
+        <p class="section-lead" style="margin-bottom:0">
+          Aplicación social multiplataforma enfocada en hairstyles e IA para probar peinados.
+        </p>
+
+        <div class="project-stats">
+
+          <div class="project-stat">
+            <strong>200k+</strong>
+            <span>descargas</span>
+          </div>
+
+          <div class="project-stat">
+            <strong>Flutter</strong>
+            <span>iOS · Android</span>
+          </div>
+
+          <div class="project-stat">
+            <strong>Django</strong>
+            <span>backend</span>
+          </div>
+
+        </div>
+
+        <ul class="bullet-list">
+          <li>Integración IA.</li>
+          <li>Backend propio.</li>
+          <li>Firebase y despliegue real.</li>
+          <li>Suscripciones premium.</li>
+        </ul>
+
+      </article>
+
+      <aside class="mini-terminal reveal">
+
+        <p>
+          <span class="info">project</span>:
+          whatcut-plus
+        </p>
+
+        <p>
+          <span class="info">mobile</span>:
+          Flutter
+        </p>
+
+        <p>
+          <span class="info">backend</span>:
+          Django
+        </p>
+
+        <p>
+          <span class="warn">security focus</span>:
+          auth · backend validation · cloud deployment
+        </p>
+
+        <p>
+          <span class="ok">impact</span>:
+          ejecución técnica real.
+        </p>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="ctf">
+
+  <div class="container">
+
+    <div class="eyebrow reveal">
+      04 · CTF & Hacking Arena
+    </div>
+
+    <h2 class="section-title reveal">
+      Competición, laboratorios y mentalidad ofensiva.
+    </h2>
+
+    <p class="section-lead reveal">
+      Participación en retos CTF y entornos prácticos de ciberseguridad.
+    </p>
+
+    <div class="grid-3">
+
+      <article class="card ctf-card reveal">
+
+        <img
+          src="ctf-telefonica.jpg"
+          alt="CTF Telefónica"
+          class="ctf-img"
+        >
+
+        <div class="ctf-content">
+
+          <span class="project-badge">
+            Capture The Flag
+          </span>
+
+          <h3>CTF Telefónica</h3>
+
+          <p>
+            Retos de explotación web, criptografía y análisis técnico.
+          </p>
+
+        </div>
+
+      </article>
+
+      <article class="card ctf-card reveal">
+
+        <img
+          src="ctf-hackrocks.jpg"
+          alt="CTF Hackrocks"
+          class="ctf-img"
+        >
+
+        <div class="ctf-content">
+
+          <span class="project-badge">
+            Hacking Lab
+          </span>
+
+          <h3>Hackrocks</h3>
+
+          <p>
+            Máquinas y retos orientados a pentesting y enumeración.
+          </p>
+
+        </div>
+
+      </article>
+
+      <article class="card ctf-card reveal">
+
+        <img
+          src="ctf-cyberlegue.jpg"
+          alt="CyberLeague"
+          class="ctf-img"
+        >
+
+        <div class="ctf-content">
+
+          <span class="project-badge">
+            Cyber Competition
+          </span>
+
+          <h3>CyberLeague</h3>
+
+          <p>
+            Competición nacional con enfoque ofensivo y defensa técnica.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="experience">
+
+  <div class="container">
+
+    <div class="eyebrow reveal">
+      05 · Experience
+    </div>
+
+    <h2 class="section-title reveal">
+      Security Engineering &
+      <span class="gradient-text">
+        Product Security
+      </span>
+    </h2>
+
+    <div class="timeline">
+
+      <article class="timeline-item reveal">
+
+        <div class="node">
+          01
+        </div>
+
+        <div class="card">
+
+          <div class="timeline-meta">
+            <span>2025 · Actualidad</span>
+            <span>EPICOM</span>
+          </div>
+
+          <h3>
+            Ingeniero de Validación y Certificación
+          </h3>
+
+          <p>
+            Especialización en criptografía, Common Criteria, LINCE y evaluación de productos de seguridad.
+          </p>
+
+        </div>
+
+      </article>
+
+      <article class="timeline-item reveal">
+
+        <div class="node">
+          02
+        </div>
+
+        <div class="card">
+
+          <div class="timeline-meta">
+            <span>2024</span>
+            <span>Clover Technologies</span>
+          </div>
+
+          <h3>
+            Evaluador de Ciberseguridad
+          </h3>
+
+          <p>
+            Pentesting y análisis de vulnerabilidades en aplicaciones y sistemas.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="contact">
+
+  <div class="container">
+
+    <div class="contact-card reveal">
+
+      <div>
+
+        <div class="eyebrow">
+          06 · Contact
+        </div>
+
+        <h2>
+          Offensive Security &
+          Product Security
+        </h2>
+
+        <p>
+          Disponible para oportunidades técnicas en pentesting, research, criptografía y seguridad avanzada.
+        </p>
+
+      </div>
+
+      <div class="hero-actions">
+
+        <a
+          class="btn btn-primary"
+          href="mailto:carloslopji@gmail.com"
+        >
+          Contactar
+        </a>
+
+        <a
+          class="btn btn-secondary"
+          href="writeups.html"
+        >
+          Ver Writeups
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Carlos López Jiménez · Offensive Security / Product Security / Cryptography
+</footer>
+
 <script>
 
-const revealElements = document.querySelectorAll('.reveal');
+  const revealElements = document.querySelectorAll('.reveal');
 
-const observer = new IntersectionObserver((entries)=>{
+  const observer = new IntersectionObserver((entries)=>{
 
-  entries.forEach(entry=>{
+    entries.forEach(entry=>{
 
-    if(entry.isIntersecting){
+      if(entry.isIntersecting){
 
-      entry.target.classList.add('visible');
+        entry.target.classList.add('visible');
 
-    }
+      }
 
-  });
+    });
 
-},{threshold:.12});
+  },{threshold:.12});
 
-revealElements.forEach(el=>observer.observe(el));
+  revealElements.forEach(el=>observer.observe(el));
 
 </script>
 
