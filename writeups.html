@@ -1,477 +1,98 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Writeups | Carlos López Jiménez</title>
-
-  <meta name="description" content="Writeups técnicos de Carlos López Jiménez sobre pentesting, CTF, hardening, criptografía, PKI y seguridad ofensiva." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#05070d;
-      --card:rgba(15,23,42,.72);
-      --cardStrong:rgba(17,25,40,.92);
-      --line:rgba(148,163,184,.16);
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --soft:#64748b;
-      --cyan:#22d3ee;
-      --green:#7cff9e;
-      --violet:#a78bfa;
-      --amber:#fbbf24;
-      --radius-xl:28px;
-      --radius-lg:20px;
-      --shadow:0 24px 80px rgba(0,0,0,.45);
-      --max:1200px;
-      --font:'Inter',sans-serif;
-      --mono:Consolas,Menlo,monospace;
-    }
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:var(--font);
-      background:
-        radial-gradient(circle at 15% 10%, rgba(34,211,238,.15), transparent 25%),
-        radial-gradient(circle at 80% 20%, rgba(167,139,250,.15), transparent 25%),
-        radial-gradient(circle at 50% 90%, rgba(124,255,158,.08), transparent 25%),
-        linear-gradient(180deg,var(--bg),#03040a);
-      color:var(--text);
-      overflow-x:hidden;
-      line-height:1.7;
-      min-height:100vh;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size:55px 55px;
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.8), transparent 80%);
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .container{
-      width:min(var(--max), calc(100% - 40px));
-      margin:auto;
-    }
-
-    .nav{
-      position:fixed;
-      top:16px;
-      left:50%;
-      transform:translateX(-50%);
-      z-index:100;
-      width:min(1100px, calc(100% - 28px));
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:12px 18px;
-      border:1px solid var(--line);
-      background:rgba(5,7,13,.72);
-      backdrop-filter:blur(18px);
-      border-radius:999px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:800;
-      letter-spacing:-.04em;
-    }
-
-    .brand-mark{
-      width:34px;
-      height:34px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,var(--cyan),var(--green));
-      color:#021018;
-      font-family:var(--mono);
-      font-weight:900;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:8px;
-    }
-
-    .nav-links a{
-      padding:8px 14px;
-      border-radius:999px;
-      color:var(--muted);
-      transition:.2s;
-      font-size:.92rem;
-    }
-
-    .nav-links a:hover{
-      color:white;
-      background:rgba(255,255,255,.06);
-    }
-
-    .hero{
-      padding:145px 0 70px;
-    }
-
-    .eyebrow{
-      color:var(--green);
-      font-family:var(--mono);
-      font-size:.78rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      margin-bottom:14px;
-    }
-
-    h1{
-      font-size:clamp(3rem,8vw,6rem);
-      line-height:.92;
-      letter-spacing:-.08em;
-      max-width:950px;
-      margin-bottom:24px;
-    }
-
-    .gradient-text{
-      background:linear-gradient(135deg,#fff,var(--cyan),var(--green),var(--violet));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .lead{
-      color:var(--muted);
-      max-width:820px;
-      font-size:1.08rem;
-      margin-bottom:34px;
-    }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-top:30px;
-    }
-
-    .btn{
-      min-height:48px;
-      padding:12px 18px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      transition:.2s;
-    }
-
-    .btn-primary{
-      background:linear-gradient(135deg,var(--cyan),var(--green));
-      color:#031018;
-      border:none;
-    }
-
-    .btn-secondary{
-      background:rgba(255,255,255,.05);
-    }
-
-    .btn:hover{
-      transform:translateY(-4px);
-    }
-
-    .section{
-      padding:30px 0 90px;
-    }
-
-    .writeup-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius-lg);
-      padding:24px;
-      transition:.25s;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 30%);
-      opacity:0;
-      transition:.25s;
-      pointer-events:none;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
-      border-color:rgba(34,211,238,.4);
-      background:var(--cardStrong);
-    }
-
-    .card:hover::before{
-      opacity:1;
-    }
-
-    .card-icon{
-      width:52px;
-      height:52px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      background:rgba(34,211,238,.08);
-      border:1px solid rgba(34,211,238,.18);
-      font-size:1.5rem;
-      margin-bottom:18px;
-    }
-
-    .badge{
-      display:inline-flex;
-      margin-bottom:14px;
-      border-radius:999px;
-      padding:7px 10px;
-      font-family:var(--mono);
-      font-size:.72rem;
-      border:1px solid rgba(124,255,158,.24);
-      background:rgba(124,255,158,.08);
-      color:var(--green);
-    }
-
-    .card h2{
-      font-size:1.45rem;
-      line-height:1.15;
-      letter-spacing:-.04em;
-      margin-bottom:12px;
-    }
-
-    .card p{
-      color:var(--muted);
-      font-size:.95rem;
-      margin-bottom:22px;
-    }
-
-    .meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:22px;
-    }
-
-    .meta span{
-      font-family:var(--mono);
-      font-size:.72rem;
-      color:var(--soft);
-      padding:6px 9px;
-      border-radius:999px;
-      background:rgba(255,255,255,.04);
-      border:1px solid var(--line);
-    }
-
-    .empty-note{
-      margin-top:38px;
-      border:1px dashed rgba(148,163,184,.28);
-      border-radius:var(--radius-lg);
-      padding:24px;
-      color:var(--muted);
-      background:rgba(255,255,255,.03);
-    }
-
-    .empty-note strong{
-      color:white;
-    }
-
-    footer{
-      padding:40px 0 60px;
-      text-align:center;
-      color:var(--soft);
-      font-size:.92rem;
-    }
-
-    @media(max-width:980px){
-      .writeup-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .nav-links{
-        display:none;
-      }
-    }
-
-    @media(max-width:640px){
-      .container{
-        width:min(100% - 28px, var(--max));
-      }
-
-      .hero{
-        padding-top:120px;
-      }
-
-      h1{
-        font-size:clamp(2.8rem,16vw,4.5rem);
-      }
-
-      .writeup-grid{
-        grid-template-columns:1fr;
-      }
-
-      .btn{
-        width:100%;
-      }
-
-      .hero-actions{
-        flex-direction:column;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<nav class="nav">
-  <a class="brand" href="index.html">
-    <span class="brand-mark">CL</span>
-    <span>Carlos López</span>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cybersecurity Writeups | Carlos López Jiménez</title><meta name="description" content="Writeups profesionales de ciberseguridad ofensiva: web exploitation, redes, wireless, Linux privesc, Metasploit y laboratorios técnicos orientados a reclutadores."><meta property="og:title" content="Cybersecurity Writeups | Carlos López Jiménez"><meta property="og:description" content="Portfolio técnico ofensivo con writeups interactivos, metodología, evidencias y mitigaciones."><meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/writeups/writeups.css"></head><body><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark">CL</span><span>Carlos López</span></a><div class="nav-links"><a href="index.html">Portfolio</a><a href="index.html#ctf">CTF</a><a class="active" href="writeups.html">Writeups</a><a href="index.html#contact">Contact</a></div></nav><header class="hero"><div class="container hero-grid"><div><div class="eyebrow">Security Research · Offensive Labs · Pentesting Evidence</div><h1>Cybersecurity <span class="gradient-text">Writeups</span></h1><p class="lead">Una sección diseñada para reclutadores técnicos: cada laboratorio está convertido en una página web visual, filtrable y orientada a evidenciar metodología, explotación controlada, análisis de impacto y recomendaciones defensivas.</p><div class="hero-actions"><a class="btn btn-primary" href="#writeups">Explorar writeups</a><a class="btn btn-secondary" href="index.html">Volver al portfolio</a></div></div><aside class="terminal-panel"><div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="terminal-body"><p><span class="prompt">carlos@offsec:~$</span> cat methodology.txt</p><p class="comment">recon → enumerate → exploit → validate → privesc → document → mitigate</p><p><span class="prompt">$</span> ls categories/</p><p>web-security/ network-security/ wireless/ labs/ research/ crypto-evaluations/</p><div class="scanline"></div></div></aside></div><div class="container stats"><div class="stat"><strong>7</strong><span>interactive writeups</span></div><div class="stat"><strong>6+</strong><span>security domains</span></div><div class="stat"><strong>CTF</strong><span>lab methodology</span></div><div class="stat"><strong>PDF→HTML</strong><span>premium reading</span></div></div></header><main class="section" id="writeups"><div class="container"><div class="eyebrow">Filtered library</div><h2 class="section-title">Laboratorios convertidos en <span class="gradient-text">evidencia técnica.</span></h2><p class="lead">Busca por herramienta, técnica o categoría. Las versiones públicas redactan flags y credenciales para mantener una presentación profesional.</p><div class="toolbar"><input id="searchInput" class="search" type="search" placeholder="Buscar: LFI, Metasploit, WPA2, ARP, sudo, Wireshark..."><div class="filters"><button class="chip active" data-filter="all">Todos</button><button class="chip " data-filter="Web Security">Web Security</button><button class="chip " data-filter="Network Security">Network Security</button><button class="chip " data-filter="Wireless">Wireless</button><button class="chip " data-filter="Labs">Labs</button><button class="chip " data-filter="Security Research">Security Research</button><button class="chip " data-filter="Medium">Medium</button><button class="chip " data-filter="Hard">Hard</button><button class="chip " data-filter="Easy">Easy</button></div></div><div class="grid">
+<article class="card" data-card data-category="Web Security" data-difficulty="Medium" data-search="Snoopy: LFI, credential exposure &amp; Linux capabilities privesc Intrusión Linux desde reconocimiento web hasta root mediante LFI, exposición de credenciales y abuso de cap_setuid en Python. Web Security Medium LFI Nmap SSH Linux Capabilities Post-exploitation Nmap Apache SSH getcap Python">
+  <a href="writeups/snoopy-lfi-capabilities.html" aria-label="Leer Snoopy: LFI, credential exposure &amp; Linux capabilities privesc">
+    <div class="card-preview"><img src="assets/writeups/img/snoopy-lfi-capabilities-cover.png" alt="Preview del writeup Snoopy: LFI, credential exposure &amp; Linux capabilities privesc"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">🕸️</div><span class="badge">Web Security</span></div>
+      <h2>Snoopy: LFI, credential exposure &amp; Linux capabilities privesc</h2>
+      <p>Intrusión Linux desde reconocimiento web hasta root mediante LFI, exposición de credenciales y abuso de cap_setuid en Python.</p>
+      <div class="meta"><span>Medium</span><span>8 min</span><span>2026</span><span>Public redacted</span></div>
+      <div class="tag-strip"><span class="tag">LFI</span><span class="tag">Nmap</span><span class="tag">SSH</span><span class="tag">Linux</span></div>
+      <div class="card-foot"><span>Nmap · Apache · SSH</span><strong>Read Writeup →</strong></div>
+    </div>
   </a>
+</article>
 
-  <div class="nav-links">
-    <a href="index.html">Portfolio</a>
-    <a href="index.html#ctf">CTF</a>
-    <a href="index.html#writeups">Writeups</a>
-    <a href="index.html#contact">Contact</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container">
-    <div class="eyebrow">Security Research · Writeups</div>
-
-    <h1>
-      Writeups técnicos,
-      <span class="gradient-text">laboratorios y research.</span>
-    </h1>
-
-    <p class="lead">
-      Espacio para documentar máquinas, retos CTF, laboratorios de pentesting, hardening, análisis de vulnerabilidades, criptografía y seguridad de redes.
-    </p>
-
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="index.html">Volver al portfolio</a>
-      <a class="btn btn-secondary" href="#writeups">Ver writeups</a>
+<article class="card" data-card data-category="Network Security" data-difficulty="Medium" data-search="Defenestration: Windows Server compromise with Metasploit psexec Compromiso de Windows Server 2012 R2 mediante FTP anónimo, correlación de usuarios, credenciales reutilizadas y ejecución remota SMB. Network Security Medium Windows SMB FTP Metasploit psexec Meterpreter Nmap FTP client Metasploit SMB scanner Meterpreter">
+  <a href="writeups/windows-metasploit-psexec.html" aria-label="Leer Defenestration: Windows Server compromise with Metasploit psexec">
+    <div class="card-preview"><img src="assets/writeups/img/windows-metasploit-psexec-cover.png" alt="Preview del writeup Defenestration: Windows Server compromise with Metasploit psexec"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">🪟</div><span class="badge">Network Security</span></div>
+      <h2>Defenestration: Windows Server compromise with Metasploit psexec</h2>
+      <p>Compromiso de Windows Server 2012 R2 mediante FTP anónimo, correlación de usuarios, credenciales reutilizadas y ejecución remota SMB.</p>
+      <div class="meta"><span>Medium</span><span>9 min</span><span>2026</span><span>Public redacted</span></div>
+      <div class="tag-strip"><span class="tag">Windows</span><span class="tag">SMB</span><span class="tag">FTP</span><span class="tag">Metasploit</span></div>
+      <div class="card-foot"><span>Nmap · FTP client · Metasploit</span><strong>Read Writeup →</strong></div>
     </div>
-  </div>
-</header>
+  </a>
+</article>
 
-<main class="section" id="writeups">
-  <div class="container">
-
-    <div class="writeup-grid">
-
-      <article class="card">
-        <div class="card-icon">🕸️</div>
-        <span class="badge">WEB EXPLOITATION</span>
-
-        <h2>Web Exploitation Lab</h2>
-
-        <p>
-          Writeup sobre enumeración, explotación web, Burp Suite, SQLMap y análisis OWASP.
-        </p>
-
-        <div class="meta">
-          <span>Burp Suite</span>
-          <span>SQLMap</span>
-          <span>OWASP</span>
-        </div>
-
-        <a class="btn btn-secondary" href="writeups/web-exploitation-lab.pdf" target="_blank">
-          Leer writeup
-        </a>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🐧</div>
-        <span class="badge">LINUX HARDENING</span>
-
-        <h2>Linux Hardening</h2>
-
-        <p>
-          Checklist técnico de hardening Linux, SSH, permisos, logs, usuarios y firewall.
-        </p>
-
-        <div class="meta">
-          <span>Linux</span>
-          <span>SSH</span>
-          <span>Firewall</span>
-        </div>
-
-        <a class="btn btn-secondary" href="writeups/linux-hardening.pdf" target="_blank">
-          Leer writeup
-        </a>
-      </article>
-
-      <article class="card">
-        <div class="card-icon">🔐</div>
-        <span class="badge">CRYPTO · PKI</span>
-
-        <h2>Crypto / PKI Lab</h2>
-
-        <p>
-          Generación de CA, certificados, TLS, OpenSSL, cadenas de confianza y validación criptográfica.
-        </p>
-
-        <div class="meta">
-          <span>OpenSSL</span>
-          <span>TLS</span>
-          <span>PKI</span>
-        </div>
-
-        <a class="btn btn-secondary" href="writeups/crypto-pki-lab.pdf" target="_blank">
-          Leer writeup
-        </a>
-      </article>
-
+<article class="card" data-card data-category="Web Security" data-difficulty="Hard" data-search="Titanic: LFI to RCE through Apache log poisoning Cadena web completa: LFI, lectura de logs, User-Agent poisoning, reverse shell, credenciales internas y sudo awk. Web Security Hard LFI Log poisoning RCE Reverse shell sudo awk Nmap curl Apache logs netcat sudo -l awk">
+  <a href="writeups/titanic-lfi-log-poisoning.html" aria-label="Leer Titanic: LFI to RCE through Apache log poisoning">
+    <div class="card-preview"><img src="assets/writeups/img/titanic-lfi-log-poisoning-cover.png" alt="Preview del writeup Titanic: LFI to RCE through Apache log poisoning"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">🚢</div><span class="badge">Web Security</span></div>
+      <h2>Titanic: LFI to RCE through Apache log poisoning</h2>
+      <p>Cadena web completa: LFI, lectura de logs, User-Agent poisoning, reverse shell, credenciales internas y sudo awk.</p>
+      <div class="meta"><span>Hard</span><span>10 min</span><span>2026</span><span>Public redacted</span></div>
+      <div class="tag-strip"><span class="tag">LFI</span><span class="tag">Log poisoning</span><span class="tag">RCE</span><span class="tag">Reverse shell</span></div>
+      <div class="card-foot"><span>Nmap · curl · Apache logs</span><strong>Read Writeup →</strong></div>
     </div>
+  </a>
+</article>
 
-    <div class="empty-note">
-      <strong>Formato recomendado:</strong>
-      sube tus documentos exportados como PDF dentro de una carpeta llamada <code>writeups/</code> y actualiza el enlace de cada card. Por ejemplo:
-      <code>writeups/mi-writeup.pdf</code>.
+<article class="card" data-card data-category="Network Security" data-difficulty="Easy" data-search="ARP spoofing lab: MITM and FTP credential capture Laboratorio de red interna con Kali, Ubuntu y Alpine para demostrar ARP poisoning y captura de credenciales FTP en claro. Network Security Easy ARP MITM FTP Wireshark Ettercap Networking VirtualBox Kali Ettercap Wireshark FTP server">
+  <a href="writeups/arp-spoofing-ftp.html" aria-label="Leer ARP spoofing lab: MITM and FTP credential capture">
+    <div class="card-preview"><img src="assets/writeups/img/arp-spoofing-ftp-cover.png" alt="Preview del writeup ARP spoofing lab: MITM and FTP credential capture"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">🧬</div><span class="badge">Network Security</span></div>
+      <h2>ARP spoofing lab: MITM and FTP credential capture</h2>
+      <p>Laboratorio de red interna con Kali, Ubuntu y Alpine para demostrar ARP poisoning y captura de credenciales FTP en claro.</p>
+      <div class="meta"><span>Easy</span><span>7 min</span><span>2026</span><span>Public redacted</span></div>
+      <div class="tag-strip"><span class="tag">ARP</span><span class="tag">MITM</span><span class="tag">FTP</span><span class="tag">Wireshark</span></div>
+      <div class="card-foot"><span>VirtualBox · Kali · Ettercap</span><strong>Read Writeup →</strong></div>
     </div>
+  </a>
+</article>
 
-  </div>
-</main>
+<article class="card" data-card data-category="Labs" data-difficulty="Easy" data-search="Pentbox honeypot: low-interaction intrusion detection lab Despliegue de un honeypot de baja interacción para detectar accesos no autorizados y registrar IP, puerto y User-Agent. Labs Easy Honeypot Detection Pentbox Ruby Network Security Ubuntu Kali Pentbox 1.8 Ruby Firefox">
+  <a href="writeups/honeypot-pentbox.html" aria-label="Leer Pentbox honeypot: low-interaction intrusion detection lab">
+    <div class="card-preview"><img src="assets/writeups/img/honeypot-pentbox-cover.png" alt="Preview del writeup Pentbox honeypot: low-interaction intrusion detection lab"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">🍯</div><span class="badge">Labs</span></div>
+      <h2>Pentbox honeypot: low-interaction intrusion detection lab</h2>
+      <p>Despliegue de un honeypot de baja interacción para detectar accesos no autorizados y registrar IP, puerto y User-Agent.</p>
+      <div class="meta"><span>Easy</span><span>5 min</span><span>2026</span><span>Public</span></div>
+      <div class="tag-strip"><span class="tag">Honeypot</span><span class="tag">Detection</span><span class="tag">Pentbox</span><span class="tag">Ruby</span></div>
+      <div class="card-foot"><span>Ubuntu · Kali · Pentbox 1.8</span><strong>Read Writeup →</strong></div>
+    </div>
+  </a>
+</article>
 
-<footer>
-  © 2026 Carlos López Jiménez · Writeups / Offensive Security / Research
-</footer>
+<article class="card" data-card data-category="Wireless" data-difficulty="Medium" data-search="WPA2-PSK audit: handshake capture, cracking and traffic decryption Auditoría WiFi completa: modo monitor, airodump, deauth, 4-way handshake, aircrack-ng, airdecap-ng y análisis HTTP en Wireshark. Wireless Medium WPA2 Handshake Deauth Aircrack-ng Wireshark 802.11 airmon-ng airodump-ng aireplay-ng aircrack-ng airdecap-ng Wireshark">
+  <a href="writeups/wpa2-handshake-cracking.html" aria-label="Leer WPA2-PSK audit: handshake capture, cracking and traffic decryption">
+    <div class="card-preview"><img src="assets/writeups/img/wpa2-handshake-cracking-cover.png" alt="Preview del writeup WPA2-PSK audit: handshake capture, cracking and traffic decryption"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">📡</div><span class="badge">Wireless</span></div>
+      <h2>WPA2-PSK audit: handshake capture, cracking and traffic decryption</h2>
+      <p>Auditoría WiFi completa: modo monitor, airodump, deauth, 4-way handshake, aircrack-ng, airdecap-ng y análisis HTTP en Wireshark.</p>
+      <div class="meta"><span>Medium</span><span>9 min</span><span>2026</span><span>Public redacted</span></div>
+      <div class="tag-strip"><span class="tag">WPA2</span><span class="tag">Handshake</span><span class="tag">Deauth</span><span class="tag">Aircrack-ng</span></div>
+      <div class="card-foot"><span>airmon-ng · airodump-ng · aireplay-ng</span><strong>Read Writeup →</strong></div>
+    </div>
+  </a>
+</article>
 
-</body>
-</html>
+<article class="card" data-card data-category="Security Research" data-difficulty="Medium" data-search="Estonia 2007: DDoS campaign and cyber resilience case study Análisis técnico-estratégico del ciberataque a Estonia de 2007: DDoS, impacto nacional, atribución compleja y evolución de la ciberdefensa. Security Research Medium DDoS Cyberwarfare Resilience NATO Tallinn Manual Threat analysis Incident review Strategic security">
+  <a href="writeups/estonia-ddos-case-study.html" aria-label="Leer Estonia 2007: DDoS campaign and cyber resilience case study">
+    <div class="card-preview"><img src="assets/writeups/img/estonia-ddos-case-study-cover.png" alt="Preview del writeup Estonia 2007: DDoS campaign and cyber resilience case study"></div>
+    <div class="card-body">
+      <div class="card-top"><div class="icon">🌍</div><span class="badge">Security Research</span></div>
+      <h2>Estonia 2007: DDoS campaign and cyber resilience case study</h2>
+      <p>Análisis técnico-estratégico del ciberataque a Estonia de 2007: DDoS, impacto nacional, atribución compleja y evolución de la ciberdefensa.</p>
+      <div class="meta"><span>Medium</span><span>6 min</span><span>2026</span><span>Public</span></div>
+      <div class="tag-strip"><span class="tag">DDoS</span><span class="tag">Cyberwarfare</span><span class="tag">Resilience</span><span class="tag">NATO</span></div>
+      <div class="card-foot"><span>Threat analysis · Incident review · Strategic security</span><strong>Read Writeup →</strong></div>
+    </div>
+  </a>
+</article></div><div id="emptyState" class="empty">No hay writeups que coincidan con la búsqueda o filtro seleccionado.</div></div></main><footer class="page-footer">© 2026 Carlos López Jiménez · Offensive Security · Product Security · Security Research</footer><script src="assets/writeups/writeups.js"></script></body></html>
