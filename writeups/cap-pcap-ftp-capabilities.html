@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>CAP: insecure packet capture exposure, FTP credential reuse and cap_setuid privesc | Carlos López Jiménez</title>
-  <meta content="Intrusión Linux a partir de un panel web con capturas históricas expuestas, recuperación de credenciales FTP en claro y escalada a root mediante cap_setuid en Python." name="description"/>
+  <title>CAP: insecure packet capture exposure, FTP credential reuse and cap_setuid privesc | Carlos LÃ³pez JimÃ©nez</title>
+  <meta content="IntrusiÃ³n Linux a partir de un panel web con capturas histÃ³ricas expuestas, recuperaciÃ³n de credenciales FTP en claro y escalada a root mediante cap_setuid en Python." name="description"/>
   <meta content="CAP: insecure packet capture exposure, FTP credential reuse and cap_setuid privesc" property="og:title"/>
-  <meta content="Intrusión Linux a partir de un panel web con capturas históricas expuestas, recuperación de credenciales FTP en claro y escalada a root mediante cap_setuid en Python." property="og:description"/>
+  <meta content="IntrusiÃ³n Linux a partir de un panel web con capturas histÃ³ricas expuestas, recuperaciÃ³n de credenciales FTP en claro y escalada a root mediante cap_setuid en Python." property="og:description"/>
   <meta content="article" property="og:type"/>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -17,7 +17,7 @@
 </head>
 <body>
   <nav class="nav">
-    <a class="brand" href="../index.html"><span class="brand-mark">CL</span><span>Carlos López</span></a>
+    <a class="brand" href="../index.html"><span class="brand-mark">CL</span><span>Carlos LÃ³pez</span></a>
     <div class="nav-links">
       <a href="../index.html">Portfolio</a>
       <a class="active" href="../writeups.html">Writeups</a>
@@ -27,10 +27,10 @@
 
   <header class="detail-hero">
     <div class="container">
-      <div class="breadcrumb"><a href="../writeups.html">← Cybersecurity Writeups</a> / Web Security</div>
-      <div class="eyebrow">Web Security · Easy · 8 min</div>
+      <div class="breadcrumb"><a href="../writeups.html">â† Cybersecurity Writeups</a> / Web Security</div>
+      <div class="eyebrow">Web Security Â· Easy Â· 8 min</div>
       <h1>CAP: insecure packet capture exposure, FTP credential reuse and cap_setuid privesc</h1>
-      <p class="lead">Intrusión Linux a partir de un panel web con capturas históricas expuestas, recuperación de credenciales FTP en claro y escalada a root mediante <code>cap_setuid</code> en Python.</p>
+      <p class="lead">IntrusiÃ³n Linux a partir de un panel web con capturas histÃ³ricas expuestas, recuperaciÃ³n de credenciales FTP en claro y escalada a root mediante <code>cap_setuid</code> en Python.</p>
       <div class="tag-strip">
         <span class="tag">IDOR</span>
         <span class="tag">PCAP</span>
@@ -59,24 +59,24 @@
           <div class="mini"><span>Privilege path</span><strong>cap_setuid on python3.8</strong></div>
         </div>
 
-        <div class="callout"><strong>Versión pública profesional:</strong> la contraseña FTP y las flags visibles en las capturas se han saneado antes de publicarlas, pero la cadena técnica se mantiene intacta.</div>
+        <div class="callout"><strong>VersiÃ³n pÃºblica profesional:</strong> la contraseÃ±a FTP y las flags visibles en las capturas se han saneado antes de publicarlas, pero la cadena tÃ©cnica se mantiene intacta.</div>
 
         <h2 id="executive-summary">Executive summary</h2>
-        <p>La máquina CAP cae por una cadena corta pero muy pedagógica: primero se identifica un panel web de monitorización accesible en el puerto 80; después se enumeran rutas funcionales del dashboard, incluyendo vistas de red y capturas históricas; una captura antigua permite recuperar credenciales FTP transmitidas en claro; esas credenciales se reutilizan por SSH y, ya dentro del sistema, una capability peligrosa asignada a Python permite elevar privilegios a root.</p>
+        <p>La mÃ¡quina CAP cae por una cadena corta pero muy pedagÃ³gica: primero se identifica un panel web de monitorizaciÃ³n accesible en el puerto 80; despuÃ©s se enumeran rutas funcionales del dashboard, incluyendo vistas de red y capturas histÃ³ricas; una captura antigua permite recuperar credenciales FTP transmitidas en claro; esas credenciales se reutilizan por SSH y, ya dentro del sistema, una capability peligrosa asignada a Python permite elevar privilegios a root.</p>
 
         <h2 id="attack-path">Attack path</h2>
-        <p>El escaneo inicial revela <code>21/tcp</code>, <code>22/tcp</code> y <code>80/tcp</code>. Gobuster descubre <code>/ip</code>, <code>/netstat</code> y la sección <code>/data</code>. El panel expone información operativa del host y, razonando sobre referencias directas previsibles, se accede a una captura anterior que contiene una sesión FTP con autenticación en claro. La credencial se valida por SSH sobre el usuario <code>nathan</code> y la escalada final se consigue abusando de <code>cap_setuid</code> en <code>/usr/bin/python3.8</code>.</p>
+        <p>El escaneo inicial revela <code>21/tcp</code>, <code>22/tcp</code> y <code>80/tcp</code>. Gobuster descubre <code>/ip</code>, <code>/netstat</code> y la secciÃ³n <code>/data</code>. El panel expone informaciÃ³n operativa del host y, razonando sobre referencias directas previsibles, se accede a una captura anterior que contiene una sesiÃ³n FTP con autenticaciÃ³n en claro. La credencial se valida por SSH sobre el usuario <code>nathan</code> y la escalada final se consigue abusando de <code>cap_setuid</code> en <code>/usr/bin/python3.8</code>.</p>
 
         <h2 id="recruiter-signal">Recruiter signal</h2>
-        <p>Este writeup muestra un tipo de razonamiento valioso en entornos reales: no se depende de un exploit remoto complejo, sino de correlacionar exposición web, fuga de telemetría, análisis de tráfico y hardening deficiente del sistema operativo.</p>
+        <p>Este writeup muestra un tipo de razonamiento valioso en entornos reales: no se depende de un exploit remoto complejo, sino de correlacionar exposiciÃ³n web, fuga de telemetrÃ­a, anÃ¡lisis de trÃ¡fico y hardening deficiente del sistema operativo.</p>
 
         <h2 id="commands">Command notebook</h2>
-        <p>Comandos representativos del laboratorio. Se mantienen los pasos, pero los secretos se omiten en la versión pública.</p>
+        <p>Comandos representativos del laboratorio. Se mantienen los pasos, pero los secretos se omiten en la versiÃ³n pÃºblica.</p>
         <div class="code"><pre>nmap -sV -sS 10.129.65.25
 gobuster dir -u http://10.129.65.25/ -w /usr/share/wordlists/dirb/common.txt -o gobuster_cap.txt
 curl http://10.129.65.25/ip
 curl http://10.129.65.25/netstat
-# desde el panel se localiza y descarga una captura histórica (0.pcap)
+# desde el panel se localiza y descarga una captura histÃ³rica (0.pcap)
 wireshark 0.pcap
 ssh nathan@10.129.65.25   # password redacted in public version
 getcap -r / 2&gt;/dev/null
@@ -88,11 +88,11 @@ getcap -r / 2&gt;/dev/null
             <div class="evidence-step-num">01</div>
             <div class="evidence-step-body">
               <h3>Reconocimiento de red y servicios</h3>
-              <p>La validación de conectividad seguida de <code>nmap -sV -sS</code> muestra una superficie pequeña y muy enfocada: <code>vsftpd 3.0.3</code>, <code>OpenSSH 8.2p1</code> y una aplicación web servida por Gunicorn. La conclusión aquí es que la entrada más prometedora está en la web, pero el FTP puede terminar siendo importante si más adelante aparecen credenciales.</p>
-              <div class="evidence-note">Razonamiento: con solo tres servicios expuestos conviene priorizar la aplicación web y guardar FTP/SSH como posibles pivotes.</div>
+              <p>La validaciÃ³n de conectividad seguida de <code>nmap -sV -sS</code> muestra una superficie pequeÃ±a y muy enfocada: <code>vsftpd 3.0.3</code>, <code>OpenSSH 8.2p1</code> y una aplicaciÃ³n web servida por Gunicorn. La conclusiÃ³n aquÃ­ es que la entrada mÃ¡s prometedora estÃ¡ en la web, pero el FTP puede terminar siendo importante si mÃ¡s adelante aparecen credenciales.</p>
+              <div class="evidence-note">Razonamiento: con solo tres servicios expuestos conviene priorizar la aplicaciÃ³n web y guardar FTP/SSH como posibles pivotes.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 01 - CAP" src="../assets/writeups/img/cap-recon-nmap.png" data-glightbox/>
-                <figcaption>Nmap identifica el trío de servicios que define toda la cadena de compromiso: FTP, SSH y dashboard web.</figcaption>
+                <figcaption>Nmap identifica el trÃ­o de servicios que define toda la cadena de compromiso: FTP, SSH y dashboard web.</figcaption>
               </figure>
             </div>
           </div>
@@ -101,8 +101,8 @@ getcap -r / 2&gt;/dev/null
             <div class="evidence-step-num">02</div>
             <div class="evidence-step-body">
               <h3>Perfilado del dashboard y descubrimiento de rutas</h3>
-              <p>La interfaz web presenta un panel de seguridad aparentemente legítimo, con secciones de snapshot, análisis y estado de red. Al complementar la navegación manual con Gobuster aparecen rutas muy reveladoras: <code>/data</code>, <code>/ip</code> y <code>/netstat</code>. Eso sugiere que la aplicación expone información interna del host sin demasiada separación entre frontend y backend.</p>
-              <div class="evidence-note">Razonamiento: cuando un dashboard enseña métricas operativas, las rutas auxiliares suelen filtrar más información de la que aparenta la portada.</div>
+              <p>La interfaz web presenta un panel de seguridad aparentemente legÃ­timo, con secciones de snapshot, anÃ¡lisis y estado de red. Al complementar la navegaciÃ³n manual con Gobuster aparecen rutas muy reveladoras: <code>/data</code>, <code>/ip</code> y <code>/netstat</code>. Eso sugiere que la aplicaciÃ³n expone informaciÃ³n interna del host sin demasiada separaciÃ³n entre frontend y backend.</p>
+              <div class="evidence-note">Razonamiento: cuando un dashboard enseÃ±a mÃ©tricas operativas, las rutas auxiliares suelen filtrar mÃ¡s informaciÃ³n de la que aparenta la portada.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 02 - CAP" src="../assets/writeups/img/cap-gobuster.png" data-glightbox/>
                 <figcaption>Gobuster descubre endpoints funcionales del panel, incluyendo la zona de datos y vistas de red.</figcaption>
@@ -113,12 +113,12 @@ getcap -r / 2&gt;/dev/null
           <div class="evidence-step">
             <div class="evidence-step-num">03</div>
             <div class="evidence-step-body">
-              <h3>Fuga directa de configuración de red</h3>
-              <p>La ruta <code>/ip</code> devuelve la salida de la configuración de interfaces del servidor. No es todavía una vía de ejecución, pero sí una confirmación de que el dashboard está renderizando salidas del sistema de forma casi cruda. Ese patrón suele acompañar fallos de control de acceso o referencias inseguras en otras secciones.</p>
-              <div class="evidence-note">Razonamiento: si el panel publica <code>ifconfig</code>, merece la pena probar si también conserva capturas anteriores o salidas de diagnóstico reutilizables.</div>
+              <h3>Fuga directa de configuraciÃ³n de red</h3>
+              <p>La ruta <code>/ip</code> devuelve la salida de la configuraciÃ³n de interfaces del servidor. No es todavÃ­a una vÃ­a de ejecuciÃ³n, pero sÃ­ una confirmaciÃ³n de que el dashboard estÃ¡ renderizando salidas del sistema de forma casi cruda. Ese patrÃ³n suele acompaÃ±ar fallos de control de acceso o referencias inseguras en otras secciones.</p>
+              <div class="evidence-note">Razonamiento: si el panel publica <code>ifconfig</code>, merece la pena probar si tambiÃ©n conserva capturas anteriores o salidas de diagnÃ³stico reutilizables.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 03 - CAP" src="../assets/writeups/img/cap-ip-leak.png" data-glightbox/>
-                <figcaption>La vista <code>/ip</code> expone la interfaz <code>eth0</code>, la dirección de la máquina y otros detalles internos.</figcaption>
+                <figcaption>La vista <code>/ip</code> expone la interfaz <code>eth0</code>, la direcciÃ³n de la mÃ¡quina y otros detalles internos.</figcaption>
               </figure>
             </div>
           </div>
@@ -126,12 +126,12 @@ getcap -r / 2&gt;/dev/null
           <div class="evidence-step">
             <div class="evidence-step-num">04</div>
             <div class="evidence-step-body">
-              <h3>Confirmación de telemetría sensible en <code>/netstat</code></h3>
-              <p>La sección <code>/netstat</code> enseña conexiones activas, puertos en escucha y sockets Unix. Ver esa salida desde el navegador confirma que la aplicación no solo resume datos, sino que expone artefactos operativos completos. Ese contexto refuerza la hipótesis de que la sección de capturas puede almacenar ficheros accesibles por identificadores previsibles.</p>
-              <div class="evidence-note">Razonamiento: si el mismo panel publica netstat sin filtrar, es razonable buscar referencias históricas reutilizando IDs o capturas previas.</div>
+              <h3>ConfirmaciÃ³n de telemetrÃ­a sensible en <code>/netstat</code></h3>
+              <p>La secciÃ³n <code>/netstat</code> enseÃ±a conexiones activas, puertos en escucha y sockets Unix. Ver esa salida desde el navegador confirma que la aplicaciÃ³n no solo resume datos, sino que expone artefactos operativos completos. Ese contexto refuerza la hipÃ³tesis de que la secciÃ³n de capturas puede almacenar ficheros accesibles por identificadores previsibles.</p>
+              <div class="evidence-note">Razonamiento: si el mismo panel publica netstat sin filtrar, es razonable buscar referencias histÃ³ricas reutilizando IDs o capturas previas.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 04 - CAP" src="../assets/writeups/img/cap-netstat-leak.png" data-glightbox/>
-                <figcaption>La vista <code>/netstat</code> expone procesos y conexiones del host directamente en la aplicación web.</figcaption>
+                <figcaption>La vista <code>/netstat</code> expone procesos y conexiones del host directamente en la aplicaciÃ³n web.</figcaption>
               </figure>
             </div>
           </div>
@@ -139,12 +139,12 @@ getcap -r / 2&gt;/dev/null
           <div class="evidence-step">
             <div class="evidence-step-num">05</div>
             <div class="evidence-step-body">
-              <h3>Acceso a una captura histórica y análisis de tráfico</h3>
-              <p>Desde la zona de datos del dashboard se localiza una captura previa, <code>0.pcap</code>. Al abrirla en Wireshark se observa una secuencia HTTP inicial y, poco después, una sesión FTP completa. El paso clave aquí es pensar que un sistema de monitorización suele conservar artefactos anteriores y que un identificador bajo puede pertenecer a una sesión ajena ya registrada.</p>
-              <div class="evidence-note">Razonamiento: el valor real no estaba en la captura más reciente, sino en una anterior accesible mediante referencia directa predecible.</div>
+              <h3>Acceso a una captura histÃ³rica y anÃ¡lisis de trÃ¡fico</h3>
+              <p>Desde la zona de datos del dashboard se localiza una captura previa, <code>0.pcap</code>. Al abrirla en Wireshark se observa una secuencia HTTP inicial y, poco despuÃ©s, una sesiÃ³n FTP completa. El paso clave aquÃ­ es pensar que un sistema de monitorizaciÃ³n suele conservar artefactos anteriores y que un identificador bajo puede pertenecer a una sesiÃ³n ajena ya registrada.</p>
+              <div class="evidence-note">Razonamiento: el valor real no estaba en la captura mÃ¡s reciente, sino en una anterior accesible mediante referencia directa predecible.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 05 - CAP" src="../assets/writeups/img/cap-pcap-analysis.png" data-glightbox/>
-                <figcaption>La captura histórica revela tráfico FTP en claro dentro de la evidencia almacenada por el propio panel.</figcaption>
+                <figcaption>La captura histÃ³rica revela trÃ¡fico FTP en claro dentro de la evidencia almacenada por el propio panel.</figcaption>
               </figure>
             </div>
           </div>
@@ -152,12 +152,12 @@ getcap -r / 2&gt;/dev/null
           <div class="evidence-step">
             <div class="evidence-step-num">06</div>
             <div class="evidence-step-body">
-              <h3>Extracción de credenciales FTP en claro</h3>
-              <p>Siguiendo la secuencia TCP del flujo FTP aparecen los comandos <code>USER</code> y <code>PASS</code> junto con la respuesta <code>230 Login successful</code>. La contraseña real se oculta en la publicación, pero la evidencia deja claro que el servicio transmite credenciales sin cifrado y que son reutilizables fuera de FTP.</p>
-              <div class="evidence-note">Razonamiento: la captura no se usa solo para “ver tráfico”, sino para transformar un hallazgo pasivo en una credencial válida para acceso interactivo.</div>
+              <h3>ExtracciÃ³n de credenciales FTP en claro</h3>
+              <p>Siguiendo la secuencia TCP del flujo FTP aparecen los comandos <code>USER</code> y <code>PASS</code> junto con la respuesta <code>230 Login successful</code>. La contraseÃ±a real se oculta en la publicaciÃ³n, pero la evidencia deja claro que el servicio transmite credenciales sin cifrado y que son reutilizables fuera de FTP.</p>
+              <div class="evidence-note">Razonamiento: la captura no se usa solo para â€œver trÃ¡ficoâ€, sino para transformar un hallazgo pasivo en una credencial vÃ¡lida para acceso interactivo.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 06 - CAP" src="../assets/writeups/img/cap-ftp-stream.png" data-glightbox/>
-                <figcaption>Seguimiento de la sesión FTP con los campos de autenticación visibles y saneados para publicación.</figcaption>
+                <figcaption>Seguimiento de la sesiÃ³n FTP con los campos de autenticaciÃ³n visibles y saneados para publicaciÃ³n.</figcaption>
               </figure>
             </div>
           </div>
@@ -165,12 +165,12 @@ getcap -r / 2&gt;/dev/null
           <div class="evidence-step">
             <div class="evidence-step-num">07</div>
             <div class="evidence-step-body">
-              <h3>Acceso inicial por SSH con reutilización de credenciales</h3>
-              <p>La credencial recuperada se valida por SSH contra el usuario <code>nathan</code>. Una vez dentro, se confirma el acceso al directorio personal y la presencia de <code>user.txt</code>. Esto demuestra que una exposición aparentemente “solo de monitorización” termina comprometiendo una cuenta real del sistema.</p>
-              <div class="evidence-note">Razonamiento: la prueba importante no era autenticarse por FTP otra vez, sino comprobar reutilización de credenciales en un servicio con shell interactiva.</div>
+              <h3>Acceso inicial por SSH con reutilizaciÃ³n de credenciales</h3>
+              <p>La credencial recuperada se valida por SSH contra el usuario <code>nathan</code>. Una vez dentro, se confirma el acceso al directorio personal y la presencia de <code>user.txt</code>. Esto demuestra que una exposiciÃ³n aparentemente â€œsolo de monitorizaciÃ³nâ€ termina comprometiendo una cuenta real del sistema.</p>
+              <div class="evidence-note">Razonamiento: la prueba importante no era autenticarse por FTP otra vez, sino comprobar reutilizaciÃ³n de credenciales en un servicio con shell interactiva.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 07 - CAP" src="../assets/writeups/img/cap-user-flag.png" data-glightbox/>
-                <figcaption>Acceso SSH como <code>nathan</code> y validación de la primera flag, con el valor oculto.</figcaption>
+                <figcaption>Acceso SSH como <code>nathan</code> y validaciÃ³n de la primera flag, con el valor oculto.</figcaption>
               </figure>
             </div>
           </div>
@@ -178,12 +178,12 @@ getcap -r / 2&gt;/dev/null
           <div class="evidence-step">
             <div class="evidence-step-num">08</div>
             <div class="evidence-step-body">
-              <h3>Enumeración local y escalada mediante Linux capabilities</h3>
-              <p>La cuenta <code>nathan</code> no tiene permisos útiles en <code>sudo</code>, así que la enumeración pasa por revisar SUID, capacidades y binarios interesantes. <code>getcap -r / 2&gt;/dev/null</code> revela <code>cap_setuid+eip</code> sobre <code>/usr/bin/python3.8</code>, lo que permite cambiar el UID efectivo a <code>0</code> y abrir una shell root de forma directa.</p>
-              <div class="evidence-note">Razonamiento: al agotarse sudo, las capabilities ofrecen una vía de privesc menos ruidosa y muy efectiva cuando recaen sobre intérpretes.</div>
+              <h3>EnumeraciÃ³n local y escalada mediante Linux capabilities</h3>
+              <p>La cuenta <code>nathan</code> no tiene permisos Ãºtiles en <code>sudo</code>, asÃ­ que la enumeraciÃ³n pasa por revisar SUID, capacidades y binarios interesantes. <code>getcap -r / 2&gt;/dev/null</code> revela <code>cap_setuid+eip</code> sobre <code>/usr/bin/python3.8</code>, lo que permite cambiar el UID efectivo a <code>0</code> y abrir una shell root de forma directa.</p>
+              <div class="evidence-note">Razonamiento: al agotarse sudo, las capabilities ofrecen una vÃ­a de privesc menos ruidosa y muy efectiva cuando recaen sobre intÃ©rpretes.</div>
               <figure class="step-evidence">
                 <img alt="Evidencia paso 08 - CAP" src="../assets/writeups/img/cap-root-privesc.png" data-glightbox/>
-                <figcaption>Detección de <code>cap_setuid</code> en Python, shell root y lectura saneada de <code>root.txt</code>.</figcaption>
+                <figcaption>DetecciÃ³n de <code>cap_setuid</code> en Python, shell root y lectura saneada de <code>root.txt</code>.</figcaption>
               </figure>
             </div>
           </div>
@@ -193,15 +193,15 @@ getcap -r / 2&gt;/dev/null
         <div class="accordion">
           <details open="">
             <summary>The dashboard exposed historical packet captures through predictable references.</summary>
-            <p>El problema principal no era solo “mostrar métricas”, sino publicar artefactos de red anteriores sin control de acceso fuerte ni aislamiento entre usuarios o sesiones.</p>
+            <p>El problema principal no era solo â€œmostrar mÃ©tricasâ€, sino publicar artefactos de red anteriores sin control de acceso fuerte ni aislamiento entre usuarios o sesiones.</p>
           </details>
           <details open="">
             <summary>FTP credentials were transmitted in clear text and reused on SSH.</summary>
-            <p>La reutilización de la misma contraseña entre servicios convirtió una simple captura pasiva en acceso shell real al sistema.</p>
+            <p>La reutilizaciÃ³n de la misma contraseÃ±a entre servicios convirtiÃ³ una simple captura pasiva en acceso shell real al sistema.</p>
           </details>
           <details open="">
             <summary>A Python interpreter with cap_setuid enabled trivial root escalation.</summary>
-            <p>Asignar capabilities potentes a intérpretes generalistas elimina gran parte de la separación de privilegios del sistema.</p>
+            <p>Asignar capabilities potentes a intÃ©rpretes generalistas elimina gran parte de la separaciÃ³n de privilegios del sistema.</p>
           </details>
         </div>
 
@@ -209,27 +209,27 @@ getcap -r / 2&gt;/dev/null
         <div class="evidence-grid">
           <figure class="evidence">
             <img alt="Evidencia del laboratorio CAP" src="../assets/writeups/img/cap-pcap-analysis.png" data-glightbox/>
-            <figcaption>Captura histórica abierta en Wireshark desde la evidencia almacenada por la aplicación.</figcaption>
+            <figcaption>Captura histÃ³rica abierta en Wireshark desde la evidencia almacenada por la aplicaciÃ³n.</figcaption>
           </figure>
           <figure class="evidence">
             <img alt="Evidencia del laboratorio CAP" src="../assets/writeups/img/cap-ftp-stream.png" data-glightbox/>
-            <figcaption>Secuencia FTP con autenticación visible y secreto oculto.</figcaption>
+            <figcaption>Secuencia FTP con autenticaciÃ³n visible y secreto oculto.</figcaption>
           </figure>
           <figure class="evidence">
             <img alt="Evidencia del laboratorio CAP" src="../assets/writeups/img/cap-user-flag.png" data-glightbox/>
-            <figcaption>Prueba de acceso inicial por SSH al usuario de la máquina.</figcaption>
+            <figcaption>Prueba de acceso inicial por SSH al usuario de la mÃ¡quina.</figcaption>
           </figure>
           <figure class="evidence">
             <img alt="Evidencia del laboratorio CAP" src="../assets/writeups/img/cap-root-privesc.png" data-glightbox/>
-            <figcaption>Enumeración de capabilities y verificación de root con la flag saneada.</figcaption>
+            <figcaption>EnumeraciÃ³n de capabilities y verificaciÃ³n de root con la flag saneada.</figcaption>
           </figure>
         </div>
 
         <h2 id="mitigation">Remediation notes</h2>
         <ul>
           <li>Aplicar control de acceso real sobre capturas, snapshots y rutas operativas del dashboard.</li>
-          <li>Eliminar FTP en texto claro o sustituirlo por SFTP/FTPS con rotación de credenciales.</li>
-          <li>Auditar Linux capabilities y retirar <code>cap_setuid</code> de intérpretes y binarios no esenciales.</li>
+          <li>Eliminar FTP en texto claro o sustituirlo por SFTP/FTPS con rotaciÃ³n de credenciales.</li>
+          <li>Auditar Linux capabilities y retirar <code>cap_setuid</code> de intÃ©rpretes y binarios no esenciales.</li>
         </ul>
       </div>
     </article>
@@ -247,8 +247,9 @@ getcap -r / 2&gt;/dev/null
     </aside>
   </main>
 
-  <footer class="page-footer">© 2026 Carlos López Jiménez · Cybersecurity Writeups</footer>
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/glightbox.min.js"></script>
+  <footer class="page-footer">Â© 2026 Carlos LÃ³pez JimÃ©nez Â· Cybersecurity Writeups</footer>
+  <script src="../assets/writeups/writeup-evidence-data.js"></script><script src="../assets/writeups/writeup-evidence.js"></script><script src="https://cdn.jsdelivr.net/npm/glightbox/dist/glightbox.min.js"></script>
   <script>const lightbox = GLightbox({});</script>
 </body>
 </html>
+

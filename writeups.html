@@ -1,90 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cybersecurity Writeups | Carlos López Jiménez</title>
-  <meta name="description" content="Biblioteca profesional de writeups de ciberseguridad ofensiva: web exploitation, Linux privesc, wireless, red team y laboratorios técnicos preparados para lectura web.">
-  <meta property="og:title" content="Cybersecurity Writeups | Carlos López Jiménez">
-  <meta property="og:description" content="Writeups visuales, estructurados y orientados a reclutadores técnicos de offensive security.">
-  <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/writeups/writeups.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writeups | Carlos López Jiménez</title>
+  <meta
+    name="description"
+    content="Biblioteca de writeups de ciberseguridad con foco en lectura clara, filtros simples y evidencias saneadas."
+  />
+  <meta property="og:title" content="Writeups | Carlos López Jiménez" />
+  <meta
+    property="og:description"
+    content="Writeups de offensive security preparados para revisión rápida y lectura web."
+  />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/writeups/writeups.css" />
 </head>
 <body>
   <nav class="nav">
-    <a class="brand" href="index.html"><span class="brand-mark">CL</span><span>Carlos López</span></a>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">CL</span>
+      <span>Carlos López</span>
+    </a>
     <div class="nav-links">
       <a href="index.html">Portfolio</a>
-      <a href="index.html#about">Sobre mí</a>
       <a class="active" href="writeups.html">Writeups</a>
       <a href="index.html#contact">Contacto</a>
     </div>
   </nav>
 
   <header class="hero library-hero">
-    <div class="container hero-grid">
+    <div class="container library-header">
       <div>
-        <div class="eyebrow">Offensive Security · Fast Reading · Technical Evidence</div>
-        <h1>Cybersecurity <span class="gradient-text">Writeups</span></h1>
-        <p class="lead">Biblioteca pensada para reclutadores y perfiles técnicos: cada writeup se puede revisar rápido, con contexto, etiquetas técnicas, dificultad, tiempo de lectura, comandos, fases de compromiso y evidencias saneadas.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#writeupsGrid">Explorar biblioteca</a>
-          <a class="btn btn-secondary" href="index.html">Volver al portfolio</a>
-        </div>
+        <p class="eyebrow">Writeups</p>
+        <h1>Biblioteca simple, técnica y fácil de leer.</h1>
+        <p class="lead">
+          Cada writeup muestra lo esencial: categoría, dificultad, resumen, tags y acceso
+          al detalle completo con evidencias web-first y contenido saneado.
+        </p>
       </div>
 
-      <aside class="terminal-panel library-panel">
-        <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <div class="terminal-body">
-          <p><span class="prompt">carlos@writeups:~$</span> cat review-notes.txt</p>
-          <p class="comment">web-first reading · no embedded PDFs · sanitized evidence · recruiter-friendly signal</p>
-          <div class="library-kpis">
-            <div class="mini"><span>Writeups</span><strong id="metricWriteups">0</strong></div>
-            <div class="mini"><span>Domains</span><strong id="metricDomains">0</strong></div>
-            <div class="mini"><span>Tags</span><strong id="metricTags">0</strong></div>
-            <div class="mini"><span>Avg read</span><strong id="metricTime">n/a</strong></div>
-          </div>
+      <div class="library-stats">
+        <div class="mini">
+          <span>Writeups</span>
+          <strong id="metricWriteups">0</strong>
         </div>
-      </aside>
+        <div class="mini">
+          <span>Áreas</span>
+          <strong id="metricDomains">0</strong>
+        </div>
+        <div class="mini">
+          <span>Tiempo medio</span>
+          <strong id="metricTime">n/a</strong>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
-      <section class="spotlight-shell" id="spotlightCard"></section>
-
-      <section class="library-intro-block">
-        <div>
-          <div class="eyebrow">Quick Assessment</div>
-          <h2 class="section-title">Lectura rápida para evaluar perfil técnico.</h2>
-          <p class="lead">Los writeups se pueden filtrar por categoría y dificultad, buscar por tecnología o técnica, y revisar en pocos minutos antes de abrir el detalle completo.</p>
+      <section class="toolbar-simple">
+        <div class="toolbar-field toolbar-field-wide">
+          <label class="toolbar-label" for="searchInput">Buscar</label>
+          <input
+            id="searchInput"
+            class="search"
+            type="search"
+            placeholder="LFI, Linux, Wireshark, Metasploit, Gobuster..."
+          />
         </div>
-        <aside class="library-side-note">
-          <h3>Qué contiene cada writeup</h3>
-          <ul>
-            <li>Título, categoría, dificultad, fecha y tiempo estimado.</li>
-            <li>Resumen ejecutivo y fases de ataque bien separadas.</li>
-            <li>Comandos resaltados y capturas integradas.</li>
-            <li>Hallazgos saneados sin flags ni información sensible.</li>
-          </ul>
-        </aside>
-      </section>
-
-      <div class="tag-cloud" id="tagCloud"></div>
-
-      <section class="library-toolbar">
-        <div class="toolbar-column">
-          <label class="toolbar-label" for="searchInput">Buscar por técnica, herramienta o tecnología</label>
-          <input id="searchInput" class="search" type="search" placeholder="Ej: LFI, Wireshark, Gobuster, Linux, Metasploit, capabilities...">
-        </div>
-        <div class="toolbar-group">
-          <span class="toolbar-label">Categorías</span>
+        <div class="toolbar-field">
+          <span class="toolbar-label">Categoría</span>
           <div class="filters" id="filterChips"></div>
         </div>
-        <div class="toolbar-group">
+        <div class="toolbar-field">
           <span class="toolbar-label">Dificultad</span>
           <div class="filters" id="difficultyChips"></div>
         </div>
@@ -92,19 +87,18 @@
 
       <div class="results-head">
         <div>
-          <div class="eyebrow">Library results</div>
-          <h2 class="section-title">Grid de writeups.</h2>
+          <p class="eyebrow">Resultados</p>
+          <h2 class="section-title">Writeups disponibles.</h2>
         </div>
-        <div class="results-count" id="resultsCount">0 writeups visibles</div>
+        <div class="results-count" id="resultsCount">0 writeups</div>
       </div>
 
       <div class="grid library-grid" id="writeupsGrid"></div>
-
-      <div id="emptyState" class="empty">No hay writeups que coincidan con la búsqueda o filtros seleccionados.</div>
+      <div id="emptyState" class="empty">No hay resultados para la búsqueda o filtros seleccionados.</div>
     </div>
   </main>
 
-  <footer class="page-footer">© 2026 Carlos López Jiménez · Offensive Security · Product Security · Technical Writeups</footer>
+  <footer class="page-footer">© 2026 Carlos López Jiménez · Technical Writeups</footer>
   <script src="assets/writeups/writeups-data.js"></script>
   <script src="assets/writeups/writeups.js"></script>
 </body>
