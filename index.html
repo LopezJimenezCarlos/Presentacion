@@ -2,29 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Carlos López Jiménez | Offensive Security Engineer</title>
 
-  <meta
-    name="description"
-    content="Portfolio de Carlos López Jiménez — Offensive Security, Product Security, Cryptography, Pentesting y desarrollo real."
-  />
+  <meta name="description" content="Portfolio de Carlos López Jiménez — Offensive Security, Product Security, Cryptography, Pentesting y desarrollo real."/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
 
     :root{
       --bg:#05070d;
-      --bg2:#0c1424;
-
       --card:rgba(15,23,42,.72);
       --cardStrong:rgba(17,25,40,.92);
 
@@ -43,7 +35,6 @@
 
       --radius-xl:28px;
       --radius-lg:20px;
-      --radius-md:14px;
 
       --shadow:0 24px 80px rgba(0,0,0,.45);
 
@@ -74,9 +65,9 @@
 
       color:var(--text);
 
-      line-height:1.7;
-
       overflow-x:hidden;
+
+      line-height:1.7;
     }
 
     body::before{
@@ -97,8 +88,8 @@
     }
 
     a{
-      color:inherit;
       text-decoration:none;
+      color:inherit;
     }
 
     img{
@@ -117,48 +108,30 @@
 
     .eyebrow{
       color:var(--green);
-
       font-family:var(--mono);
-
       font-size:.78rem;
-
       letter-spacing:.18em;
-
       text-transform:uppercase;
-
       margin-bottom:12px;
     }
 
     .section-title{
       font-size:clamp(2.2rem,4vw,3.5rem);
-
       line-height:1.05;
-
       letter-spacing:-.06em;
-
       margin-bottom:18px;
     }
 
     .gradient-text{
-      background:linear-gradient(
-      135deg,
-      #fff,
-      var(--cyan),
-      var(--green),
-      var(--violet)
-      );
-
+      background:linear-gradient(135deg,#fff,var(--cyan),var(--green),var(--violet));
       -webkit-background-clip:text;
       background-clip:text;
-
       color:transparent;
     }
 
     .section-lead{
       color:var(--muted);
-
       max-width:760px;
-
       margin-bottom:42px;
     }
 
@@ -166,12 +139,9 @@
 
     .nav{
       position:fixed;
-
       top:16px;
       left:50%;
-
       transform:translateX(-50%);
-
       z-index:100;
 
       width:min(1100px, calc(100% - 28px));
@@ -209,18 +179,12 @@
       display:grid;
       place-items:center;
 
-      background:linear-gradient(
-      135deg,
-      var(--cyan),
-      var(--green)
-      );
+      background:linear-gradient(135deg,var(--cyan),var(--green));
 
       color:#021018;
 
       font-family:var(--mono);
       font-weight:900;
-
-      box-shadow:0 0 24px rgba(34,211,238,.35);
     }
 
     .nav-links{
@@ -230,13 +194,9 @@
 
     .nav-links a{
       padding:8px 14px;
-
       border-radius:999px;
-
       color:var(--muted);
-
       transition:.2s;
-
       font-size:.92rem;
     }
 
@@ -249,10 +209,8 @@
 
     .hero{
       min-height:100vh;
-
       display:grid;
       align-items:center;
-
       padding:140px 0 70px;
     }
 
@@ -285,11 +243,8 @@
     .status-dot{
       width:8px;
       height:8px;
-
       border-radius:50%;
-
       background:var(--green);
-
       box-shadow:0 0 20px var(--green);
     }
 
@@ -305,9 +260,7 @@
 
     .hero-copy{
       color:var(--muted);
-
       max-width:720px;
-
       font-size:1.08rem;
     }
 
@@ -315,71 +268,41 @@
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-
       margin:30px 0;
     }
 
     .tag{
       border:1px solid var(--line);
-
       background:rgba(255,255,255,.04);
-
       border-radius:999px;
-
       padding:10px 14px;
-
       font-family:var(--mono);
       font-size:.82rem;
-
-      transition:.2s;
-    }
-
-    .tag:hover{
-      transform:translateY(-3px);
-
-      border-color:rgba(34,211,238,.45);
-
-      background:rgba(34,211,238,.08);
     }
 
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:14px;
-
       margin-top:30px;
     }
 
     .btn{
       min-height:48px;
-
       padding:12px 18px;
-
       border-radius:999px;
-
       border:1px solid var(--line);
-
       display:inline-flex;
       align-items:center;
       justify-content:center;
-
       font-weight:800;
-
       transition:.2s;
     }
 
     .btn-primary{
-      background:linear-gradient(
-      135deg,
-      var(--cyan),
-      var(--green)
-      );
-
+      background:linear-gradient(135deg,var(--cyan),var(--green));
       color:#031018;
-
       border:none;
-
-      box-shadow:0 20px 50px rgba(34,211,238,.18);
     }
 
     .btn-secondary{
@@ -390,7 +313,7 @@
       transform:translateY(-4px);
     }
 
-    /* PROFILE CARD */
+    /* PROFILE */
 
     .profile-card{
       border-radius:var(--radius-xl);
@@ -406,25 +329,11 @@
       overflow:hidden;
 
       box-shadow:var(--shadow);
-
-      position:relative;
-    }
-
-    .profile-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-
-      background:
-      radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 30%),
-      radial-gradient(circle at top right, rgba(124,255,158,.08), transparent 30%);
-
-      pointer-events:none;
     }
 
     .profile-image{
+      height:430px;
       position:relative;
-      height:420px;
       overflow:hidden;
     }
 
@@ -471,36 +380,17 @@
       color:#9bb0c8;
     }
 
-    .cursor{
-      display:inline-block;
-      width:8px;
-      height:1.2em;
-      background:var(--green);
-      animation:blink 1s infinite;
-      vertical-align:middle;
-    }
-
-    @keyframes blink{
-      50%{
-        opacity:0;
-      }
-    }
-
     .metrics{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:12px;
-
       margin-top:20px;
     }
 
     .metric{
       border:1px solid var(--line);
-
       border-radius:16px;
-
       background:rgba(255,255,255,.04);
-
       padding:16px;
     }
 
@@ -514,7 +404,7 @@
       font-size:.8rem;
     }
 
-    /* GRIDS */
+    /* GRID */
 
     .grid-4{
       display:grid;
@@ -536,44 +426,17 @@
 
     .card{
       background:var(--card);
-
       border:1px solid var(--line);
-
       border-radius:var(--radius-lg);
-
       padding:24px;
-
-      backdrop-filter:blur(16px);
-
       transition:.25s;
-
-      position:relative;
       overflow:hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-
-      background:
-      radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 28%);
-
-      opacity:0;
-
-      transition:.25s;
     }
 
     .card:hover{
       transform:translateY(-6px);
-
       border-color:rgba(34,211,238,.4);
-
       background:var(--cardStrong);
-    }
-
-    .card:hover::before{
-      opacity:1;
     }
 
     .card-icon{
@@ -601,96 +464,24 @@
 
     .stack-item{
       padding:12px 15px;
-
       border-radius:16px;
-
       border:1px solid var(--line);
-
       background:rgba(255,255,255,.04);
-
       font-weight:700;
-
-      transition:.2s;
-    }
-
-    .stack-item:hover{
-      transform:translateY(-3px);
-
-      border-color:rgba(124,255,158,.35);
-
-      background:rgba(124,255,158,.08);
     }
 
     /* PROJECT */
 
-    .project-featured{
-      background:linear-gradient(
-      145deg,
-      rgba(18,29,48,.94),
-      rgba(8,12,22,.88)
-      );
-    }
-
-    .project-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:14px;
-
-      margin-bottom:18px;
-    }
-
-    .project-title{
-      font-size:clamp(1.8rem,4vw,3rem);
-
-      line-height:1;
-
-      letter-spacing:-.06em;
-    }
-
     .project-badge{
       border-radius:999px;
-
       padding:8px 10px;
-
       font-family:var(--mono);
-
       font-size:.78rem;
-
       border:1px solid rgba(124,255,158,.24);
-
       background:rgba(124,255,158,.08);
-
       color:var(--green);
-    }
-
-    .project-stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-
-      gap:12px;
-
-      margin:24px 0;
-    }
-
-    .project-stat{
-      border-radius:16px;
-
-      border:1px solid var(--line);
-
-      background:rgba(255,255,255,.04);
-
-      padding:16px;
-    }
-
-    .project-stat strong{
-      display:block;
-      font-size:1.35rem;
-    }
-
-    .project-stat span{
-      color:var(--soft);
-      font-size:.82rem;
+      display:inline-block;
+      margin-bottom:14px;
     }
 
     .bullet-list{
@@ -700,35 +491,6 @@
 
     .bullet-list li{
       margin:8px 0;
-    }
-
-    .mini-terminal{
-      border-radius:var(--radius-lg);
-
-      border:1px solid var(--line);
-
-      background:rgba(0,0,0,.22);
-
-      padding:20px;
-
-      font-family:var(--mono);
-      font-size:.82rem;
-    }
-
-    .mini-terminal p{
-      margin-bottom:10px;
-    }
-
-    .ok{
-      color:var(--green);
-    }
-
-    .warn{
-      color:var(--amber);
-    }
-
-    .info{
-      color:var(--cyan);
     }
 
     /* CTF */
@@ -742,7 +504,6 @@
       width:100%;
       height:240px;
       object-fit:cover;
-
       transition:.35s;
     }
 
@@ -759,62 +520,6 @@
     .timeline{
       display:grid;
       gap:18px;
-
-      position:relative;
-    }
-
-    .timeline::before{
-      content:"";
-      position:absolute;
-
-      left:18px;
-      top:10px;
-      bottom:10px;
-
-      width:1px;
-
-      background:linear-gradient(
-      var(--cyan),
-      rgba(124,255,158,.1)
-      );
-    }
-
-    .timeline-item{
-      display:grid;
-      grid-template-columns:38px 1fr;
-      gap:18px;
-    }
-
-    .node{
-      width:38px;
-      height:38px;
-
-      border-radius:14px;
-
-      background:rgba(34,211,238,.12);
-
-      border:1px solid rgba(34,211,238,.28);
-
-      display:grid;
-      place-items:center;
-
-      color:var(--cyan);
-
-      font-family:var(--mono);
-      font-size:.8rem;
-    }
-
-    .timeline-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-
-      color:var(--soft);
-
-      font-family:var(--mono);
-      font-size:.78rem;
-
-      margin-bottom:10px;
     }
 
     /* CONTACT */
@@ -823,7 +528,6 @@
       display:grid;
       grid-template-columns:1fr auto;
       gap:24px;
-
       align-items:center;
 
       padding:34px;
@@ -839,17 +543,12 @@
       var(--card);
 
       border:1px solid rgba(34,211,238,.3);
-
-      box-shadow:var(--shadow);
     }
 
     .contact-card h2{
       font-size:clamp(2rem,4vw,3.3rem);
-
       line-height:1;
-
       letter-spacing:-.06em;
-
       margin-bottom:12px;
     }
 
@@ -859,28 +558,10 @@
 
     footer{
       padding:34px 0 60px;
-
       text-align:center;
-
       color:var(--soft);
-
       font-size:.92rem;
     }
-
-    /* REVEAL */
-
-    .reveal{
-      opacity:0;
-      transform:translateY(20px);
-      transition:opacity .6s, transform .6s;
-    }
-
-    .reveal.visible{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    /* RESPONSIVE */
 
     @media(max-width:980px){
 
@@ -908,17 +589,16 @@
 
       .grid-4,
       .grid-3,
-      .project-stats,
       .metrics{
         grid-template-columns:1fr;
       }
 
-      .btn{
-        width:100%;
-      }
-
       .hero-actions{
         flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
       }
 
       h1{
@@ -947,7 +627,7 @@
     <a href="#stack">Stack</a>
     <a href="#projects">Projects</a>
     <a href="#ctf">CTF</a>
-    <a href="writeups.html">Writeups</a>
+    <a href="#writeups">Writeups</a>
     <a href="#experience">Experience</a>
     <a href="#contact">Contact</a>
   </div>
@@ -958,7 +638,7 @@
 
   <div class="container hero-grid">
 
-    <div class="reveal">
+    <div>
 
       <div class="status-pill">
         <span class="status-dot"></span>
@@ -973,13 +653,12 @@
       </h1>
 
       <p class="hero-copy">
-        Soy <strong>Carlos López Jiménez</strong>, Ingeniero Informático especializado en ciberseguridad. Combino evaluación técnica de productos, criptografía, Common Criteria/LINCE y desarrollo real de software para entender la seguridad desde dentro: arquitectura, código, redes y explotación.
+        Soy Carlos López Jiménez, Ingeniero Informático especializado en ciberseguridad. Combino evaluación técnica de productos, criptografía, Common Criteria/LINCE y desarrollo real de software.
       </p>
 
       <div class="hero-tags">
         <span class="tag">#Pentesting</span>
         <span class="tag">#Cryptography</span>
-        <span class="tag">#CommonCriteria</span>
         <span class="tag">#PKI</span>
         <span class="tag">#LinuxHardening</span>
         <span class="tag">#AIApps</span>
@@ -999,7 +678,7 @@
 
     </div>
 
-    <aside class="profile-card reveal">
+    <aside class="profile-card">
 
       <div class="profile-image">
 
@@ -1029,12 +708,6 @@
 
           <p class="line comment">
             Common Criteria · LINCE · CCN-STIC · TLS/SSL · HSM
-          </p>
-
-          <p class="line">
-            <span class="prompt">$</span>
-            <span class="command">build --project WhatCut+</span>
-            <span class="cursor"></span>
           </p>
 
         </div>
@@ -1070,45 +743,45 @@
 
   <div class="container">
 
-    <div class="eyebrow reveal">
+    <div class="eyebrow">
       01 · Technical Expertise
     </div>
 
-    <h2 class="section-title reveal">
+    <h2 class="section-title">
       Perfil técnico orientado a
       <span class="gradient-text">
         seguridad ofensiva y evaluación real.
       </span>
     </h2>
 
-    <p class="section-lead reveal">
-      La web está diseñada para transmitir inmediatamente offensive security, criptografía, producto software real y capacidad técnica.
+    <p class="section-lead">
+      Offensive security, criptografía, producto software real y capacidad técnica.
     </p>
 
     <div class="grid-4">
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-icon">⚔️</div>
         <h3>Offensive Security</h3>
-        <p>Pentesting, explotación controlada, análisis de vulnerabilidades y laboratorios técnicos.</p>
+        <p>Pentesting, explotación controlada y análisis de vulnerabilidades.</p>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-icon">🔐</div>
         <h3>Cryptographic Validation</h3>
-        <p>PKI, TLS/SSL, HSM, criptografía aplicada y validación de mecanismos.</p>
+        <p>PKI, TLS/SSL, HSM y validación criptográfica.</p>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-icon">🧪</div>
         <h3>Product Security</h3>
-        <p>Common Criteria, LINCE, MEMEC, CCN-STIC y evaluación técnica.</p>
+        <p>Common Criteria, LINCE y evaluación técnica.</p>
       </article>
 
-      <article class="card reveal">
+      <article class="card">
         <div class="card-icon">🚀</div>
         <h3>Secure Development</h3>
-        <p>Flutter, Django, Node.js, backend real, Firebase y cloud.</p>
+        <p>Flutter, Django, backend real y cloud.</p>
       </article>
 
     </div>
@@ -1121,34 +794,30 @@
 
   <div class="container">
 
-    <div class="eyebrow reveal">
+    <div class="eyebrow">
       02 · Security Stack
     </div>
 
-    <h2 class="section-title reveal">
+    <h2 class="section-title">
       Arsenal técnico.
     </h2>
 
-    <div class="stack-cloud reveal">
+    <div class="stack-cloud">
 
       <span class="stack-item">Python</span>
       <span class="stack-item">C/C++</span>
       <span class="stack-item">Java</span>
-      <span class="stack-item">Kotlin</span>
       <span class="stack-item">Flutter</span>
       <span class="stack-item">Django</span>
-      <span class="stack-item">Node.js</span>
       <span class="stack-item">Linux</span>
       <span class="stack-item">Docker</span>
       <span class="stack-item">Kubernetes</span>
-      <span class="stack-item">Azure</span>
       <span class="stack-item">Burp Suite</span>
       <span class="stack-item">Metasploit</span>
       <span class="stack-item">Wireshark</span>
       <span class="stack-item">Nmap</span>
       <span class="stack-item">SQLMap</span>
       <span class="stack-item">Hydra</span>
-      <span class="stack-item">Git/GitHub</span>
 
     </div>
 
@@ -1160,11 +829,11 @@
 
   <div class="container">
 
-    <div class="eyebrow reveal">
+    <div class="eyebrow">
       03 · Featured Projects
     </div>
 
-    <h2 class="section-title reveal">
+    <h2 class="section-title">
       Producto real +
       <span class="gradient-text">
         ingeniería.
@@ -1173,45 +842,23 @@
 
     <div class="grid-2">
 
-      <article class="card project-featured reveal">
+      <article class="card">
 
-        <div class="project-head">
+        <span class="project-badge">
+          AI Social App
+        </span>
 
-          <h3 class="project-title">
-            WhatCut+
-          </h3>
+        <h3 style="font-size:2rem;margin-bottom:16px;">
+          WhatCut+
+        </h3>
 
-          <span class="project-badge">
-            AI Social App
-          </span>
-
-        </div>
-
-        <p class="section-lead" style="margin-bottom:0">
-          Aplicación social multiplataforma enfocada en hairstyles e IA para probar peinados.
+        <p class="section-lead" style="margin-bottom:20px">
+          Aplicación social multiplataforma enfocada en hairstyles e IA.
         </p>
 
-        <div class="project-stats">
-
-          <div class="project-stat">
-            <strong>200k+</strong>
-            <span>descargas</span>
-          </div>
-
-          <div class="project-stat">
-            <strong>Flutter</strong>
-            <span>iOS · Android</span>
-          </div>
-
-          <div class="project-stat">
-            <strong>Django</strong>
-            <span>backend</span>
-          </div>
-
-        </div>
-
         <ul class="bullet-list">
-          <li>Integración IA.</li>
+          <li>+200k descargas.</li>
+          <li>Flutter + Django.</li>
           <li>Backend propio.</li>
           <li>Firebase y despliegue real.</li>
           <li>Suscripciones premium.</li>
@@ -1219,34 +866,28 @@
 
       </article>
 
-      <aside class="mini-terminal reveal">
+      <article class="card">
 
-        <p>
-          <span class="info">project</span>:
-          whatcut-plus
+        <span class="project-badge">
+          Security Research
+        </span>
+
+        <h3 style="font-size:2rem;margin-bottom:16px;">
+          Offensive Security Labs
+        </h3>
+
+        <p class="section-lead" style="margin-bottom:20px">
+          Laboratorios y tooling orientados a pentesting y análisis ofensivo.
         </p>
 
-        <p>
-          <span class="info">mobile</span>:
-          Flutter
-        </p>
+        <ul class="bullet-list">
+          <li>Hardening Linux.</li>
+          <li>Enumeración y escaneo.</li>
+          <li>Explotación web.</li>
+          <li>Criptografía y PKI.</li>
+        </ul>
 
-        <p>
-          <span class="info">backend</span>:
-          Django
-        </p>
-
-        <p>
-          <span class="warn">security focus</span>:
-          auth · backend validation · cloud deployment
-        </p>
-
-        <p>
-          <span class="ok">impact</span>:
-          ejecución técnica real.
-        </p>
-
-      </aside>
+      </article>
 
     </div>
 
@@ -1258,27 +899,19 @@
 
   <div class="container">
 
-    <div class="eyebrow reveal">
+    <div class="eyebrow">
       04 · CTF & Hacking Arena
     </div>
 
-    <h2 class="section-title reveal">
+    <h2 class="section-title">
       Competición, laboratorios y mentalidad ofensiva.
     </h2>
 
-    <p class="section-lead reveal">
-      Participación en retos CTF y entornos prácticos de ciberseguridad.
-    </p>
-
     <div class="grid-3">
 
-      <article class="card ctf-card reveal">
+      <article class="card ctf-card">
 
-        <img
-          src="ctf-telefonica.jpg"
-          alt="CTF Telefónica"
-          class="ctf-img"
-        >
+        <img src="ctf-telefonica.jpg" alt="CTF Telefónica" class="ctf-img">
 
         <div class="ctf-content">
 
@@ -1296,13 +929,9 @@
 
       </article>
 
-      <article class="card ctf-card reveal">
+      <article class="card ctf-card">
 
-        <img
-          src="ctf-hackrocks.jpg"
-          alt="CTF Hackrocks"
-          class="ctf-img"
-        >
+        <img src="ctf-hackrocks.jpg" alt="Hackrocks" class="ctf-img">
 
         <div class="ctf-content">
 
@@ -1320,13 +949,9 @@
 
       </article>
 
-      <article class="card ctf-card reveal">
+      <article class="card ctf-card">
 
-        <img
-          src="ctf-cyberlegue.jpg"
-          alt="CyberLeague"
-          class="ctf-img"
-        >
+        <img src="ctf-cyberlegue.jpg" alt="CyberLeague" class="ctf-img">
 
         <div class="ctf-content">
 
@@ -1337,7 +962,7 @@
           <h3>CyberLeague</h3>
 
           <p>
-            Competición nacional con enfoque ofensivo y defensa técnica.
+            Competición nacional de ciberseguridad.
           </p>
 
         </div>
@@ -1350,15 +975,68 @@
 
 </section>
 
+<section class="section" id="writeups">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      05 · Writeups & Research
+    </div>
+
+    <h2 class="section-title">
+      Documentación técnica,
+      <span class="gradient-text">
+        laboratorios y research.
+      </span>
+    </h2>
+
+    <p class="section-lead">
+      Espacio para publicar writeups técnicos en PDF/Word exportado.
+    </p>
+
+    <div class="grid-3">
+
+      <article class="card">
+        <div class="card-icon">🕸️</div>
+        <h3>Web Exploitation</h3>
+        <p>SQLi, XSS, CSRF, Burp Suite y análisis OWASP.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🐧</div>
+        <h3>Linux Hardening</h3>
+        <p>SSH, firewall, servicios, logs y permisos.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🔐</div>
+        <h3>Crypto & PKI</h3>
+        <p>OpenSSL, TLS, certificados y cadenas de confianza.</p>
+      </article>
+
+    </div>
+
+    <div class="hero-actions">
+
+      <a class="btn btn-primary" href="writeups.html">
+        Ver todos los writeups
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
 <section class="section" id="experience">
 
   <div class="container">
 
-    <div class="eyebrow reveal">
-      05 · Experience
+    <div class="eyebrow">
+      06 · Experience
     </div>
 
-    <h2 class="section-title reveal">
+    <h2 class="section-title">
       Security Engineering &
       <span class="gradient-text">
         Product Security
@@ -1367,53 +1045,35 @@
 
     <div class="timeline">
 
-      <article class="timeline-item reveal">
+      <article class="card">
 
-        <div class="node">
-          01
-        </div>
+        <span class="project-badge">
+          2025 · Actualidad
+        </span>
 
-        <div class="card">
+        <h3>
+          Ingeniero de Validación y Certificación
+        </h3>
 
-          <div class="timeline-meta">
-            <span>2025 · Actualidad</span>
-            <span>EPICOM</span>
-          </div>
-
-          <h3>
-            Ingeniero de Validación y Certificación
-          </h3>
-
-          <p>
-            Especialización en criptografía, Common Criteria, LINCE y evaluación de productos de seguridad.
-          </p>
-
-        </div>
+        <p>
+          Especialización en criptografía, Common Criteria y evaluación de productos de seguridad.
+        </p>
 
       </article>
 
-      <article class="timeline-item reveal">
+      <article class="card">
 
-        <div class="node">
-          02
-        </div>
+        <span class="project-badge">
+          2024
+        </span>
 
-        <div class="card">
+        <h3>
+          Evaluador de Ciberseguridad
+        </h3>
 
-          <div class="timeline-meta">
-            <span>2024</span>
-            <span>Clover Technologies</span>
-          </div>
-
-          <h3>
-            Evaluador de Ciberseguridad
-          </h3>
-
-          <p>
-            Pentesting y análisis de vulnerabilidades en aplicaciones y sistemas.
-          </p>
-
-        </div>
+        <p>
+          Pentesting y análisis de vulnerabilidades en aplicaciones y sistemas.
+        </p>
 
       </article>
 
@@ -1427,12 +1087,12 @@
 
   <div class="container">
 
-    <div class="contact-card reveal">
+    <div class="contact-card">
 
       <div>
 
         <div class="eyebrow">
-          06 · Contact
+          07 · Contact
         </div>
 
         <h2>
@@ -1441,25 +1101,19 @@
         </h2>
 
         <p>
-          Disponible para oportunidades técnicas en pentesting, research, criptografía y seguridad avanzada.
+          Disponible para oportunidades técnicas en pentesting, research y seguridad avanzada.
         </p>
 
       </div>
 
       <div class="hero-actions">
 
-        <a
-          class="btn btn-primary"
-          href="mailto:carloslopji@gmail.com"
-        >
+        <a class="btn btn-primary" href="mailto:carloslopji@gmail.com">
           Contactar
         </a>
 
-        <a
-          class="btn btn-secondary"
-          href="writeups.html"
-        >
-          Ver Writeups
+        <a class="btn btn-secondary" href="writeups.html">
+          Writeups
         </a>
 
       </div>
@@ -1473,28 +1127,6 @@
 <footer>
   © 2026 Carlos López Jiménez · Offensive Security / Product Security / Cryptography
 </footer>
-
-<script>
-
-  const revealElements = document.querySelectorAll('.reveal');
-
-  const observer = new IntersectionObserver((entries)=>{
-
-    entries.forEach(entry=>{
-
-      if(entry.isIntersecting){
-
-        entry.target.classList.add('visible');
-
-      }
-
-    });
-
-  },{threshold:.12});
-
-  revealElements.forEach(el=>observer.observe(el));
-
-</script>
 
 </body>
 </html>
