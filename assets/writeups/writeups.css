@@ -10,3 +10,10 @@
 .evidence-step-body p{margin:0;color:#cbd5e1;line-height:1.65}
 .evidence-note{margin-top:.75rem;padding:.72rem .85rem;border-left:3px solid #22d3ee;border-radius:12px;background:rgba(34,211,238,.08);color:#a7f3d0;font-size:.92rem}
 .redacted-badge{display:inline-flex;align-items:center;gap:.4rem;border:1px solid rgba(248,113,113,.35);background:rgba(127,29,29,.25);color:#fecaca;border-radius:999px;padding:.3rem .6rem;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+
+/* Inline evidence inside each summarized attack step */
+.step-evidence{margin-top:1rem;border:1px solid rgba(34,211,238,.22);border-radius:18px;overflow:hidden;background:rgba(2,6,23,.78);box-shadow:0 14px 36px rgba(0,0,0,.25)}
+.step-evidence img{width:100%;max-height:330px;object-fit:cover;object-position:top;border-bottom:1px solid rgba(148,163,184,.16);filter:saturate(1.04) contrast(1.04)}
+.step-evidence figcaption{padding:.75rem .9rem;color:#a7f3d0;font-size:.84rem;line-height:1.5;background:linear-gradient(90deg,rgba(34,211,238,.08),rgba(124,255,158,.04))}
+.evidence-note::before{content:"✓ ";color:#7cff9e;font-weight:900}
+@media(max-width:640px){.step-evidence img{max-height:240px}.evidence-step{grid-template-columns:1fr}.evidence-step-num{width:max-content}}
