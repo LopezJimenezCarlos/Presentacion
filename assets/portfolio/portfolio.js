@@ -1,5 +1,28 @@
 (function () {
+  const HERO_IMAGE = "assets/imgs/Imagen_inicio.png?v=20260513-portrait-final";
   const writeups = Array.isArray(window.WRITEUPS) ? window.WRITEUPS.slice() : [];
+
+  function forceHeroPortrait() {
+    const portrait = document.querySelector(".hero-portrait");
+    if (!portrait) return;
+
+    portrait.querySelectorAll("source").forEach((source) => source.remove());
+
+    let image = portrait.querySelector("img");
+    if (!image) {
+      image = document.createElement("img");
+      portrait.appendChild(image);
+    }
+
+    image.removeAttribute("srcset");
+    image.removeAttribute("sizes");
+    image.decoding = "async";
+    image.loading = "eager";
+    image.alt = "Retrato de Carlos López Jiménez";
+    image.src = HERO_IMAGE;
+  }
+
+  forceHeroPortrait();
 
   const els = {
     grid: document.querySelector("#featuredWriteupsGrid"),
@@ -152,6 +175,7 @@
   setupPreview();
   setupCursor();
   setupParallax();
+  forceHeroPortrait();
 
   if (els.year) els.year.textContent = String(new Date().getFullYear());
 })();
