@@ -1,5 +1,37 @@
 (function () {
   const writeups = Array.isArray(window.WRITEUPS) ? window.WRITEUPS.slice() : [];
+
+  function setupMobileNav() {
+    const nav = document.querySelector(".nav");
+    const toggle = document.querySelector(".nav-toggle");
+    if (!nav || !toggle) return;
+
+    function closeMenu() {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Abrir menú");
+    }
+
+    function toggleMenu() {
+      const isOpen = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    }
+
+    toggle.addEventListener("click", toggleMenu);
+    nav.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 721px)").matches) closeMenu();
+    });
+  }
+
+  setupMobileNav();
+
   if (!writeups.length) return;
 
   const state = {
