@@ -20,11 +20,11 @@
     metricTime: document.querySelector("#metricTime")
   };
 
-  const categories = ["all", ...new Set(writeups.map((item) => item.category))];
-  const difficulties = ["all", "Easy", "Medium", "Hard"];
+  const categories = ["all", ...new Set(writeups.map((item) => item.category).filter(Boolean))];
+  const difficulties = ["all", ...new Set(writeups.map((item) => item.difficulty).filter(Boolean))];
 
   function escapeHtml(value) {
-    return String(value)
+    return String(value ?? "")
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
@@ -41,7 +41,9 @@
   }
 
   function buildCard(item) {
-    const tagsMarkup = item.tags
+    const tags = Array.isArray(item.tags) ? item.tags : [];
+    const stack = Array.isArray(item.stack) ? item.stack : [];
+    const tagsMarkup = tags
       .slice(0, 4)
       .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
       .join("");
@@ -50,7 +52,7 @@
       <article class="card">
         <a href="${escapeHtml(item.url)}" aria-label="Leer ${escapeHtml(item.title)}">
           <div class="card-preview">
-            <img src="${escapeHtml(item.cover)}" alt="Preview de ${escapeHtml(item.title)}">
+            <img src="${escapeHtml(item.cover)}" alt="Miniatura técnica de ${escapeHtml(item.title)}" loading="lazy">
             <div class="card-overlay-meta">
               <span class="card-difficulty">${escapeHtml(item.difficulty)}</span>
               <span class="card-date">${escapeHtml(item.date)}</span>
@@ -68,8 +70,8 @@
             </div>
             <div class="tag-strip">${tagsMarkup}</div>
             <div class="card-foot">
-              <span>${escapeHtml(item.stack.slice(0, 2).join(" · "))}</span>
-              <strong>Open</strong>
+              <span>${escapeHtml(stack.slice(0, 2).join(" · "))}</span>
+              <strong>Leer</strong>
             </div>
           </div>
         </a>
@@ -83,7 +85,7 @@
       .map((value) => {
         const label = value === "all" ? "Todos" : value;
         const activeClass = value === activeValue ? "active" : "";
-        return `<button class="chip ${activeClass}" data-value="${escapeHtml(value)}">${escapeHtml(label)}</button>`;
+        return `<button class="chip ${activeClass}" type="button" data-value="${escapeHtml(value)}">${escapeHtml(label)}</button>`;
       })
       .join("");
 
@@ -94,13 +96,15 @@
 
   function filteredItems() {
     return writeups.filter((item) => {
+      const tags = Array.isArray(item.tags) ? item.tags : [];
+      const stack = Array.isArray(item.stack) ? item.stack : [];
       const haystack = [
         item.title,
         item.summary,
         item.category,
         item.difficulty,
-        item.tags.join(" "),
-        item.stack.join(" ")
+        tags.join(" "),
+        stack.join(" ")
       ]
         .join(" ")
         .toLowerCase();
@@ -119,7 +123,7 @@
     els.grid.innerHTML = items.map(buildCard).join("");
     if (els.empty) els.empty.style.display = items.length ? "none" : "block";
     if (els.resultCount) {
-      els.resultCount.textContent = `${items.length} writeups`;
+      els.resultCount.textContent = `${items.length} ${items.length === 1 ? "writeup" : "writeups"}`;
     }
   }
 
