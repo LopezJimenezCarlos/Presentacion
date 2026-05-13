@@ -42,7 +42,7 @@
 
   document.title = `${item.title} | Carlos López Jiménez`;
   setText("#breadcrumbCategory", item.category);
-  setText("#detailEyebrow", `${item.category} · ${item.difficulty} · ${item.readTime}`);
+  setText("#detailEyebrow", `${item.category} · ${item.difficulty}`);
   setText("#detailTitle", item.title);
   setText("#detailSummary", item.summary);
   setText("#metricTarget", item.target);
@@ -66,54 +66,38 @@
   setText("#privilegeEscalation", sections.privilegeEscalation);
   setText("#conclusion", sections.conclusion);
 
-  setHtml(
-    "#killChain",
-    (item.killChain || [])
-      .map((step, index) => `<span><strong>${String(index + 1).padStart(2, "0")}</strong>${escapeHtml(step)}</span>`)
-      .join("")
-  );
+  setHtml("#killChain", (item.killChain || [])
+    .map((step, index) => `<span><strong>${String(index + 1).padStart(2, "0")}</strong>${escapeHtml(step)}</span>`)
+    .join(""));
 
-  setHtml(
-    "#reconnaissanceEnumeration",
-    (sections.reconnaissanceEnumeration || [fallback]).map((entry) => `<li>${escapeHtml(entry)}</li>`).join("")
-  );
-
-  setHtml(
-    "#securityRecommendations",
-    (sections.recommendations || [fallback]).map((entry) => `<li>${escapeHtml(entry)}</li>`).join("")
-  );
+  setHtml("#reconnaissanceEnumeration", (sections.reconnaissanceEnumeration || [fallback]).map((entry) => `<li>${escapeHtml(entry)}</li>`).join(""));
+  setHtml("#securityRecommendations", (sections.recommendations || [fallback]).map((entry) => `<li>${escapeHtml(entry)}</li>`).join(""));
 
   const commandChain = document.querySelector("#commandChain");
-  if (commandChain) {
-    commandChain.textContent = (item.commands || [fallback]).map(sanitizeCommand).join("\n");
-  }
+  if (commandChain) commandChain.textContent = (item.commands || [fallback]).map(sanitizeCommand).join("\n");
 
-  setHtml(
-    "#evidenceSteps",
-    (item.evidence || [])
-      .map((evidence, index) => {
-        const imageMarkup = evidence.image
-          ? `<figure class="step-evidence"><img src="${escapeHtml(evidence.image)}" alt="${escapeHtml(evidence.title)}" loading="lazy"><figcaption>${escapeHtml(evidence.description)}</figcaption></figure>`
-          : "";
-        const commandMarkup = evidence.command
-          ? `<div class="code compact"><pre>${escapeHtml(sanitizeCommand(evidence.command))}</pre></div>`
-          : "";
-        return `
-          <section class="evidence-step">
-            <div class="evidence-step-num">${String(index + 1).padStart(2, "0")}</div>
-            <div class="evidence-step-body">
-              <div class="evidence-step-top">
-                <span class="phase-badge">${escapeHtml(evidence.phase || "Evidencia técnica")}</span>
-                ${evidence.redacted ? '<span class="redacted-badge">Saneado</span>' : ""}
-              </div>
-              <h3>${escapeHtml(evidence.title || "Evidencia")}</h3>
-              <p>${escapeHtml(evidence.description || fallback)}</p>
-              ${commandMarkup}
-              ${imageMarkup}
+  setHtml("#evidenceSteps", (item.evidence || [])
+    .map((evidence, index) => {
+      const imageMarkup = evidence.image
+        ? `<figure class="step-evidence"><img src="${escapeHtml(evidence.image)}" alt="${escapeHtml(evidence.title)}" loading="lazy"><figcaption>${escapeHtml(evidence.caption || evidence.description)}</figcaption></figure>`
+        : "";
+      const commandMarkup = evidence.command
+        ? `<div class="code compact"><pre>${escapeHtml(sanitizeCommand(evidence.command))}</pre></div>`
+        : "";
+      return `
+        <section class="evidence-step">
+          <div class="evidence-step-num">${String(index + 1).padStart(2, "0")}</div>
+          <div class="evidence-step-body">
+            <div class="evidence-step-top">
+              <span class="phase-badge">${escapeHtml(evidence.phase || "Evidencia técnica")}</span>
+              ${evidence.redacted ? '<span class="redacted-badge">Saneado</span>' : ""}
             </div>
-          </section>
-        `;
-      })
-      .join("") || '<div class="empty evidence-empty">No documentado en la evidencia disponible.</div>'
-  );
+            <h3>${escapeHtml(evidence.title || "Evidencia")}</h3>
+            <p>${escapeHtml(evidence.description || fallback)}</p>
+            ${commandMarkup}
+            ${imageMarkup}
+          </div>
+        </section>
+      `;
+    }).join("") || '<div class="empty evidence-empty">No documentado en la evidencia disponible.</div>');
 })();
