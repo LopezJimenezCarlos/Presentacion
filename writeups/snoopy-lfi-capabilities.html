@@ -51,8 +51,8 @@
 
   <main class="container detail-grid">
     <article class="article">
-      <div class="article-cover article-cover-soft">
-        <img alt="Resumen visual del writeup Snoopy" src="../assets/imgs/cover-linux.svg" />
+      <div class="article-cover">
+        <img alt="Reconocimiento y enumeración del laboratorio Snoopy" src="../assets/writeups/img/snoopy-lfi-capabilities-cover.png" />
       </div>
 
       <div class="article-content">
@@ -74,6 +74,11 @@
           indebidamente, se obtiene acceso SSH con un usuario no privilegiado y finalmente se eleva a root mediante
           una capability peligrosa asignada al intérprete de Python.
         </p>
+
+        <figure class="evidence">
+          <img src="../assets/writeups/img/snoopy-lfi-capabilities-evidence1.png" alt="Enumeración web y validación de LFI" />
+          <figcaption>Enumeración web y validación inicial de Local File Inclusion con información sensible saneada.</figcaption>
+        </figure>
 
         <h2 id="attack-path">Ruta de ataque</h2>
         <p>
@@ -175,6 +180,11 @@ id</pre></div>
             </div>
           </section>
         </div>
+
+        <figure class="evidence" style="margin-top:32px;">
+          <img src="../assets/writeups/img/snoopy-lfi-capabilities-evidence2.png" alt="Post explotación y Linux capabilities" />
+          <figcaption>Enumeración local tras acceso inicial y detección de capabilities peligrosas sobre Python.</figcaption>
+        </figure>
 
         <h2 id="findings">Hallazgos principales</h2>
         <div class="accordion">
