@@ -15,8 +15,15 @@
 </head>
 <body class="detail-page">
   <nav class="nav" aria-label="Navegación principal">
-    <a class="brand" href="index.html"><span class="brand-mark">CL</span><span>Carlos López</span></a>
-    <div class="nav-links">
+    <a class="brand" href="index.html" aria-label="Volver al portfolio">
+      <span class="brand-mark">CL</span>
+      <span class="brand-text">Carlos López</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="primaryNav">
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" id="primaryNav">
       <a href="index.html">Portfolio</a>
       <a class="active" href="writeups.html">Writeups</a>
       <a href="index.html#contact">Contacto</a>
@@ -83,7 +90,8 @@
     </aside>
   </main>
 
-  <footer class="page-footer">© 2026 Carlos López Jiménez · Writeups técnicos</footer>
+  <footer class="page-footer">© <span id="footerYear"></span> Carlos López Jiménez · Writeups técnicos de ciberseguridad</footer>
+  <script>(function(){ const y=document.getElementById('footerYear'); if(y) y.textContent=new Date().getFullYear(); })();</script>
   <script src="assets/writeups/writeups-data.js"></script>
   <script src="assets/writeups/writeups-extra.js"></script>
   <script src="assets/writeups/writeups-runtime-cleanup.js"></script>

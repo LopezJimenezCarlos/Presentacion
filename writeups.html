@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Writeups | Carlos López Jiménez</title>
-  <meta name="description" content="Biblioteca de writeups de ciberseguridad con lectura clara, filtros simples, metodología ofensiva y evidencias saneadas." />
+  <meta name="description" content="Biblioteca de writeups de ciberseguridad: pentesting, explotación web, análisis de red, escalada de privilegios y wireless. Evidencias saneadas, metodología clara." />
   <meta property="og:title" content="Writeups | Carlos López Jiménez" />
-  <meta property="og:description" content="Writeups de pentesting y ciberseguridad preparados para revisión rápida y lectura web." />
+  <meta property="og:description" content="Casos técnicos de pentesting y ciberseguridad ofensiva con evidencias, kill chains y recomendaciones." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,10 @@
 </head>
 <body>
   <nav class="nav" aria-label="Navegación principal">
-    <a class="brand" href="index.html"><span class="brand-mark">CL</span><span class="brand-text">Carlos López</span></a>
+    <a class="brand" href="index.html" aria-label="Volver al portfolio">
+      <span class="brand-mark">CL</span>
+      <span class="brand-text">Carlos López</span>
+    </a>
     <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="primaryNav">
       <span></span>
       <span></span>
@@ -31,22 +34,38 @@
     <div class="container library-header">
       <div>
         <p class="eyebrow">Cybersecurity writeups</p>
-        <h1>SECURITY WORKS</h1>
-        <p class="lead">Casos técnicos de pentesting, explotación web, análisis de red, escalada de privilegios y wireless. Lectura rápida, evidencias saneadas y foco en impacto real.</p>
+        <h1>SECURITY<br>WORKS</h1>
+        <p class="lead">
+          Casos técnicos de pentesting, explotación web, análisis de red, escalada de privilegios y wireless.
+          Lectura rápida, evidencias saneadas y foco en impacto real.
+        </p>
       </div>
       <div class="library-stats" aria-label="Métricas de la biblioteca">
-        <div class="mini"><span>Writeups</span><strong id="metricWriteups">0</strong></div>
-        <div class="mini"><span>Áreas</span><strong id="metricDomains">0</strong></div>
+        <div class="mini">
+          <span>Writeups</span>
+          <strong id="metricWriteups">0</strong>
+        </div>
+        <div class="mini">
+          <span>Áreas</span>
+          <strong id="metricDomains">0</strong>
+        </div>
       </div>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
+
       <section class="toolbar-simple" aria-label="Filtros de writeups">
         <div class="toolbar-field toolbar-field-wide">
-          <label class="toolbar-label" for="searchInput">Buscar</label>
-          <input id="searchInput" class="search" type="search" placeholder="LFI, Linux, Wireshark, Metasploit, Gobuster, sqlmap..." />
+          <label class="toolbar-label" for="searchInput">Buscar writeup</label>
+          <input
+            id="searchInput"
+            class="search"
+            type="search"
+            placeholder="LFI, Wireshark, Metasploit, SQLMap, Aircrack..."
+            autocomplete="off"
+          />
         </div>
         <div class="toolbar-field">
           <span class="toolbar-label">Categoría</span>
@@ -60,7 +79,7 @@
 
       <div class="results-head">
         <div>
-          <p class="eyebrow">Selected cases</p>
+          <p class="eyebrow">Casos seleccionados</p>
           <h2 class="section-title">WRITEUPS</h2>
         </div>
         <div class="results-count" id="resultsCount">0 writeups</div>
@@ -68,13 +87,23 @@
 
       <div class="grid library-grid" id="writeupsGrid"></div>
       <div id="emptyState" class="empty">No hay resultados para la búsqueda o filtros seleccionados.</div>
+
     </div>
   </main>
 
-  <footer class="page-footer">© 2026 Carlos López Jiménez · Writeups técnicos</footer>
+  <footer class="page-footer">
+    © <span id="footerYear"></span> Carlos López Jiménez · Writeups técnicos de ciberseguridad
+  </footer>
+
   <script src="assets/writeups/writeups-data.js"></script>
   <script src="assets/writeups/writeups-extra.js"></script>
   <script src="assets/writeups/writeups-runtime-cleanup.js"></script>
   <script src="assets/writeups/writeups.js"></script>
+  <script>
+    (function () {
+      const y = document.getElementById("footerYear");
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
 </body>
 </html>

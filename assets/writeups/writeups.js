@@ -52,10 +52,18 @@
       .replaceAll("'", "&#39;");
   }
 
+  function difficultyClass(diff) {
+    const d = String(diff || "").toLowerCase();
+    if (d === "easy") return "badge-easy";
+    if (d === "hard") return "badge-hard";
+    return "badge-medium";
+  }
+
   function buildCard(item) {
     const tags = Array.isArray(item.tags) ? item.tags : [];
     const stack = Array.isArray(item.stack) ? item.stack : [];
     const tagsMarkup = tags.slice(0, 4).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
+    const diffClass = difficultyClass(item.difficulty);
 
     return `
       <article class="card">
@@ -63,7 +71,7 @@
           <div class="card-preview">
             <img src="${escapeHtml(item.cover)}" alt="Miniatura técnica de ${escapeHtml(item.title)}" loading="lazy">
             <div class="card-overlay-meta">
-              <span class="card-difficulty">${escapeHtml(item.difficulty)}</span>
+              <span class="card-difficulty ${diffClass}">${escapeHtml(item.difficulty)}</span>
               <span class="card-date">${escapeHtml(item.date)}</span>
             </div>
           </div>
@@ -71,11 +79,10 @@
             <div class="card-top"><span class="badge">${escapeHtml(item.category)}</span></div>
             <h2>${escapeHtml(item.title)}</h2>
             <p>${escapeHtml(item.summary)}</p>
-            <div class="meta"><span>${escapeHtml(item.visibility)}</span></div>
             <div class="tag-strip">${tagsMarkup}</div>
             <div class="card-foot">
               <span>${escapeHtml(stack.slice(0, 2).join(" · "))}</span>
-              <strong>Leer</strong>
+              <strong>Leer →</strong>
             </div>
           </div>
         </a>

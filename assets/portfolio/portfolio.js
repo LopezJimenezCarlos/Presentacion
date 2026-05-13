@@ -45,9 +45,13 @@
 
   function buildWorkRow(item, index) {
     const tags = Array.isArray(item.tags) ? item.tags.slice(0, 3).join(" · ") : "";
+    const num = String(index + 1).padStart(2, "0");
     return `
       <a class="work-row" href="${escapeHtml(item.url)}" data-preview="${escapeHtml(item.cover)}" aria-label="Abrir ${escapeHtml(item.title)}">
-        <h3>${String(index + 1).padStart(2, "0")} ${escapeHtml(item.labName || item.title)}</h3>
+        <div class="work-row-inner">
+          <span class="work-row-dot" aria-hidden="true"></span>
+          <h3>${num} ${escapeHtml(item.labName || item.title)}</h3>
+        </div>
         <span class="work-meta">${escapeHtml(item.category)} · ${escapeHtml(item.difficulty)}</span>
         <span class="work-tags">${escapeHtml(tags)}</span>
       </a>
