@@ -46,6 +46,35 @@
     if (els.tags) els.tags.textContent = String(tags.size);
   }
 
+  function setupMobileNav() {
+    const nav = document.querySelector(".nav");
+    const toggle = document.querySelector(".nav-toggle");
+    if (!nav || !toggle) return;
+
+    function closeMenu() {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Abrir menú");
+    }
+
+    function toggleMenu() {
+      const isOpen = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    }
+
+    toggle.addEventListener("click", toggleMenu);
+    nav.querySelectorAll(".nav-links a, .hire-btn").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 981px)").matches) closeMenu();
+    });
+  }
+
   function setupReveal() {
     const nodes = document.querySelectorAll("[data-reveal]");
     if (!nodes.length) return;
@@ -93,8 +122,13 @@
     if (!nodes.length && !processItems.length) return;
 
     function update() {
+      const isMobile = window.matchMedia("(max-width: 980px)").matches;
       const y = window.scrollY || 0;
       nodes.forEach((node) => {
+        if (isMobile) {
+          node.style.transform = "";
+          return;
+        }
         const speed = Number(node.dataset.parallax || 0.1);
         node.style.transform = `translateX(-50%) translateY(${y * speed}px)`;
       });
@@ -108,10 +142,12 @@
 
     update();
     window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
   }
 
   renderWriteups();
   updateMetrics();
+  setupMobileNav();
   setupReveal();
   setupPreview();
   setupCursor();
