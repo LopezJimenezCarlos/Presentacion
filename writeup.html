@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cybersecurity Writeup | Carlos López Jiménez</title>
+  <meta
+    name="description"
+    content="Writeup técnico web-first con metodología ofensiva, evidencias saneadas, recomendaciones y lectura premium para recruiters."
+  />
+  <meta property="og:title" content="Cybersecurity Writeup | Carlos López Jiménez" />
+  <meta property="og:description" content="Writeup ofensivo profesional con cadena de ataque, evidencias y mitigaciones." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/writeups/writeups.css" />
+</head>
+<body class="detail-page">
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">CL</span>
+      <span>Carlos López</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Portfolio</a>
+      <a class="active" href="writeups.html">Writeups</a>
+      <a href="index.html#contact">Contacto</a>
+    </div>
+  </nav>
+
+  <header class="detail-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="writeups.html">← Cybersecurity Writeups</a> / <span id="breadcrumbCategory">Loading</span></div>
+      <div class="eyebrow" id="detailEyebrow">Cybersecurity Writeup</div>
+      <h1 id="detailTitle">Loading writeup...</h1>
+      <p class="lead" id="detailSummary"></p>
+      <div class="tag-strip" id="detailTags"></div>
+      <div class="hero-actions">
+        <a class="btn btn-secondary" href="writeups.html">Volver a la biblioteca</a>
+        <a class="btn btn-primary" href="#technical-evidence">Ver evidencias</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container detail-grid">
+    <article class="article">
+      <div class="article-cover article-cover-soft">
+        <img id="detailCover" alt="Visual del writeup" src="assets/imgs/cover-linux.svg" />
+      </div>
+
+      <div class="article-content">
+        <section class="mini-metrics" aria-label="Resumen técnico">
+          <div class="mini"><span>Target</span><strong id="metricTarget">Not documented</strong></div>
+          <div class="mini"><span>Impact</span><strong id="metricImpact">Not documented</strong></div>
+          <div class="mini"><span>Difficulty</span><strong id="metricDifficulty">Not documented</strong></div>
+          <div class="mini"><span>Visibility</span><strong id="metricVisibility">Public redacted</strong></div>
+        </section>
+
+        <div class="callout">
+          <strong>Public redacted version:</strong> flags, passwords, hashes, tokens, cookies, JWTs, private keys and sensitive IPs are removed or partially masked before publication.
+        </div>
+
+        <section id="executive-summary" class="writeup-section">
+          <h2>Executive Summary</h2>
+          <p id="executiveSummary"></p>
+          <div class="kill-chain" id="killChain"></div>
+        </section>
+
+        <section id="scope-context" class="writeup-section">
+          <h2>Scope &amp; Context</h2>
+          <p id="scopeContext"></p>
+        </section>
+
+        <section id="reconnaissance-enumeration" class="writeup-section">
+          <h2>Reconnaissance &amp; Enumeration</h2>
+          <ul id="reconnaissanceEnumeration"></ul>
+        </section>
+
+        <section id="attack-surface-analysis" class="writeup-section">
+          <h2>Attack Surface Analysis</h2>
+          <p id="attackSurfaceAnalysis"></p>
+        </section>
+
+        <section id="initial-access" class="writeup-section">
+          <h2>Initial Access</h2>
+          <p id="initialAccess"></p>
+        </section>
+
+        <section id="privilege-escalation" class="writeup-section">
+          <h2>Privilege Escalation</h2>
+          <p id="privilegeEscalation"></p>
+        </section>
+
+        <section id="commands" class="writeup-section">
+          <h2>Command Chain</h2>
+          <p>Representative commands are sanitized. They preserve technical value without exposing secrets.</p>
+          <div class="code"><pre id="commandChain"></pre></div>
+        </section>
+
+        <section id="technical-evidence" class="writeup-section">
+          <h2>Technical Evidence</h2>
+          <p>Only technical evidence is displayed. Screenshots from PDFs, academic instructions, Word pages, campus platforms and decorative images must be excluded before publication.</p>
+          <div class="evidence-steps" id="evidenceSteps"></div>
+        </section>
+
+        <section id="security-recommendations" class="writeup-section">
+          <h2>Security Recommendations</h2>
+          <ul id="securityRecommendations"></ul>
+        </section>
+
+        <section id="conclusion" class="writeup-section">
+          <h2>Conclusion</h2>
+          <p id="conclusion"></p>
+        </section>
+      </div>
+    </article>
+
+    <aside class="toc">
+      <h3>On this writeup</h3>
+      <a href="#executive-summary">Executive Summary</a>
+      <a href="#scope-context">Scope &amp; Context</a>
+      <a href="#reconnaissance-enumeration">Reconnaissance</a>
+      <a href="#attack-surface-analysis">Attack Surface</a>
+      <a href="#initial-access">Initial Access</a>
+      <a href="#privilege-escalation">Privilege Escalation</a>
+      <a href="#commands">Command Chain</a>
+      <a href="#technical-evidence">Technical Evidence</a>
+      <a href="#security-recommendations">Recommendations</a>
+      <a href="#conclusion">Conclusion</a>
+    </aside>
+  </main>
+
+  <footer class="page-footer">© 2026 Carlos López Jiménez · Cybersecurity Writeups</footer>
+  <script src="assets/writeups/writeups-data.js"></script>
+  <script src="assets/writeups/writeup-detail.js"></script>
+</body>
+</html>
