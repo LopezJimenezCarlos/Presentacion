@@ -8,9 +8,6 @@
     writeup.evidence[evidenceIndex].image = imagePath;
   }
 
-  setEvidenceImage(
-    "webshell-upload",
-    1,
-    "assets/writeups/evidence/webshell-upload.svg"
-  );
+  setEvidenceImage("sqlmap-sqli", 1, "assets/writeups/evidence/sqli-sqlmap.svg");
+  setEvidenceImage("webshell-upload", 1, "assets/writeups/evidence/webshell-upload.svg");
 })();
