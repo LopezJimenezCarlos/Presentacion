@@ -51,27 +51,72 @@ window.WRITEUPS = [
     ],
     evidence: [
       {
-        title: "Service fingerprinting",
+        title: "Escaneo de puertos — Nmap",
         phase: "Reconnaissance & Enumeration",
-        description: "Evidencia técnica esperada: salida de Nmap con servicios expuestos. Not documented in the available evidence.",
-        type: "command",
+        description: "Identificación de servicios expuestos: HTTP en puerto 8081 y SSH en 22. El resultado permite centrar el análisis en la aplicación web.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-06-nmap.jpg",
+        caption: "Salida de Nmap mostrando los puertos abiertos del objetivo.",
         command: "nmap -sC -sV -p- <target>",
-        redacted: true
+        redacted: false
       },
       {
-        title: "Local File Inclusion validation",
+        title: "Aplicación web en puerto 8081",
+        phase: "Reconnaissance & Enumeration",
+        description: "Acceso a la interfaz web del servicio expuesto. La aplicación admite un parámetro de navegación vulnerable a path traversal.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-10-snoopy-puerto-8081.jpg",
+        caption: "Interfaz web de Snoopy en el puerto 8081.",
+        redacted: false
+      },
+      {
+        title: "Payload LFI — lectura de /etc/os-release",
         phase: "Initial Access",
-        description: "Lectura controlada de ficheros locales para confirmar LFI sin exponer contenido sensible.",
-        type: "command",
-        command: "curl \"http://<target>/index.php?page=../../../../../../etc/passwd\"",
+        description: "Confirmación de Local File Inclusion: el parámetro page permite acceder a ficheros locales del servidor. Se leen ficheros del sistema sin exponer credenciales.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-09-payload-osrelease.jpg",
+        caption: "LFI confirmado: lectura de /etc/os-release a través del parámetro vulnerable.",
+        command: "curl \"http://<target>/index.php?page=../../../../../../etc/os-release\"",
+        redacted: false
+      },
+      {
+        title: "Payload LFI — lectura de fichero sensible",
+        phase: "Initial Access",
+        description: "Mediante LFI se localiza y lee un fichero con credenciales. Las credenciales reales no se publican y se representan como password: ********.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-08-payload.jpg",
+        caption: "Payload de LFI apuntando a fichero con material sensible. Credenciales saneadas.",
         redacted: true
       },
       {
-        title: "Linux capability abuse",
+        title: "Acceso SSH como usuario no privilegiado",
+        phase: "Initial Access",
+        description: "Con las credenciales recuperadas se valida acceso interactivo al sistema vía SSH. Se obtiene flag de usuario.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-01-acceso-ssh.jpg",
+        caption: "Sesión SSH activa como usuario no privilegiado.",
+        command: "ssh <user>@<target> # password: ********",
+        redacted: true
+      },
+      {
+        title: "Flag de usuario (saneada)",
+        phase: "Initial Access",
+        description: "Confirmación de flag de usuario. El valor real está sustituido por HTB{REDACTED}.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-05-flag-user-txt.jpg",
+        caption: "Flag de usuario obtenida. Valor saneado antes de publicación.",
+        redacted: true
+      },
+      {
+        title: "Detección de Linux capabilities peligrosas",
         phase: "Privilege Escalation",
-        description: "Uso de cap_setuid sobre Python para elevar privilegios tras enumeración local.",
-        type: "command",
-        command: "getcap -r / 2>/dev/null\npython3 -c 'import os; os.setuid(0); os.system(\"/bin/bash\")'",
+        description: "La enumeración local con getcap revela que el intérprete Python tiene cap_setuid asignada, lo que permite cambiar el UID efectivo a 0.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-04-deteccion-capabilitites-en-binarios.jpg",
+        caption: "getcap muestra Python con cap_setuid — vector de escalada confirmado.",
+        command: "getcap -r / 2>/dev/null",
+        redacted: false
+      },
+      {
+        title: "Escalada a root mediante cap_setuid",
+        phase: "Privilege Escalation",
+        description: "Se abusa de la capability para cambiar el UID efectivo a 0 y obtener shell privilegiada. La flag de root queda sustituida por HTB{REDACTED}.",
+        image: "assets/writeups/img/snoopy-lfi-capabilities-07-obtencion-root.jpg",
+        caption: "Shell root obtenida mediante cap_setuid en Python. Flag saneada.",
+        command: "python3 -c 'import os; os.setuid(0); os.system(\"/bin/bash\")'",
         redacted: true
       }
     ]
@@ -128,26 +173,46 @@ window.WRITEUPS = [
     ],
     evidence: [
       {
-        title: "PCAP exposure",
+        title: "Reconocimiento inicial — Nmap",
         phase: "Reconnaissance & Enumeration",
-        description: "Descubrimiento de capturas accesibles desde la aplicación. Not documented in the available evidence.",
-        type: "command",
-        command: "curl -O http://<target>/data/<id>",
-        redacted: true
+        description: "Escaneo de servicios que revela aplicación web y otros puertos relevantes.",
+        image: "assets/writeups/img/cap-recon-nmap.png",
+        caption: "Nmap revela la superficie de ataque inicial del objetivo.",
+        command: "nmap -sC -sV -p- <target>",
+        redacted: false
       },
       {
-        title: "Credential recovery from traffic",
+        title: "Exposición de capturas de red (PCAP)",
+        phase: "Reconnaissance & Enumeration",
+        description: "La aplicación web expone capturas de tráfico históricas accesibles sin autenticación. Se descarga la captura para análisis offline.",
+        image: "assets/writeups/img/cap-pcap-analysis.png",
+        caption: "PCAP descargado desde el endpoint público de la aplicación.",
+        command: "curl -O http://<target>/data/0",
+        redacted: false
+      },
+      {
+        title: "Análisis de tráfico FTP — credenciales en claro",
         phase: "Initial Access",
-        description: "Análisis de protocolo de aplicación con credenciales saneadas antes de publicación.",
-        type: "command",
-        command: "wireshark <capture>.pcap # credentials redacted",
+        description: "El análisis de la captura en Wireshark revela credenciales FTP transmitidas en texto claro. Se sanean antes de publicación.",
+        image: "assets/writeups/img/cap-ftp-stream.png",
+        caption: "Stream FTP en Wireshark con credenciales saneadas (usuario y contraseña reales ocultados).",
         redacted: true
       },
       {
-        title: "cap_setuid privilege escalation",
+        title: "Acceso SSH — reutilización de credenciales",
+        phase: "Initial Access",
+        description: "Las credenciales FTP son reutilizables en SSH. Se obtiene acceso interactivo al sistema como usuario no privilegiado.",
+        image: "assets/writeups/img/cap-user-flag.png",
+        caption: "Acceso SSH con credenciales recuperadas del PCAP. Flag de usuario saneada.",
+        command: "ssh <user>@<target> # password: ********",
+        redacted: true
+      },
+      {
+        title: "Detección y abuso de cap_setuid",
         phase: "Privilege Escalation",
-        description: "Escalada local mediante capability peligrosa sobre Python.",
-        type: "command",
+        description: "Enumeración local detecta Python con cap_setuid. Se abusa para obtener shell root. Flag saneada.",
+        image: "assets/writeups/img/cap-root-privesc.png",
+        caption: "cap_setuid en Python permite elevar a root. Flag de root saneada.",
         command: "getcap -r / 2>/dev/null\npython3 -c 'import os; os.setuid(0); os.system(\"/bin/bash\")'",
         redacted: true
       }
@@ -205,28 +270,58 @@ window.WRITEUPS = [
     ],
     evidence: [
       {
-        title: "Wireless reconnaissance",
+        title: "Activación del modo monitor",
         phase: "Reconnaissance & Enumeration",
-        description: "Identificación de canal, BSSID saneado y clientes en laboratorio.",
-        type: "command",
+        description: "La interfaz inalámbrica se configura en modo monitor para poder capturar tramas sin asociación.",
+        image: "assets/writeups/img/wpa2-handshake-cracking-03-3-comando-airmon-conmonitor.jpg",
+        caption: "airmon-ng activa el modo monitor sobre la interfaz inalámbrica.",
+        command: "airmon-ng start wlan0",
+        redacted: false
+      },
+      {
+        title: "Escaneo de redes disponibles",
+        phase: "Reconnaissance & Enumeration",
+        description: "Enumeración de puntos de acceso en el entorno de laboratorio: SSID, BSSID, canal y clientes. Datos saneados.",
+        image: "assets/writeups/img/wpa2-handshake-cracking-04-4-escaneo-de-redes.jpg",
+        caption: "airodump-ng lista redes y clientes. SSID y BSSID saneados en la versión pública.",
         command: "airodump-ng wlan0mon",
         redacted: true
       },
       {
-        title: "Handshake capture",
-        phase: "Initial Access",
-        description: "Captura de handshake WPA2-PSK sin publicar BSSID completo ni clave.",
-        type: "command",
+        title: "Captura dirigida al objetivo",
+        phase: "Reconnaissance & Enumeration",
+        description: "Se fija el canal y el BSSID de la red objetivo para capturar únicamente el tráfico relevante.",
+        image: "assets/writeups/img/wpa2-handshake-cracking-05-5-captura-movil.jpg",
+        caption: "Captura dirigida al BSSID objetivo. Datos de red saneados.",
         command: "airodump-ng -c <channel> --bssid <BSSID_REDACTED> -w capture wlan0mon",
         redacted: true
       },
       {
-        title: "Offline cracking and traffic analysis",
-        phase: "Technical Evidence",
-        description: "Cracking offline y análisis posterior en Wireshark con PSK saneada.",
-        type: "command",
-        command: "aircrack-ng capture-01.cap -w <wordlist>\nwireshark capture-01.cap",
+        title: "Deautenticación controlada y captura de handshake",
+        phase: "Initial Access",
+        description: "Se envían frames de deautenticación para forzar la reasociación del cliente y capturar el handshake WPA2.",
+        image: "assets/writeups/img/wpa2-handshake-cracking-07-7-handshake.jpg",
+        caption: "Handshake WPA2-PSK capturado. BSSID y clave saneados.",
+        command: "aireplay-ng -0 5 -a <BSSID_REDACTED> wlan0mon",
         redacted: true
+      },
+      {
+        title: "Cracking offline con aircrack-ng",
+        phase: "Technical Evidence",
+        description: "El handshake se analiza offline con diccionario. La PSK se recupera en laboratorio. El valor real no se publica.",
+        image: "assets/writeups/img/wpa2-handshake-cracking-12-12-resultado-crackeo-contrasena.jpg",
+        caption: "Resultado de aircrack-ng: PSK recuperada. Valor saneado.",
+        command: "aircrack-ng capture-01.cap -w <wordlist>",
+        redacted: true
+      },
+      {
+        title: "Descifrado de tráfico en Wireshark",
+        phase: "Technical Evidence",
+        description: "Con la PSK recuperada se descifra el tráfico capturado en Wireshark, demostrando el impacto real de la auditoría.",
+        image: "assets/writeups/img/wpa2-handshake-cracking-14-14-wireshark.jpg",
+        caption: "Wireshark con tráfico descifrado usando la PSK obtenida.",
+        command: "wireshark capture-01.cap",
+        redacted: false
       }
     ]
   }
