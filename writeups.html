@@ -4,30 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Writeups | Carlos López Jiménez</title>
-  <meta
-    name="description"
-    content="Biblioteca de writeups de ciberseguridad con foco en lectura clara, filtros simples y evidencias saneadas."
-  />
+  <meta name="description" content="Biblioteca de writeups de ciberseguridad con lectura clara, filtros simples, metodología ofensiva y evidencias saneadas." />
   <meta property="og:title" content="Writeups | Carlos López Jiménez" />
-  <meta
-    property="og:description"
-    content="Writeups de offensive security preparados para revisión rápida y lectura web."
-  />
+  <meta property="og:description" content="Writeups de pentesting y ciberseguridad preparados para revisión rápida y lectura web." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/writeups/writeups.css" />
 </head>
 <body>
-  <nav class="nav">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">CL</span>
-      <span>Carlos López</span>
-    </a>
+  <nav class="nav" aria-label="Navegación principal">
+    <a class="brand" href="index.html"><span class="brand-mark">CL</span><span>Carlos López</span></a>
     <div class="nav-links">
       <a href="index.html">Portfolio</a>
       <a class="active" href="writeups.html">Writeups</a>
@@ -38,42 +26,24 @@
   <header class="hero library-hero">
     <div class="container library-header">
       <div>
-        <p class="eyebrow">Writeups</p>
+        <p class="eyebrow">Writeups técnicos</p>
         <h1>Biblioteca simple, técnica y fácil de leer.</h1>
-        <p class="lead">
-          Cada writeup muestra lo esencial: categoría, dificultad, resumen, tags y acceso
-          al detalle completo con evidencias web-first y contenido saneado.
-        </p>
+        <p class="lead">Cada writeup muestra lo esencial: categoría, dificultad, resumen, tags y acceso al detalle completo con formato web, comandos saneados y contenido preparado para revisión profesional.</p>
       </div>
-
-      <div class="library-stats">
-        <div class="mini">
-          <span>Writeups</span>
-          <strong id="metricWriteups">0</strong>
-        </div>
-        <div class="mini">
-          <span>Áreas</span>
-          <strong id="metricDomains">0</strong>
-        </div>
-        <div class="mini">
-          <span>Tiempo medio</span>
-          <strong id="metricTime">n/a</strong>
-        </div>
+      <div class="library-stats" aria-label="Métricas de la biblioteca">
+        <div class="mini"><span>Writeups</span><strong id="metricWriteups">0</strong></div>
+        <div class="mini"><span>Áreas</span><strong id="metricDomains">0</strong></div>
+        <div class="mini"><span>Tiempo medio</span><strong id="metricTime">n/a</strong></div>
       </div>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
-      <section class="toolbar-simple">
+      <section class="toolbar-simple" aria-label="Filtros de writeups">
         <div class="toolbar-field toolbar-field-wide">
           <label class="toolbar-label" for="searchInput">Buscar</label>
-          <input
-            id="searchInput"
-            class="search"
-            type="search"
-            placeholder="LFI, Linux, Wireshark, Metasploit, Gobuster..."
-          />
+          <input id="searchInput" class="search" type="search" placeholder="LFI, Linux, Wireshark, Metasploit, Gobuster, sqlmap..." />
         </div>
         <div class="toolbar-field">
           <span class="toolbar-label">Categoría</span>
@@ -98,8 +68,9 @@
     </div>
   </main>
 
-  <footer class="page-footer">© 2026 Carlos López Jiménez · Technical Writeups</footer>
+  <footer class="page-footer">© 2026 Carlos López Jiménez · Writeups técnicos</footer>
   <script src="assets/writeups/writeups-data.js"></script>
+  <script src="assets/writeups/writeups-extra.js"></script>
   <script src="assets/writeups/writeups.js"></script>
 </body>
 </html>
